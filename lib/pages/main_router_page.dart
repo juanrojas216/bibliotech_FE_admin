@@ -4,7 +4,7 @@ import 'package:bibliotech_admin/pages/routed/reportes.dart';
 import 'package:bibliotech_admin/pages/routed/usuarios.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
-import 'package:bibliotech_admin/pages/routed/publicaciones.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/publicaciones_page.dart';
 
 class MainRouterPage extends StatelessWidget {
   MainRouterPage({super.key});
