@@ -1,7 +1,7 @@
-import 'package:bibliotech_admin/pages/routed/multas.dart';
-import 'package:bibliotech_admin/pages/routed/prestamos.dart';
-import 'package:bibliotech_admin/pages/routed/reportes.dart';
-import 'package:bibliotech_admin/pages/routed/usuarios.dart';
+import 'package:bibliotech_admin/pages/routed/multa/multas.dart';
+import 'package:bibliotech_admin/pages/routed/prestamos/prestamos.dart';
+import 'package:bibliotech_admin/pages/routed/reporte/reportes.dart';
+import 'package:bibliotech_admin/pages/routed/usuario/usuarios.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/publicaciones_page.dart';
