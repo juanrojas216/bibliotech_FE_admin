@@ -12,11 +12,11 @@ import 'package:go_router/go_router.dart';
 final routesProvider = Provider<GoRouter>((ref) {
   return GoRouter(routes: [
     GoRoute(
-      path: '/',
+      path: '/login',
       builder: (_, __) => const LoginPage(),
     ),
     GoRoute(
-      path: '/publicacion',
+      path: '/',
       builder: (_, __) => const PublicacionesPage(),
     ),
     GoRoute(
