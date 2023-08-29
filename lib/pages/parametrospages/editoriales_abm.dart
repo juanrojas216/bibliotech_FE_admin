@@ -28,9 +28,20 @@ class _EditorialesAbmState extends State<EditorialesAbm> {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(children: [
-        const Text(
-          "EDITORIALES",
-          style: TextStyle(fontSize: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              "EDITORIALES",
+              style: TextStyle(fontSize: 30),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back),
+            )
+          ],
         ),
         const SizedBox(height: 10),
         FormBuilder(
@@ -52,12 +63,11 @@ class _EditorialesAbmState extends State<EditorialesAbm> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                SizedBox(
-                  width: 73.w,
+                Flexible(
                   child: FormBuilderTextField(
                     name: 'nueva_editorial',
                     decoration: const InputDecoration(
-                        labelText: 'EDITORIAL',
+                        labelText: 'NUEVA EDITORIAL',
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5)))),
@@ -86,8 +96,7 @@ class _EditorialesAbmState extends State<EditorialesAbm> {
               ],
             )),
         const SizedBox(height: 10),
-        SizedBox(
-          height: 70.h,
+        Flexible(
           child: const TablaPublicaciones(),
         ),
       ]),
