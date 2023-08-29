@@ -86,7 +86,9 @@ class MenuButton extends ConsumerWidget {
                       CupertinoDialogAction(
                         child:
                             Text('Cerrar cesion', style: GoogleFonts.poppins(color: Colors.black)),
-                        onPressed: () {},
+                        onPressed: () {
+                          ref.read(routesProvider).pushReplacement('/');
+                        },
                       ),
                       CupertinoDialogAction(
                         isDestructiveAction: true,
