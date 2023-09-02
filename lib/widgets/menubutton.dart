@@ -14,6 +14,7 @@ class MenuButton extends ConsumerWidget {
     return IconButton(
         onPressed: () => {
               showCupertinoDialog(
+                barrierDismissible: true,
                 context: context,
                 builder: (_) => SizedBox(
                   width: 100,

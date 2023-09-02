@@ -6,8 +6,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../config/router/admin_router.dart';
 
-class EditorialesAbm extends ConsumerWidget {
-  EditorialesAbm({Key? key}) : super(key: key);
+class TiposPublicacionAbm extends ConsumerWidget {
+  TiposPublicacionAbm({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
 
@@ -30,7 +30,7 @@ class EditorialesAbm extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              "EDITORIALES",
+              "TIPOS DE PUBLICACIÓN",
               style: TextStyle(fontSize: 30),
             ),
             IconButton(
@@ -57,18 +57,18 @@ class EditorialesAbm extends ConsumerWidget {
                 Flexible(
                   flex: 8,
                   child: FormBuilderTextField(
-                    name: 'nueva_editorial',
+                    name: 'nuevo_tipo_publicacion',
                     decoration: const InputDecoration(
-                        labelText: 'NUEVA EDITORIAL',
+                        labelText: 'NUEVO TIPO DE PUBLICACIÓN',
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5)))),
                   ),
                 ),
                 Flexible(
-                  flex: 2,
+                  flex: 3,
                   child: Container(
-                    constraints: const BoxConstraints(maxWidth: 200),
+                    constraints: const BoxConstraints(maxWidth: 300),
                     height: 54,
                     child: ElevatedButton(
                         onPressed: () {
@@ -84,7 +84,7 @@ class EditorialesAbm extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Icon(Icons.add),
-                              Text('Agregar editorial',
+                              Text('Agregar tipo de publicación',
                                   style: TextStyle(color: Colors.white)),
                             ])),
                   ),
