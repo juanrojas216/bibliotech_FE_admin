@@ -1,182 +1,148 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../../../config/router/admin_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../parametrospages/editoriales_abm.dart';
-
-class ParametrosPopUp extends StatefulWidget {
+class ParametrosPopUp extends ConsumerWidget {
   const ParametrosPopUp({
     super.key,
   });
 
   @override
-  State<ParametrosPopUp> createState() => _ParametrosPopUpState();
-}
-
-
-class _ParametrosPopUpState extends State<ParametrosPopUp> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
-      onPressed: () => {_showDialog()},
       child: const Text("Parámetros"),
-    );
-  }
-
-  void _showDialog() {
-    showDialog(
+      onPressed: () => showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Parámetros"),
-            content: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextButton.icon(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditorialesAbm()),
-                    );
-                  },
-                  label: const Text(
-                    'Ver editoriales',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  style: TextButton.styleFrom(
-                    iconColor: Colors.white,
-                    backgroundColor: Colors.purple,
-                    fixedSize: const Size(250, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+        builder: (_) => AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+          title: Text("PARÁMETROS",
+              style: GoogleFonts.poppins(fontWeight: FontWeight.normal)),
+          actions: <Widget>[
+            SizedBox(
+              height: 450,
+              width: 300,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.search),
+                      label: Text('Editoriales', style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref
+                            .read(routesProvider)
+                            .pushReplacement('/parametro/editorial');
+                      },
                     ),
                   ),
-                ),
-                TextButton.icon(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                  label: const Text(
-                    'Ver ediciones',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  style: TextButton.styleFrom(
-                    iconColor: Colors.white,
-                    backgroundColor: Colors.purple,
-                    fixedSize: const Size(250, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.search),
+                      label: Text('Ediciones', style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref
+                            .read(routesProvider)
+                            .pushReplacement('/parametro/edicion');
+                      },
                     ),
                   ),
-                ),
-                TextButton.icon(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                  label: const Text(
-                    'Ver autores',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  style: TextButton.styleFrom(
-                    iconColor: Colors.white,
-                    backgroundColor: Colors.purple,
-                    fixedSize: const Size(250, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.search),
+                      label: Text('Autores', style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref
+                            .read(routesProvider)
+                            .pushReplacement('/parametro/autor');
+                      },
                     ),
                   ),
-                ),
-                TextButton.icon(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                  label: const Text(
-                    'Ver categorías',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  style: TextButton.styleFrom(
-                    iconColor: Colors.white,
-                    backgroundColor: Colors.purple,
-                    fixedSize: const Size(250, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.search),
+                      label: Text('Categorías', style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref
+                            .read(routesProvider)
+                            .pushReplacement('/parametro/categoria');
+                      },
                     ),
                   ),
-                ),
-                TextButton.icon(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                  label: const Text(
-                    'Ver ubicaciones',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  style: TextButton.styleFrom(
-                    iconColor: Colors.white,
-                    backgroundColor: Colors.purple,
-                    fixedSize: const Size(250, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.search),
+                      label: Text('Ubicación', style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref
+                            .read(routesProvider)
+                            .pushReplacement('/parametro/ubicacion');
+                      },
                     ),
                   ),
-                ),
-                TextButton.icon(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                  label: const Text(
-                    'Ver tipos de publicación',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  style: TextButton.styleFrom(
-                    iconColor: Colors.white,
-                    backgroundColor: Colors.purple,
-                    fixedSize: const Size(250, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.search),
+                      label: Text('Tipos de publicación',
+                          style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref
+                            .read(routesProvider)
+                            .pushReplacement('/parametro/tipospublicacion');
+                      },
                     ),
                   ),
-                ),
-                TextButton.icon(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                  label: const Text(
-                    'Ver facultades',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  style: TextButton.styleFrom(
-                    iconColor: Colors.white,
-                    backgroundColor: Colors.purple,
-                    fixedSize: const Size(250, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.search),
+                      label: Text('Facultades', style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref
+                            .read(routesProvider)
+                            .pushReplacement('/parametro/facultad');
+                      },
                     ),
                   ),
-                ),
-                TextButton.icon(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                  label: const Text(
-                    'Ver carreras',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  style: TextButton.styleFrom(
-                    iconColor: Colors.white,
-                    backgroundColor: Colors.purple,
-                    fixedSize: const Size(250, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.search),
+                      label: Text('Carreras', style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref
+                            .read(routesProvider)
+                            .pushReplacement('/parametro/carrera');
+                      },
                     ),
                   ),
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              OutlinedButton(
-                child: const Text("Cerrar"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+                  SizedBox(
+                    width: 200,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.purple // Background color
+                          ),
+                      icon: const Icon(Icons.close),
+                      label: Text('Cerrar', style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref.read(routesProvider).pop();
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

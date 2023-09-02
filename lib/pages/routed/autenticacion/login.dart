@@ -64,13 +64,23 @@ class LoginPage extends ConsumerWidget {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: const OutlineInputBorder(),
                       ),
+                      onFieldSubmitted: (value) {
+                        bool isOk = _formKey.currentState!.validate();
+                        if (isOk) {
+                          ref
+                              .read(routesProvider)
+                              .pushReplacement('/publicacion');
+                        }
+                      },
                     ),
                     const SizedBox(height: 30),
                     ElevatedButton(
                         onPressed: () {
                           bool isOk = _formKey.currentState!.validate();
                           if (isOk) {
-                            ref.read(routesProvider).pushReplacement('/publicacion');
+                            ref
+                                .read(routesProvider)
+                                .pushReplacement('/publicacion');
                           }
                         },
                         child: Text('Iniciar Sesión',
