@@ -205,6 +205,7 @@ class _NuevaPublicacionScreenState extends State<NuevaPublicacionScreen> {
 
   Row tituloISBEdicion() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         SizedBox(
           width: 28.w,
@@ -236,9 +237,6 @@ class _NuevaPublicacionScreenState extends State<NuevaPublicacionScreen> {
           ),
         ),
         SizedBox(
-          width: 9.h,
-        ),
-        SizedBox(
           height: 54,
           width: 28.w,
           child: FormBuilderTextField(
@@ -267,9 +265,6 @@ class _NuevaPublicacionScreenState extends State<NuevaPublicacionScreen> {
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.next,
           ),
-        ),
-        SizedBox(
-          width: 10.h,
         ),
         SizedBox(
           height: 54,

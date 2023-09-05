@@ -6,8 +6,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../config/router/admin_router.dart';
 
-class EditorialesAbm extends ConsumerWidget {
-  EditorialesAbm({Key? key}) : super(key: key);
+class CarrerasAbm extends ConsumerWidget {
+  CarrerasAbm({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
 
@@ -30,7 +30,7 @@ class EditorialesAbm extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              "EDITORIALES",
+              "CARRERAS",
               style: TextStyle(fontSize: 30),
             ),
             IconButton(
@@ -57,9 +57,9 @@ class EditorialesAbm extends ConsumerWidget {
                 Flexible(
                   flex: 8,
                   child: FormBuilderTextField(
-                    name: 'nueva_editorial',
+                    name: 'nueva_carrera',
                     decoration: const InputDecoration(
-                        labelText: 'NUEVA EDITORIAL',
+                        labelText: 'NUEVA CARRERA',
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5)))),
@@ -84,7 +84,7 @@ class EditorialesAbm extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Icon(Icons.add),
-                              Text('Agregar editorial',
+                              Text('Agregar carrera',
                                   style: TextStyle(color: Colors.white)),
                             ])),
                   ),

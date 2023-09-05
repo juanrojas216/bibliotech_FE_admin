@@ -10,6 +10,14 @@ import 'package:bibliotech_admin/pages/routed/usuario/usuarios.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../pages/parametrospages/autores_abm.dart';
+import '../../pages/parametrospages/carreras_abm.dart';
+import '../../pages/parametrospages/categorias_abm.dart';
+import '../../pages/parametrospages/ediciones_abm.dart';
+import '../../pages/parametrospages/facultades_abm.dart';
+import '../../pages/parametrospages/tipospublicacion_abm.dart';
+import '../../pages/parametrospages/ubicaciones_abm.dart';
+
 final routesProvider = Provider<GoRouter>((ref) {
   return GoRouter(routes: [
     GoRoute(
@@ -46,7 +54,35 @@ final routesProvider = Provider<GoRouter>((ref) {
     ),
     GoRoute(
       path: '/parametro/editorial',
-      builder: (_, __) => const EditorialesAbm(),
+      builder: (_, __) => EditorialesAbm(),
+    ),
+    GoRoute(
+      path: '/parametro/edicion',
+      builder: (_, __) => EdicionesAbm(),
+    ),
+    GoRoute(
+      path: '/parametro/autor',
+      builder: (_, __) => AutoresAbm(),
+    ),
+    GoRoute(
+      path: '/parametro/categoria',
+      builder: (_, __) => CategoriasAbm(),
+    ),
+    GoRoute(
+      path: '/parametro/ubicacion',
+      builder: (_, __) => UbicacionesAbm(),
+    ),
+    GoRoute(
+      path: '/parametro/tipospublicacion',
+      builder: (_, __) => TiposPublicacionAbm(),
+    ),
+    GoRoute(
+      path: '/parametro/facultad',
+      builder: (_, __) => FacultadesAbm(),
+    ),
+    GoRoute(
+      path: '/parametro/carrera',
+      builder: (_, __) => CarrerasAbm(),
     ),
   ]);
 });
