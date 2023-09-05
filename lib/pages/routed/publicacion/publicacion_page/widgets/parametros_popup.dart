@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../parametrospages/editoriales_abm.dart';
+import '../../../../parametrospages/editoriales_abm.dart';
 
 class ParametrosPopUp extends StatefulWidget {
   const ParametrosPopUp({

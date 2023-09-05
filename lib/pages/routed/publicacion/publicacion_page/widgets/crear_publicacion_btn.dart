@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../creatorpages/nuevapublicacion.dart';
+import '../../../../creatorpages/nuevapublicacion.dart';
 
 class NuevaPublicacion extends StatelessWidget {
   const NuevaPublicacion({
