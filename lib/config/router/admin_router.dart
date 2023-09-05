@@ -21,11 +21,11 @@ import '../../pages/parametrospages/ubicaciones_abm.dart';
 final routesProvider = Provider<GoRouter>((ref) {
   return GoRouter(routes: [
     GoRoute(
-      path: '/publicacion',
+      path: '/',
       builder: (_, __) => LoginPage(),
     ),
     GoRoute(
-      path: '/',
+      path: '/publicacion',
       builder: (_, __) => const PublicacionesPage(),
     ),
     GoRoute(

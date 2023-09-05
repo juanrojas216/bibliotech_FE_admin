@@ -35,7 +35,7 @@ class TiposPublicacionAbm extends ConsumerWidget {
             ),
             IconButton(
               onPressed: () {
-                ref.read(routesProvider).pushReplacement('/publicacion');
+                ref.read(routesProvider).pop();
               },
               icon: const Icon(Icons.arrow_back),
             )
