@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/publicacion_page/publicacion_controller.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/publicacion_page/widgets/mostrar_usuario.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/publicacion_page/widgets/widgets_publicacion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,29 +17,25 @@ class PublicacionesPage extends StatelessWidget {
       appBar: AppBar(
         leading: const MenuButton(),
         elevation: 0,
-        title: AutoSizeText('Sr. PEPE EL GRILLO',
+        title: AutoSizeText('PUBLICACIONES',
             style: GoogleFonts.poppins(color: Colors.black)),
         backgroundColor: Colors.white,
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Center(
-              child: AutoSizeText('Publicaciones',
-                  style:
-                      GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
-            ),
-          ),
-          const SizedBox(width: 20),
-          const Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: NuevaPublicacion(),
           ),
-          const SizedBox(width: 20),
-          const Padding(
+          SizedBox(width: 20),
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: ParametrosPopUp(),
           ),
-          const SizedBox(width: 20),
+          VerticalDivider(),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: SizedBox(width: 280, child: Center(child: MostrarUsuario())),
+          ),
+          SizedBox(width: 20),
         ],
       ),
       body: const Margin(
@@ -62,7 +59,6 @@ class BotonBusqueda extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     var inputTituloBusqueda = ref.watch(entradaBusquedaTituloProvider);
     var inputAutorBusqueda = ref.watch(entradaBusquedaAutorProvider);
     var inputAnioBusqueda = ref.watch(entradaBusquedaAnioProvider);
@@ -70,11 +66,17 @@ class BotonBusqueda extends ConsumerWidget {
 
     return ElevatedButton(
       style: ButtonStyle(
-          backgroundColor: (inputTituloBusqueda.trim().isEmpty && inputAutorBusqueda.trim().isEmpty && inputAnioBusqueda.trim().isEmpty && inputISBNBusqueda.trim().isEmpty)
+          backgroundColor: (inputTituloBusqueda.trim().isEmpty &&
+                  inputAutorBusqueda.trim().isEmpty &&
+                  inputAnioBusqueda.trim().isEmpty &&
+                  inputISBNBusqueda.trim().isEmpty)
               ? const MaterialStatePropertyAll(Colors.grey)
               : const MaterialStatePropertyAll(Colors.purple)),
       onPressed: () {
-        if (inputTituloBusqueda.trim().isEmpty && inputAutorBusqueda.trim().isEmpty && inputAnioBusqueda.trim().isEmpty && inputISBNBusqueda.trim().isEmpty) {
+        if (inputTituloBusqueda.trim().isEmpty &&
+            inputAutorBusqueda.trim().isEmpty &&
+            inputAnioBusqueda.trim().isEmpty &&
+            inputISBNBusqueda.trim().isEmpty) {
           ref.read(mostrarResultadosProvider.notifier).update((state) => false);
           return;
         }
@@ -119,8 +121,7 @@ class Resultados extends ConsumerWidget {
                         children: [
                           Icon(Icons.info_outline),
                           SizedBox(height: 5),
-                          Text(
-                              'Debe llenar al menos 1 campo de búsqueda'),
+                          Text('Debe llenar al menos 1 campo de búsqueda'),
                         ],
                       ),
                     ),
