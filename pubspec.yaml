@@ -30,6 +30,7 @@ environment:
 dependencies:
   auto_size_text: ^3.0.0
   cupertino_icons: ^1.0.2
+  date_field: ^3.0.5
   dropdown_search: ^5.0.6
   faker: ^2.1.0
   flutter:

@@ -1,4 +1,4 @@
-import 'package:bibliotech_admin/pages/parametrospages/editoriales_abm.dart';
+import 'package:bibliotech_admin/pages/parametrospages/editorial/editoriales_abm.dart';
 import 'package:bibliotech_admin/pages/routed/autenticacion/login.dart';
 import 'package:bibliotech_admin/pages/routed/multa/multas.dart';
 import 'package:bibliotech_admin/pages/routed/prestamos/prestamos.dart';
@@ -10,7 +10,7 @@ import 'package:bibliotech_admin/pages/routed/usuario/usuarios.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../pages/parametrospages/autores_abm.dart';
+import '../../pages/parametrospages/autor/autores_abm.dart';
 import '../../pages/parametrospages/carreras_abm.dart';
 import '../../pages/parametrospages/categorias_abm.dart';
 import '../../pages/parametrospages/ediciones_abm.dart';
@@ -54,7 +54,7 @@ final routesProvider = Provider<GoRouter>((ref) {
     ),
     GoRoute(
       path: '/parametro/editorial',
-      builder: (_, __) => EditorialesAbm(),
+      builder: (_, __) => const EditorialesAbm(),
     ),
     GoRoute(
       path: '/parametro/edicion',
@@ -62,7 +62,7 @@ final routesProvider = Provider<GoRouter>((ref) {
     ),
     GoRoute(
       path: '/parametro/autor',
-      builder: (_, __) => AutoresAbm(),
+      builder: (_, __) => const AutoresAbm(),
     ),
     GoRoute(
       path: '/parametro/categoria',

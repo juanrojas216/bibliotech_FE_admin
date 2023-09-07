@@ -1,4 +1,7 @@
+import 'dart:js_interop';
+
 import 'package:bibliotech_admin/config/api/http_admin.dart';
+import 'package:bibliotech_admin/config/helpers/http_method.dart';
 import 'package:bibliotech_admin/models/autor.dart';
 import 'package:bibliotech_admin/models/categoria.dart';
 import 'package:bibliotech_admin/models/ediciones.dart';
@@ -9,26 +12,36 @@ import 'package:bibliotech_admin/models/tipos_publicacion.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
-
-final detallePublicacionRequestProvider = FutureProvider<void>((ref) async {
-  
+final detallePublicacionRequestProvider = FutureProvider.autoDispose<void>((ref) async {
   var response = await ref.watch(apiProvider).request<PublicacionDetalle>(
       '/publicacion_detalle.json',
       parser: publicacionDetalleFromJson);
 
   if (response.error != null) {
-    print(response.error!.exception);
-    print(response.error!.stackTrace);
-    
     throw response.error!;
   }
 
   ref
       .read(detallePublicacionProvider.notifier)
       .actualizarDetallePublicacion(response.data!);
-
 });
 
+final guardarPublicacionProvider = FutureProvider.autoDispose<bool>((ref) async {
+  
+  var response = await ref.watch(apiProvider).request<dynamic>(
+        '/publicacion_detalle.json',
+        method: HttpMethod.patch,
+        body: publicacionDetalleToJson(ref.watch(detallePublicacionProvider)),
+  );
+
+
+  if (!response.error.isNull) {
+    throw false;
+  }
+
+  return true;
+
+});
 
 final detallePublicacionProvider =
     StateNotifierProvider<DetallePublicacionNotifier, PublicacionDetalle>(
@@ -47,11 +60,11 @@ class DetallePublicacionNotifier extends StateNotifier<PublicacionDetalle> {
     state = state.copyWith(anio: anio);
   }
 
-  actualizarTitulo(String titulo){
+  actualizarTitulo(String titulo) {
     state = state.copyWith(titulo: titulo);
   }
 
-  actualizarISBN(int isbn){
+  actualizarISBN(int isbn) {
     state = state.copyWith(isbn: isbn);
   }
 
@@ -64,12 +77,14 @@ class DetallePublicacionNotifier extends StateNotifier<PublicacionDetalle> {
   }
 
   addCategoria(Categoria c, Valor v) {
-    var categoriaOK = state.categorias!.where((ca) => ca.idCategoria == c.idCategoria);
+    var categoriaOK =
+        state.categorias!.where((ca) => ca.idCategoria == c.idCategoria);
     if (categoriaOK.isEmpty) {
       state = state.copyWith(categorias: [...state.categorias!, c]);
       state.categorias!.last.valores = [v];
     } else {
-      var valorOk = categoriaOK.first.valores.where((va) => va.idValor == v.idValor);
+      var valorOk =
+          categoriaOK.first.valores.where((va) => va.idValor == v.idValor);
       if (valorOk.isEmpty) {
         categoriaOK.first.valores.add(v);
         state = state.copyWith();
@@ -77,7 +92,7 @@ class DetallePublicacionNotifier extends StateNotifier<PublicacionDetalle> {
     }
   }
 
-  deleteValor(int categoriaIndex, int valorIndex ){
+  deleteValor(int categoriaIndex, int valorIndex) {
     state.categorias![categoriaIndex].valores.removeAt(valorIndex);
     if (state.categorias![categoriaIndex].valores.isEmpty) {
       state.categorias!.removeAt(categoriaIndex);
@@ -85,32 +100,31 @@ class DetallePublicacionNotifier extends StateNotifier<PublicacionDetalle> {
     state = state.copyWith();
   }
 
-  addAutor(Autor autor){
+  addAutor(Autor autor) {
     var autorOk = state.autores!.where((a) => a.id == autor.id);
     if (autorOk.isEmpty) {
-          state.autores!.add(autor);
-          state = state.copyWith();
+      state.autores!.add(autor);
+      state = state.copyWith();
     }
   }
 
-  deleteAutor(int index){
+  deleteAutor(int index) {
     state.autores!.removeAt(index);
     state = state.copyWith();
   }
 
-  addEditorial(Editorial editorial){
+  addEditorial(Editorial editorial) {
     var editorialOK = state.editoriales!.where((e) => e.id == editorial.id);
     if (editorialOK.isEmpty) {
       state.editoriales!.add(editorial);
-      state = state.copyWith();      
+      state = state.copyWith();
     }
   }
 
-  deleteEditorial(int index){
+  deleteEditorial(int index) {
     state.editoriales!.removeAt(index);
     state = state.copyWith();
   }
-
 }
 
 // PROVEEDORES

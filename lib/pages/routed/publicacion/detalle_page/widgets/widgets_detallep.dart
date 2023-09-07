@@ -8,3 +8,4 @@ export 'tipo_input.dart';
 export 'editoriales_publicacion.dart';
 export 'categorias_publicacion.dart';
 export 'autores_publicacion.dart';
+export 'save_publicacion.dart';

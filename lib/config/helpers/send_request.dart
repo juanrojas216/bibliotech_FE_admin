@@ -1,17 +1,17 @@
 
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:http/http.dart';
 
 import 'http_method.dart';
 
-dynamic _parseBody(dynamic body) {
-  try {
-    return jsonEncode(body);
-  } catch (_) {
-    return body;
-  }
-}
+// dynamic _parseBody(dynamic body) {
+//   try {
+//     return jsonEncode(body);
+//   } catch (_) {
+//     return body;
+//   }
+// }
 
 Future<Response> sendRequest({
   required Uri url,
@@ -26,8 +26,9 @@ Future<Response> sendRequest({
   if (method != HttpMethod.get) {
     final contentType = headers['Content-Type'];
     if (contentType == null || contentType.contains("application/json")) {
-      finalHeaders["Content-Type"] = "application/json; charset = UTF-8";
-      body = _parseBody(body);
+      finalHeaders["Content-Type"] = "application/json";
+      // finalHeaders["Content-Type"] = "application/json; charset = UTF-8";
+      // body = _parseBody(body);
     }
   }
 
