@@ -1,15 +1,11 @@
-
-
 import 'http_method.dart';
 import 'http_result.dart';
 import 'parse_response_body.dart';
 import 'send_request.dart';
 
-
 typedef Parser<T> = T Function(dynamic data);
 
 class Http {
-  
   final String baseUrl;
 
   Http({this.baseUrl = ''});
@@ -23,7 +19,6 @@ class Http {
     Parser<T>? parser,
     Duration timeOut = const Duration(seconds: 10),
   }) async {
-
     int? statusCode;
     dynamic data;
     try {
@@ -50,7 +45,7 @@ class Http {
       );
 
       data = parseResponseBody(response.body);
-      
+
       statusCode = response.statusCode;
       if (statusCode >= 400) {
         throw HttpError(
@@ -65,14 +60,15 @@ class Http {
         statusCode: statusCode,
         error: null,
       );
-
-    } catch (e,s) {
-      
+    } catch (e, s) {
       if (e is HttpError) {
         return HtttpResult<T>(data: null, statusCode: statusCode!, error: e);
       }
-      
-      return HtttpResult<T>(data: null, statusCode: statusCode??-1, error: HttpError(data: data, exception: e, stackTrace: s));
+
+      return HtttpResult<T>(
+          data: null,
+          statusCode: statusCode ?? -1,
+          error: HttpError(data: data, exception: e, stackTrace: s));
     }
   }
 }
