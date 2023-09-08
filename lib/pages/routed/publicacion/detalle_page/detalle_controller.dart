@@ -8,9 +8,7 @@ import 'package:bibliotech_admin/models/ediciones.dart';
 import 'package:bibliotech_admin/models/editoriales.dart';
 import 'package:bibliotech_admin/models/publicacion_detalle.dart';
 import 'package:bibliotech_admin/models/tipos_publicacion.dart';
-// import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:google_fonts/google_fonts.dart';
 
 final detallePublicacionRequestProvider = FutureProvider.autoDispose<void>((ref) async {
   var response = await ref.watch(apiProvider).request<PublicacionDetalle>(

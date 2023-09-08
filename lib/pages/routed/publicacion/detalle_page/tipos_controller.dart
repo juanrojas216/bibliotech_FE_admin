@@ -3,8 +3,9 @@ import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/models/tipos_publicacion.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'detalle_controller.dart';
+
 final tiposProvider = FutureProvider<List<TipoPublicacion>>((ref) async {
-  await Future.delayed(const Duration(seconds: 5));
 
   var response = await ref
       .watch(apiProvider)
@@ -14,5 +15,13 @@ final tiposProvider = FutureProvider<List<TipoPublicacion>>((ref) async {
     throw response.error!;
   }
 
-  return response.data!;
+  var detallePublicacion = ref.watch(detallePublicacionProvider);
+  bool tipoOK = response.data!
+      .where((t) => t.id == detallePublicacion.tipo!.id)
+      .isNotEmpty;
+  if (tipoOK) {
+    return response.data!;
+  }
+  return [...response.data!, detallePublicacion.tipo!];
+
 });

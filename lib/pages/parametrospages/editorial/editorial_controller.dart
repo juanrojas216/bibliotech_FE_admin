@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/detalle_page/editoriales_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/api/http_admin.dart';

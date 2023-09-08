@@ -1,4 +1,5 @@
 import 'package:bibliotech_admin/pages/parametrospages/editorial/editoriales_abm.dart';
+import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/tipospublicacion_abm.dart';
 import 'package:bibliotech_admin/pages/routed/autenticacion/login.dart';
 import 'package:bibliotech_admin/pages/routed/multa/multas.dart';
 import 'package:bibliotech_admin/pages/routed/prestamos/prestamos.dart';
@@ -13,9 +14,8 @@ import 'package:go_router/go_router.dart';
 import '../../pages/parametrospages/autor/autores_abm.dart';
 import '../../pages/parametrospages/carreras_abm.dart';
 import '../../pages/parametrospages/categorias_abm.dart';
-import '../../pages/parametrospages/ediciones_abm.dart';
+import '../../pages/parametrospages/edicion/ediciones_abm.dart';
 import '../../pages/parametrospages/facultades_abm.dart';
-import '../../pages/parametrospages/tipospublicacion_abm.dart';
 import '../../pages/parametrospages/ubicaciones_abm.dart';
 
 final routesProvider = Provider<GoRouter>((ref) {
@@ -58,7 +58,7 @@ final routesProvider = Provider<GoRouter>((ref) {
     ),
     GoRoute(
       path: '/parametro/edicion',
-      builder: (_, __) => EdicionesAbm(),
+      builder: (_, __) => const EdicionesAbm(),
     ),
     GoRoute(
       path: '/parametro/autor',
