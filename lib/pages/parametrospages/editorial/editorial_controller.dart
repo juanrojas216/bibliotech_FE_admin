@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../config/api/http_admin.dart';
 import '../../../models/editoriales.dart';
 
-final editorialesABMProvider = FutureProvider<void>((ref) async {
+final editorialesABMProvider = FutureProvider.autoDispose<void>((ref) async {
   var response = await ref
       .watch(apiProvider)
       .request<List<Editorial>>('/editoriales.json', parser: editorialFromJson);
@@ -37,16 +37,13 @@ final eliminarEditorialProvider = FutureProvider<void>((ref) async {
 });
 
 final modificarEditorialProvider = FutureProvider<void>((ref) async {
-  
-  await Future.delayed(Duration(seconds: 5));
-  
+    
   var response = await ref.watch(apiProvider).request<dynamic>(
         '/editoriales.json',
         method: HttpMethod.put,
         body: editorialToJson(ref.read(listaEditorialesABMProvider)),
       );
 
-  print(response.statusCode);
 
   if (response.error != null) {
     throw response.error!;
@@ -55,8 +52,7 @@ final modificarEditorialProvider = FutureProvider<void>((ref) async {
   ref.invalidate(editorialesABMProvider);
 });
 
-final agregarEditorialProvider =
-    FutureProvider.family<void, String>((ref, nombre) async {
+final agregarEditorialProvider = FutureProvider.family<void, String>((ref, nombre) async {
   var response = await ref.watch(apiProvider).request<dynamic>(
         '/editoriales/${ref.read(listaEditorialesABMProvider).length}.json',
         method: HttpMethod.put,

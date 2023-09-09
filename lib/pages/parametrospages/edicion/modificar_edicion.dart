@@ -19,49 +19,41 @@ class ModificarEdicionDialog extends ConsumerWidget {
     return AlertDialog(
       title: const Text('Modificando edición....'),
       content: modificarEdicion.when(
-        data: (_) => IgnorePointer(
-          child: Center(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(),
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.check),
-                    SizedBox(height: 5),
-                    Text('Edición modificada'),
-                  ],
-                ),
-              ),
+        data: (_) => DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.check),
+                SizedBox(height: 5),
+                Text('Edición modificada'),
+              ],
             ),
           ),
         ),
-        error: (_, __) => IgnorePointer(
-          child: Center(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(),
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.error),
-                    SizedBox(height: 5),
-                    Text('No se pudo modificar la edición'),
-                  ],
-                ),
-              ),
+        error: (_, __) => DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.error),
+                SizedBox(height: 5),
+                Text('No se pudo modificar la edición'),
+              ],
             ),
           ),
         ),

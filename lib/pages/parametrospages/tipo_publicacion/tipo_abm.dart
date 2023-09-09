@@ -1,21 +1,22 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/pages/parametrospages/editorial/editorial_controller.dart';
+import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/add_tipo.dart';
+import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/editar_tipo.dart';
+import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/tipo_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'add_editorial.dart';
-import 'editorial_editar.dart';
-
-class EditorialesAbm extends ConsumerWidget {
-  const EditorialesAbm({super.key});
+class TipoPublicacionAbm extends ConsumerWidget {
+  
+  const TipoPublicacionAbm({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var editorialesGet = ref.watch(editorialesABMProvider);
-    var editoriales = ref.watch(filtroEditorialProvider);
+    var tiposGet = ref.watch(tipoPublicacionABMProvider);
+    var tipos = ref.watch(filtroTipoPublicacionProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -23,8 +24,7 @@ class EditorialesAbm extends ConsumerWidget {
             onPressed: () {
               ref.read(routesProvider).pop();
             },
-            icon: const Icon(Icons.arrow_back),
-            color: Colors.black),
+            icon: const Icon(Icons.arrow_back), color: Colors.black),
         elevation: 0,
         title: AutoSizeText('Sr. PEPE EL GRILLO',
             style: GoogleFonts.poppins(color: Colors.black)),
@@ -33,7 +33,7 @@ class EditorialesAbm extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Center(
-              child: AutoSizeText('Editoriales',
+              child: AutoSizeText('Tipo Publicación',
                   style:
                       GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
             ),
@@ -43,11 +43,8 @@ class EditorialesAbm extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => const AddEditorial());
-                },
-                child: const Text('Nueva editorial')),
+                  showDialog(context: context, builder: (context) => const AddTipoPublicacion());
+                }, child: const Text('Nuevo tipo de publicación')),
           ),
           const SizedBox(width: 20),
         ],
@@ -63,27 +60,21 @@ class EditorialesAbm extends ConsumerWidget {
                 BorderSide(color: Colors.grey, width: 2)),
             borderRadius: BorderRadius.circular(16),
           ),
-          child: editorialesGet.when(
+          child: tiposGet.when(
             skipLoadingOnRefresh: false,
             data: (_) => Column(children: [
               const SizedBox(height: 10),
-              TextFormField(
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  label: Text('Buscador', style: GoogleFonts.poppins()),
-                  border: const OutlineInputBorder()
-                ),
-                initialValue: ref.read(inputEditorialABMProvider),
+              CupertinoSearchTextField(
                 onChanged: (value) {
                   ref
-                      .read(inputEditorialABMProvider.notifier)
+                      .read(inpuTipoPublicacionABMProvider.notifier)
                       .update((_) => value);
                 },
               ),
               const SizedBox(height: 10),
               Flexible(
                 child: ListView(
-                  children: editoriales
+                  children: tipos
                       .map((e) => Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
@@ -97,7 +88,7 @@ class EditorialesAbm extends ConsumerWidget {
                                 onTap: () {
                                   showDialog(
                                     context: context,
-                                    builder: (_) => EditarEditorial(e.id),
+                                    builder: (_) => EditarTipoPublicacion(e.id),
                                   );
                                 },
                               ),
@@ -109,9 +100,9 @@ class EditorialesAbm extends ConsumerWidget {
             ]),
             error: (__, _) => Center(
               child: ElevatedButton(
-                child: const Text('Reintentar cargar editoriales'),
+                child: const Text('Reintentar cargar tipos de publicación'),
                 onPressed: () {
-                  ref.invalidate(editorialesABMProvider);
+                  ref.invalidate(tipoPublicacionABMProvider);
                 },
               ),
             ),

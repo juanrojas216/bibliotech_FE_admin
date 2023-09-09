@@ -1,9 +1,8 @@
+import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
+import 'package:bibliotech_admin/models/usuario.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../config/api/http_admin.dart';
-import '../../../../../config/helpers/http.dart';
-import '../../../../../models/usuario.dart';
 
 final usuarioProvider = FutureProvider<UserModel>((ref) async {
   await Future.delayed(const Duration(seconds: 1));

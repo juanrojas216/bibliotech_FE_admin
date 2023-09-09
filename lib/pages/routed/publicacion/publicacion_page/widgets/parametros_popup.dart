@@ -112,7 +112,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     leading: const Icon(Icons.edit),
                     trailing: const Icon(Icons.arrow_right),
                     onTap: () {
-                      ref.read(routesProvider).push('parametro/tipospublicacion');
+                      ref.read(routesProvider).push('/parametro/tipospublicacion');
                     },
                   ),
                 ),

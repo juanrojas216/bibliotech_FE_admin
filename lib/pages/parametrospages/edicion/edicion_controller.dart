@@ -38,15 +38,11 @@ final eliminarEdicionProvider = FutureProvider<void>((ref) async {
 
 final modificarEdicionProvider = FutureProvider<void>((ref) async {
   
-  await Future.delayed(Duration(seconds: 5));
-  
   var response = await ref.watch(apiProvider).request<dynamic>(
         '/ediciones.json',
         method: HttpMethod.put,
         body: edicionToJson(ref.read(listaEdicionABMProvider)),
       );
-
-  print(response.statusCode);
 
   if (response.error != null) {
     throw response.error!;

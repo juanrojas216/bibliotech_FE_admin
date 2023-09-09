@@ -1,24 +1,23 @@
 
 
-
 import 'package:bibliotech_admin/config/router/admin_router.dart';
+import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/tipo_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'editorial_controller.dart';
 
-class ModificarEditorialDialog extends ConsumerWidget {
+class DeleteTipoPublicacionDialog extends ConsumerWidget {
 
-  const ModificarEditorialDialog({super.key});
+  const DeleteTipoPublicacionDialog({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     
-    var modificarEditorial = ref.watch(modificarEditorialProvider);
+    var eliminarTipoPublicacion = ref.watch(eliminarTipoPublicacionProvider);
 
     return AlertDialog(
-      title: const Text('Modificando editorial....'),
-      content: modificarEditorial.when(
+      title: const Text('Eliminando tipo....'),
+      content: eliminarTipoPublicacion.when(
         data: (_) => DecoratedBox(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -33,7 +32,7 @@ class ModificarEditorialDialog extends ConsumerWidget {
               children: [
                 Icon(Icons.check),
                 SizedBox(height: 5),
-                Text('Editorial modificada'),
+                Text('Tipo eliminado'),
               ],
             ),
           ),
@@ -52,7 +51,7 @@ class ModificarEditorialDialog extends ConsumerWidget {
               children: [
                 Icon(Icons.error),
                 SizedBox(height: 5),
-                Text('No se pudo modificar la editorial'),
+                Text('No se pudo eliminar el tipo de publicación'),
               ],
             ),
           ),

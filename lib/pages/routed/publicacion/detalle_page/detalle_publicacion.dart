@@ -85,6 +85,17 @@ class DetallePublicacion extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: const Row(
                     children: [
+                      Expanded(child: PlataformaInput()),
+                      SizedBox(width: 10),
+                      Expanded(child: LinkInput()),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: const Row(
+                    children: [
                       Expanded(child: EdicionInput()),
                       SizedBox(width: 10),
                       Expanded(child: AnioInput()),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-final _formKey = GlobalKey<FormBuilderState>();
 
 class NuevaPublicacionScreen extends StatefulWidget {
   const NuevaPublicacionScreen({super.key});
@@ -21,7 +20,6 @@ class _NuevaPublicacionScreenState extends State<NuevaPublicacionScreen> {
 
   var genderOptions = ['Male', 'Female', 'Other'];
 
-  void _onChanged(dynamic val) => debugPrint(val.toString());
 
   @override
   Widget build(BuildContext context) {

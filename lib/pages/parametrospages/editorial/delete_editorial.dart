@@ -18,49 +18,41 @@ class DeleteEditorialDialog extends ConsumerWidget {
     return AlertDialog(
       title: const Text('Eliminando editorial....'),
       content: eliminarEditorial.when(
-        data: (_) => IgnorePointer(
-          child: Center(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(),
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.check),
-                    SizedBox(height: 5),
-                    Text('Editorial eliminada'),
-                  ],
-                ),
-              ),
+        data: (_) => DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.check),
+                SizedBox(height: 5),
+                Text('Editorial eliminada'),
+              ],
             ),
           ),
         ),
-        error: (_, __) => IgnorePointer(
-          child: Center(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(),
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.error),
-                    SizedBox(height: 5),
-                    Text('No se pudo eliminar la editorial'),
-                  ],
-                ),
-              ),
+        error: (_, __) => DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.error),
+                SizedBox(height: 5),
+                Text('No se pudo eliminar la editorial'),
+              ],
             ),
           ),
         ),

@@ -146,49 +146,41 @@ class AddAutorDialog extends ConsumerWidget {
     return AlertDialog(
       title: const Text('Creando autor....'),
       content: addAutor.when(
-        data: (_) => IgnorePointer(
-          child: Center(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(),
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.check),
-                    SizedBox(height: 5),
-                    Text('Autor creado'),
-                  ],
-                ),
-              ),
+        data: (_) => DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.check),
+                SizedBox(height: 5),
+                Text('Autor creado'),
+              ],
             ),
           ),
         ),
-        error: (_, __) => IgnorePointer(
-          child: Center(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(),
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.error),
-                    SizedBox(height: 5),
-                    Text('No se pudo crear el autor'),
-                  ],
-                ),
-              ),
+        error: (_, __) => DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.error),
+                SizedBox(height: 5),
+                Text('No se pudo crear el autor'),
+              ],
             ),
           ),
         ),
