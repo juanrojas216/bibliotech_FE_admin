@@ -1,6 +1,7 @@
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/models/editoriales.dart';
+import 'package:bibliotech_admin/new_models/editorial.dart';
+// import 'package:bibliotech_admin/models/editoriales.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/detalle_page/detalle_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 final editorialesProvider = FutureProvider<void>((ref) async {
   var response = await ref
       .watch(apiProvider)
-      .request<List<Editorial>>('/editoriales.json', parser: editorialFromJson);
+      .request<List<Editorial>>('/editoriales.json', parser: editorialesFromJson);
 
   if (response.error != null) {
     throw response.error!;

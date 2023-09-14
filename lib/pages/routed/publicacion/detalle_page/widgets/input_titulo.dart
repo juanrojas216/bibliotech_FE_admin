@@ -12,7 +12,7 @@ class TituloInput extends ConsumerWidget {
     var publicacionDetalle = ref.watch(detallePublicacionProvider);
 
     return TextFormField(
-      initialValue: publicacionDetalle.titulo!,
+      initialValue: publicacionDetalle.tituloPublicacion,
       onChanged: (value) => ref.read(detallePublicacionProvider.notifier).actualizarTitulo(value),
       decoration: InputDecoration(
           isDense: true,

@@ -13,8 +13,8 @@ class LinkInput extends ConsumerWidget {
     var publicacionDetalle = ref.watch(detallePublicacionProvider);
 
     return TextFormField(
-      initialValue: publicacionDetalle.anio!.toString(),
-      onChanged: (value) => ref.read(detallePublicacionProvider.notifier).actualizarAnio(int.parse(value)),
+      initialValue: publicacionDetalle.link.url,
+      // onChanged: (value) => ref.read(detallePublicacionProvider.notifier).actualizarAnio(int.parse(value)),
       decoration: InputDecoration(
           isDense: true,
           labelText: 'LINK',

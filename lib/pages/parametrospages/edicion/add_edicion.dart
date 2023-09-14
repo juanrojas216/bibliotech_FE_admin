@@ -21,7 +21,7 @@ class _AddEdicionState extends ConsumerState<AddEdicion> {
       title: Text('Nueva edicion',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: 'Nombre edicion',
+        initialValue: '',
         onChanged: (value) => {
           nombreEdicion = value,
           setState(() {}),
@@ -109,7 +109,7 @@ class AddEdicionDialog extends ConsumerWidget {
             ),
           ),
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const CircularProgressIndicator(),
       ),
       actions: [
         ElevatedButton(

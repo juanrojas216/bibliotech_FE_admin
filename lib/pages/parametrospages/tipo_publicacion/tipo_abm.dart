@@ -3,6 +3,7 @@ import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/add_tipo.dart';
 import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/editar_tipo.dart';
 import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/tipo_controller.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/publicacion_page/widgets/mostrar_usuario.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TipoPublicacionAbm extends ConsumerWidget {
-  
   const TipoPublicacionAbm({super.key});
 
   @override
@@ -24,27 +24,29 @@ class TipoPublicacionAbm extends ConsumerWidget {
             onPressed: () {
               ref.read(routesProvider).pop();
             },
-            icon: const Icon(Icons.arrow_back), color: Colors.black),
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.black),
         elevation: 0,
-        title: AutoSizeText('Sr. PEPE EL GRILLO',
-            style: GoogleFonts.poppins(color: Colors.black)),
+        title: AutoSizeText('Tipo Publicación',
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
         backgroundColor: Colors.white,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Center(
-              child: AutoSizeText('Tipo Publicación',
-                  style:
-                      GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
-            ),
-          ),
-          const SizedBox(width: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => const AddTipoPublicacion());
-                }, child: const Text('Nuevo tipo de publicación')),
+                  showDialog(
+                      context: context,
+                      builder: (context) => const AddTipoPublicacion());
+                },
+                child: const Text('Nuevo tipo de publicación')),
+          ),
+          const SizedBox(width: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Center(
+              child: MostrarUsuario(),
+            ),
           ),
           const SizedBox(width: 20),
         ],

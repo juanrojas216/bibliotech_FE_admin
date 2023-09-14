@@ -50,7 +50,7 @@ class CategoriasPublicacion extends ConsumerWidget {
             child: ListView.separated(
                 itemBuilder: (_, i) => CategoriaItem(index: i),
                 separatorBuilder: (_, __) => const Divider(),
-                itemCount: detallePublicacionCategorias!.length,
+                itemCount: detallePublicacionCategorias.length,
               ),
           ),
         ),
@@ -78,14 +78,14 @@ class FiltroItemCategoriaState extends ConsumerState<CategoriaItem> {
   @override
   Widget build(BuildContext context) {
     
-    var detallePublicacionCategorias = ref.watch(detallePublicacionProvider).categorias![widget.index];
+    var detallePublicacionCategorias = ref.watch(detallePublicacionProvider).categorias[widget.index];
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AutoSizeText(
-          detallePublicacionCategorias.nombreCategoria,
+          detallePublicacionCategorias.categoria.nombre,
           style: GoogleFonts.poppins(),
         ),
         const SizedBox(height: 5),
@@ -96,7 +96,7 @@ class FiltroItemCategoriaState extends ConsumerState<CategoriaItem> {
             detallePublicacionCategorias.valores.length,
             (index) => FilterChip(
               avatar: const Icon(Icons.delete),
-              label: Text(detallePublicacionCategorias.valores[index].nombreValor),
+              label: Text(detallePublicacionCategorias.valores[index].nombre),
               onSelected: (_) {
                 ref.read(detallePublicacionProvider.notifier).deleteValor(widget.index, index);
                 setState(() {});

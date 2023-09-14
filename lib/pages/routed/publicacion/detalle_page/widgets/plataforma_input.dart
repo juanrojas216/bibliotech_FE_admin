@@ -26,7 +26,7 @@ class PlataformaInput extends ConsumerWidget {
                 isDense: true,
                 isExpanded: true,
                 hint: const Text('PLATAFORMA'),
-                value: publicacionDetalle.edicion!.id,
+                value: publicacionDetalle.edicion.id,
                 style: TextStyle(
                     fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
                 items: [
@@ -34,7 +34,7 @@ class PlataformaInput extends ConsumerWidget {
                     (e) => DropdownMenuItem(
                       value: e.id,
                       child: Text(
-                        e.titulo,
+                        e.nombre,
                         style: GoogleFonts.poppins(),
                       ),
                     ),

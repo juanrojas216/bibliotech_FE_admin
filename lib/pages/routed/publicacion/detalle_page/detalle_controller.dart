@@ -2,18 +2,29 @@ import 'dart:js_interop';
 
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
-import 'package:bibliotech_admin/models/autor.dart';
-import 'package:bibliotech_admin/models/categoria.dart';
-import 'package:bibliotech_admin/models/ediciones.dart';
-import 'package:bibliotech_admin/models/editoriales.dart';
-import 'package:bibliotech_admin/models/publicacion_detalle.dart';
-import 'package:bibliotech_admin/models/tipos_publicacion.dart';
+import 'package:bibliotech_admin/new_models/autor.dart';
+import 'package:bibliotech_admin/new_models/categoria.dart';
+import 'package:bibliotech_admin/new_models/categoria_publicacion.dart';
+import 'package:bibliotech_admin/new_models/edicion.dart';
+import 'package:bibliotech_admin/new_models/editorial.dart';
+import 'package:bibliotech_admin/new_models/link.dart';
+import 'package:bibliotech_admin/new_models/plataforma.dart';
+// import 'package:bibliotech_admin/models/autor.dart';
+// import 'package:bibliotech_admin/models/categoria.dart';
+// import 'package:bibliotech_admin/models/ediciones.dart';
+// import 'package:bibliotech_admin/models/editoriales.dart';
+// import 'package:bibliotech_admin/models/publicacion_detalle.dart';
+// import 'package:bibliotech_admin/models/tipos_publicacion.dart';
+import 'package:bibliotech_admin/new_models/publicacion.dart';
+import 'package:bibliotech_admin/new_models/tipo_publicacion.dart';
+import 'package:bibliotech_admin/new_models/valor.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final detallePublicacionRequestProvider = FutureProvider.autoDispose<void>((ref) async {
-  var response = await ref.watch(apiProvider).request<PublicacionDetalle>(
+final detallePublicacionRequestProvider =
+    FutureProvider.autoDispose<void>((ref) async {
+  var response = await ref.watch(apiProvider).request<Publicacion>(
       '/publicacion_detalle.json',
-      parser: publicacionDetalleFromJson);
+      parser: publicacionFromJson);
 
   if (response.error != null) {
     throw response.error!;
@@ -24,50 +35,75 @@ final detallePublicacionRequestProvider = FutureProvider.autoDispose<void>((ref)
       .actualizarDetallePublicacion(response.data!);
 });
 
-final guardarPublicacionProvider = FutureProvider.autoDispose<bool>((ref) async {
-  
+final guardarPublicacionProvider =
+    FutureProvider.autoDispose<bool>((ref) async {
   var response = await ref.watch(apiProvider).request<dynamic>(
         '/publicacion_detalle.json',
         method: HttpMethod.patch,
-        body: publicacionDetalleToJson(ref.watch(detallePublicacionProvider)),
-  );
-
+        body: publicacionToJson(ref.watch(detallePublicacionProvider)),
+      );
 
   if (!response.error.isNull) {
     throw false;
   }
 
   return true;
-
 });
 
 final detallePublicacionProvider =
-    StateNotifierProvider<DetallePublicacionNotifier, PublicacionDetalle>(
-        (ref) {
+    StateNotifierProvider<DetallePublicacionNotifier, Publicacion>((ref) {
   return DetallePublicacionNotifier();
 });
 
-class DetallePublicacionNotifier extends StateNotifier<PublicacionDetalle> {
-  DetallePublicacionNotifier() : super(PublicacionDetalle(anio: 200));
+class DetallePublicacionNotifier extends StateNotifier<Publicacion> {
+  DetallePublicacionNotifier()
+      : super(
+          Publicacion(
+            id: 1,
+            anioPublicacion: 1,
+            isbnPublicacion: '1',
+            tituloPublicacion: '1',
+            nroPaginas: 1,
+            autores: [],
+            edicion: Edicion(id: 1, nombre: '1'),
+            link: Link(
+              id: 1,
+              url: '1',
+              estado: 'ACTIVO',
+              plataforma: Plataforma(
+                id: 1,
+                nombre: '1',
+                url: '1',
+                instrucciones: '1',
+              ),
+            ),
+            categorias: [],
+            tipo: TipoPublicacion(id: 1, nombre: '1'),
+            editoriales: [],
+            comentarios: [],
+            ejemplares: [],
+          ),
+        );
 
-  actualizarDetallePublicacion(PublicacionDetalle dp) {
+  actualizarDetallePublicacion(Publicacion dp) {
     state = dp;
   }
 
   actualizarAnio(int anio) {
-    state = state.copyWith(anio: anio);
+    state = state.copyWith(anioPublicacion: anio);
   }
 
   actualizarTitulo(String titulo) {
-    state = state.copyWith(titulo: titulo);
+    state = state.copyWith(tituloPublicacion: titulo);
   }
 
   actualizarISBN(int isbn) {
-    state = state.copyWith(isbn: isbn);
+    state = state.copyWith(isbnPublicacion: isbn.toString());
   }
 
-  actualizarEdicion(Edicion edicion) {
-    state = state.copyWith(edicion: edicion);
+  actualizarEdicion(Edicion e) {
+    state = state.copyWith();
+    state.edicion = e;
   }
 
   actualizarTipo(TipoPublicacion tipo) {
@@ -75,14 +111,14 @@ class DetallePublicacionNotifier extends StateNotifier<PublicacionDetalle> {
   }
 
   addCategoria(Categoria c, Valor v) {
-    var categoriaOK =
-        state.categorias!.where((ca) => ca.idCategoria == c.idCategoria);
+    var categoriaOK = state.categorias.where((ca) => ca.categoria.id == c.id);
     if (categoriaOK.isEmpty) {
-      state = state.copyWith(categorias: [...state.categorias!, c]);
-      state.categorias!.last.valores = [v];
+      state = state.copyWith(categorias: [
+        ...state.categorias,
+        CategoriaPublicacion(categoria: c, valores: [v])
+      ]);
     } else {
-      var valorOk =
-          categoriaOK.first.valores.where((va) => va.idValor == v.idValor);
+      var valorOk = categoriaOK.first.valores.where((va) => va.id == v.id);
       if (valorOk.isEmpty) {
         categoriaOK.first.valores.add(v);
         state = state.copyWith();
@@ -91,36 +127,36 @@ class DetallePublicacionNotifier extends StateNotifier<PublicacionDetalle> {
   }
 
   deleteValor(int categoriaIndex, int valorIndex) {
-    state.categorias![categoriaIndex].valores.removeAt(valorIndex);
-    if (state.categorias![categoriaIndex].valores.isEmpty) {
-      state.categorias!.removeAt(categoriaIndex);
+    state.categorias[categoriaIndex].valores.removeAt(valorIndex);
+    if (state.categorias[categoriaIndex].valores.isEmpty) {
+      state.categorias.removeAt(categoriaIndex);
     }
     state = state.copyWith();
   }
 
   addAutor(Autor autor) {
-    var autorOk = state.autores!.where((a) => a.id == autor.id);
+    var autorOk = state.autores.where((a) => a.id == autor.id);
     if (autorOk.isEmpty) {
-      state.autores!.add(autor);
+      state.autores.add(autor);
       state = state.copyWith();
     }
   }
 
   deleteAutor(int index) {
-    state.autores!.removeAt(index);
+    state.autores.removeAt(index);
     state = state.copyWith();
   }
 
   addEditorial(Editorial editorial) {
-    var editorialOK = state.editoriales!.where((e) => e.id == editorial.id);
+    var editorialOK = state.editoriales.where((e) => e.id == editorial.id);
     if (editorialOK.isEmpty) {
-      state.editoriales!.add(editorial);
+      state.editoriales.add(editorial);
       state = state.copyWith();
     }
   }
 
   deleteEditorial(int index) {
-    state.editoriales!.removeAt(index);
+    state.editoriales.removeAt(index);
     state = state.copyWith();
   }
 }

@@ -5,6 +5,7 @@ import 'categoria_publicacion.dart';
 import 'comentario.dart';
 import 'edicion.dart';
 import 'editorial.dart';
+import 'ejemplar.dart';
 import 'link.dart';
 import 'tipo_publicacion.dart';
 
@@ -37,8 +38,9 @@ class Publicacion {
     Link link;
     List<CategoriaPublicacion> categorias;
     TipoPublicacion tipo;
-    Editorial editoriales;
+    List<Editorial> editoriales;
     List<Comentario> comentarios;
+    List<Ejemplar> ejemplares;
 
     Publicacion({
         required this.id,
@@ -53,6 +55,7 @@ class Publicacion {
         required this.tipo,
         required this.editoriales,
         required this.comentarios,
+        required this.ejemplares,
     });
 
     Publicacion copyWith({
@@ -66,8 +69,9 @@ class Publicacion {
         Link? link,
         List<CategoriaPublicacion>? categorias,
         TipoPublicacion? tipo,
-        Editorial? editoriales,
+        List<Editorial>? editoriales,
         List<Comentario>? comentarios,
+        List<Ejemplar>? ejemplares,
     }) => 
         Publicacion(
             id: id ?? this.id,
@@ -82,6 +86,7 @@ class Publicacion {
             tipo: tipo ?? this.tipo,
             editoriales: editoriales ?? this.editoriales,
             comentarios: comentarios ?? this.comentarios,
+            ejemplares: ejemplares ?? this.ejemplares,
         );
 
     factory Publicacion.fromJson(Map<String, dynamic> json) => Publicacion(
@@ -95,8 +100,9 @@ class Publicacion {
         link: Link.fromJson(json["link"]),
         categorias: List<CategoriaPublicacion>.from(json["categorias"].map((x) => CategoriaPublicacion.fromJson(x))),
         tipo: TipoPublicacion.fromJson(json["tipo"]),
-        editoriales: Editorial.fromJson(json["editoriales"]),
-        comentarios: List<Comentario>.from(json["comentarios"].map((x) => Comentario.fromJson(x))),
+        editoriales: List<Editorial>.from(json["editoriales"].map((x) => Editorial.fromJson(x))),
+        comentarios: [],//List<Comentario>.from(json["comentarios"].map((x) => Comentario.fromJson(x))),
+        ejemplares: [],//List<Ejemplar>.from(json["ejemplares"].map((x) => Ejemplar.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -110,7 +116,8 @@ class Publicacion {
         "link": link.toJson(),
         "categorias": List<dynamic>.from(categorias.map((x) => x.toJson())),
         "tipo": tipo.toJson(),
-        "editoriales": editoriales.toJson(),
+        "editoriales": List<dynamic>.from(editoriales.map((e) => e.toJson())),
         "comentarios": List<dynamic>.from(comentarios.map((x) => x.toJson())),
+        "ejemplares": List<dynamic>.from(ejemplares.map((x) => x.toJson())),
     };
 }

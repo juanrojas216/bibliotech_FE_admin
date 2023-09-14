@@ -57,7 +57,7 @@ class ModificarEdicionDialog extends ConsumerWidget {
             ),
           ),
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const CircularProgressIndicator(),
       ),
       actions: [
         ElevatedButton(

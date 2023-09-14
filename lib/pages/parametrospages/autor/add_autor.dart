@@ -1,5 +1,6 @@
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/models/autor.dart';
+import 'package:bibliotech_admin/new_models/autor.dart';
+// import 'package:bibliotech_admin/models/autor.dart';
 import 'package:bibliotech_admin/pages/parametrospages/autor/autor_controller.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';

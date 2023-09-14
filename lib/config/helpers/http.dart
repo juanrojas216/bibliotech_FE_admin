@@ -44,6 +44,7 @@ class Http {
         timeOut: timeOut,
       );
 
+
       data = parseResponseBody(response.body);
 
       statusCode = response.statusCode;

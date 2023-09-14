@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/detalle_page/detalle_controller.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/publicacion_page/widgets/mostrar_usuario.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,19 +29,10 @@ class DetallePublicacion extends ConsumerWidget {
               color: Colors.black,
             )),
         elevation: 0,
-        title: AutoSizeText('Sr. PEPE EL GRILLO',
-            style: GoogleFonts.poppins(color: Colors.black)),
+        title: AutoSizeText('Detalle de publicacion',
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
         backgroundColor: Colors.white,
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Center(
-              child: AutoSizeText('Detalle de publicacion',
-                  style:
-                      GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
-            ),
-          ),
-          const SizedBox(width: 20),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
@@ -55,9 +47,15 @@ class DetallePublicacion extends ConsumerWidget {
               ),
               onPressed: () {
                 ref.invalidate(guardarPublicacionProvider);
-                showCupertinoDialog(context: context, builder: (_) => const SavePublicacion());
+                showCupertinoDialog(
+                    context: context, builder: (_) => const SavePublicacion());
               },
             ),
+          ),
+          const SizedBox(width: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Center(child: MostrarUsuario()),
           ),
           const SizedBox(width: 20),
         ],

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categorias/add_categoria.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/publicacion_page/widgets/mostrar_usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,26 +22,24 @@ class CategoriasABM extends ConsumerWidget {
             icon: const Icon(Icons.arrow_back),
             color: Colors.black),
         elevation: 0,
-        title: AutoSizeText('Sr. PEPE EL GRILLO',
-            style: GoogleFonts.poppins(color: Colors.black)),
+        title: AutoSizeText('Categorias',
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
         backgroundColor: Colors.white,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Center(
-              child: AutoSizeText('Categorias',
-                  style:
-                      GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
-            ),
-          ),
-          const SizedBox(width: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => const AddCategoria());
+                  showDialog(
+                      context: context,
+                      builder: (context) => const AddCategoria());
                 },
                 child: const Text('Nueva categoria')),
+          ),
+          const SizedBox(width: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Center(child: MostrarUsuario()),
           ),
           const SizedBox(width: 20),
         ],
@@ -98,7 +97,7 @@ class CategoriasABM extends ConsumerWidget {
                                 )
                               ],
                             ),
-                            const Divider( color: Colors.grey ),
+                            const Divider(color: Colors.grey),
                             SizedBox(
                               width: double.maxFinite,
                               height: 200,

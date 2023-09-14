@@ -2,12 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/pages/parametrospages/autor/add_autor.dart';
 import 'package:bibliotech_admin/pages/parametrospages/autor/autor_controller.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/publicacion_page/widgets/mostrar_usuario.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 
 class AutoresAbm extends ConsumerWidget {
   const AutoresAbm({super.key});
@@ -23,27 +23,26 @@ class AutoresAbm extends ConsumerWidget {
             onPressed: () {
               ref.read(routesProvider).pop();
             },
-            icon: const Icon(Icons.arrow_back), color: Colors.black),
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.black),
         elevation: 0,
-        title: AutoSizeText('Sr. PEPE EL GRILLO',
-            style: GoogleFonts.poppins(color: Colors.black)),
+        title: AutoSizeText('Autores',
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
         backgroundColor: Colors.white,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Center(
-              child: AutoSizeText('Autores',
-                  style:
-                      GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
-            ),
-          ),
-          const SizedBox(width: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => const AddAutor());
-                }, child: const Text('Nuevo autor')),
+                  showDialog(
+                      context: context, builder: (context) => const AddAutor());
+                },
+                child: const Text('Nuevo autor')),
+          ),
+          const SizedBox(width: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Center(child: MostrarUsuario()),
           ),
           const SizedBox(width: 20),
         ],
@@ -65,9 +64,7 @@ class AutoresAbm extends ConsumerWidget {
               const SizedBox(height: 10),
               CupertinoSearchTextField(
                 onChanged: (value) {
-                  ref
-                      .read(inputAutorABMProvider.notifier)
-                      .update((_) => value);
+                  ref.read(inputAutorABMProvider.notifier).update((_) => value);
                 },
               ),
               const SizedBox(height: 10),
@@ -83,7 +80,17 @@ class AutoresAbm extends ConsumerWidget {
                                   borderRadius: BorderRadius.circular(16)),
                               child: ListTile(
                                 trailing: const Icon(Icons.more_vert),
-                                title: Text(a.nombre),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(a.nombre,
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w500)),
+                                    Text(
+                                        '${a.fechaNacimiento.day}/${a.fechaNacimiento.month}/${a.fechaNacimiento.year} - ${a.nacionalidad.toUpperCase()}'),
+                                    Text(a.biografia),
+                                  ],
+                                ),
                                 onTap: () {
                                   // showDialog(
                                   //   context: context,

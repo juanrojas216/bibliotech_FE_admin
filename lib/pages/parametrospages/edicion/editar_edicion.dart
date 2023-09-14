@@ -73,7 +73,7 @@ class _EditarEdicionState extends ConsumerState<EditarEdicion> {
           onPressed: () {
             ref.read(routesProvider).pop();
           },
-          child: Text('Cencelar',
+          child: Text('Cancelar',
               style: GoogleFonts.poppins(), textAlign: TextAlign.center),
         )
       ],

@@ -23,6 +23,7 @@ class MyApp extends ConsumerWidget {
       builder: (context, orientation, screenType) {
         return Layout(
           child: MaterialApp.router(
+            title: "Bibliotech",
             routerConfig: adminRoutes, 
             theme: ThemeData(
                 textTheme: GoogleFonts.poppinsTextTheme(),

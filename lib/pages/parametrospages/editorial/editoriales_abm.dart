@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/pages/parametrospages/editorial/editorial_controller.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/publicacion_page/widgets/mostrar_usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,19 +27,10 @@ class EditorialesAbm extends ConsumerWidget {
             icon: const Icon(Icons.arrow_back),
             color: Colors.black),
         elevation: 0,
-        title: AutoSizeText('Sr. PEPE EL GRILLO',
-            style: GoogleFonts.poppins(color: Colors.black)),
+        title: AutoSizeText('Editoriales',
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
         backgroundColor: Colors.white,
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Center(
-              child: AutoSizeText('Editoriales',
-                  style:
-                      GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
-            ),
-          ),
-          const SizedBox(width: 20),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
@@ -48,6 +40,11 @@ class EditorialesAbm extends ConsumerWidget {
                       builder: (context) => const AddEditorial());
                 },
                 child: const Text('Nueva editorial')),
+          ),
+          const SizedBox(width: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Center(child: MostrarUsuario()),
           ),
           const SizedBox(width: 20),
         ],
@@ -69,10 +66,9 @@ class EditorialesAbm extends ConsumerWidget {
               const SizedBox(height: 10),
               TextFormField(
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  label: Text('Buscador', style: GoogleFonts.poppins()),
-                  border: const OutlineInputBorder()
-                ),
+                    prefixIcon: const Icon(Icons.search),
+                    label: Text('Buscador', style: GoogleFonts.poppins()),
+                    border: const OutlineInputBorder()),
                 initialValue: ref.read(inputEditorialABMProvider),
                 onChanged: (value) {
                   ref

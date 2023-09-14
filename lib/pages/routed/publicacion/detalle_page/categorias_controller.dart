@@ -1,6 +1,7 @@
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/models/categoria.dart';
+import 'package:bibliotech_admin/new_models/categoria.dart';
+// import 'package:bibliotech_admin/models/categoria.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/detalle_page/detalle_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +11,7 @@ final categoriasProvider = FutureProvider<void>((ref) async {
     
   var response = await ref
       .watch(apiProvider)
-      .request<List<Categoria>>('/categorias.json', parser: categoriaFromJson);
+      .request<List<Categoria>>('/categorias.json', parser: categoriasFromJson);
 
   if (response.error != null) {
     throw response.error!;
@@ -27,13 +28,13 @@ final inputCategoriaProvider = StateProvider<String>((ref) {
 
 final filtroCategoriaProvider = Provider<List<ListTile>>((ref) {
   
-  var categorias = ref.watch(listaCategoriasProvider).map((e) => e.copyInstance()).toList();
+  var categorias = ref.watch(listaCategoriasProvider).map((e) => e.copyWith()).toList();
   var filtro = ref.watch(inputCategoriaProvider);
 
   for (var c in categorias) {
     c.valores = c.valores
         .where(
-            (v) => v.nombreValor.toLowerCase().contains(filtro.toLowerCase()))
+            (v) => v.nombre.toLowerCase().contains(filtro.toLowerCase()))
         .toList();
   }
 
@@ -43,11 +44,11 @@ final filtroCategoriaProvider = Provider<List<ListTile>>((ref) {
 
   for (var c in categorias) {
     items.add(ListTile(
-        title: Text(c.nombreCategoria,
+        title: Text(c.nombre,
             style: GoogleFonts.poppins(fontWeight: FontWeight.bold))));
     for (var v in c.valores) {
       items.add(ListTile(
-        title: Text(v.nombreValor, style: GoogleFonts.poppins()),
+        title: Text(v.nombre, style: GoogleFonts.poppins()),
         trailing: const Icon(Icons.add),
         onTap: () {
           ref.read(detallePublicacionProvider.notifier).addCategoria(c, v);

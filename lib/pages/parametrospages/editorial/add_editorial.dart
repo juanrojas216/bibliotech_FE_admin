@@ -21,7 +21,7 @@ class _AddEditorialState extends ConsumerState<AddEditorial> {
       title: Text('Nueva editorial',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: 'Nombre editorial',
+        initialValue: '',
         onChanged: (value) => {
           nombreEditorial = value,
           setState(() {}),

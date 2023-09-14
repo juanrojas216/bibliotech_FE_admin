@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
-import 'package:bibliotech_admin/models/ediciones.dart';
+import 'package:bibliotech_admin/new_models/edicion.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/api/http_admin.dart';
@@ -9,7 +9,7 @@ import '../../../config/api/http_admin.dart';
 final edicionesABMProvider = FutureProvider<void>((ref) async {
   var response = await ref
       .watch(apiProvider)
-      .request<List<Edicion>>('/ediciones.json', parser: edicionFromJson);
+      .request<List<Edicion>>('/ediciones.json', parser: edicionesFromJson);
 
   if (response.error != null) {
     throw response.error!;
@@ -24,7 +24,7 @@ final eliminarEdicionProvider = FutureProvider<void>((ref) async {
   var response = await ref.watch(apiProvider).request<dynamic>(
         '/ediciones.json',
         method: HttpMethod.put,
-        body: edicionToJson(
+        body: edicionesToJson(
           ref.read(listaEdicionABMProvider),
         ),
       );
@@ -41,7 +41,7 @@ final modificarEdicionProvider = FutureProvider<void>((ref) async {
   var response = await ref.watch(apiProvider).request<dynamic>(
         '/ediciones.json',
         method: HttpMethod.put,
-        body: edicionToJson(ref.read(listaEdicionABMProvider)),
+        body: edicionesToJson(ref.read(listaEdicionABMProvider)),
       );
 
   if (response.error != null) {
@@ -58,7 +58,7 @@ final agregarEdicionProvider =
         method: HttpMethod.put,
         body: json.encode(Edicion(
                 id: ref.read(listaEdicionABMProvider).last.id + 1,
-                titulo: titulo)
+                nombre: titulo)
             .toJson()),
       );
 
@@ -69,17 +69,13 @@ final agregarEdicionProvider =
   ref.invalidate(edicionesABMProvider);
 });
 
-final inputEdicionABMProvider = StateProvider<String>((ref) {
-  return '';
-});
-
-final filtroEdicionProvider = Provider<List<Edicion>>((ref) {
+final filtroEdicionProvider = Provider.family<List<Edicion>, String>((ref, filtro) {
   var editoriales =
       ref.watch(listaEdicionABMProvider).map((e) => e.copyWith()).toList();
-  var filtro = ref.watch(inputEdicionABMProvider);
+  // var filtro = ref.watch(inputEdicionABMProvider);
 
   editoriales = editoriales
-      .where((e) => e.titulo.toLowerCase().contains(filtro.toLowerCase()))
+      .where((e) => e.nombre.toLowerCase().contains(filtro.toLowerCase()))
       .toList();
 
   return editoriales;
@@ -104,7 +100,7 @@ class ListaEdicionesABMNotifier extends StateNotifier<List<Edicion>> {
 
   modificarEdicion(int idEdicion, String tituloEdicion) {
     int index = state.indexOf(state.firstWhere((e) => e.id == idEdicion));
-    state[index] = Edicion(id: idEdicion, titulo: tituloEdicion);
+    state[index] = Edicion(id: idEdicion, nombre: tituloEdicion);
     state = [...state.map((e) => e.copyWith())];
   }
 }

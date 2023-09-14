@@ -12,51 +12,45 @@ class SavePublicacion extends ConsumerWidget {
 
     return AlertDialog(
       content: guardarPublicacion.when(
-        data: (_) => Center(
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(),
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.check),
-                  SizedBox(height: 5),
-                  Text('Publicacion actualizada'),
-                ],
-              ),
+        data: (_) => DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.check),
+                SizedBox(height: 5),
+                Text('Publicacion actualizada'),
+              ],
             ),
           ),
         ),
-        error: (_, __) => Center(
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(),
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.error_outline),
-                  SizedBox(height: 5),
-                  Text('Publicacion no actualizada'),
-                ],
-              ),
+        error: (_, __) => DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.error_outline),
+                SizedBox(height: 5),
+                Text('Publicacion no actualizada'),
+              ],
             ),
           ),
         ),
-        loading: () => const Center(
-          child: LinearProgressIndicator(),
-        ),
+        loading: () => const CircularProgressIndicator(),
       ),
       actionsAlignment: MainAxisAlignment.center,
       actions: [

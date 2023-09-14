@@ -45,7 +45,7 @@ class Categoria {
     factory Categoria.fromJson(Map<String, dynamic> json) => Categoria(
         id: json["id"],
         nombre: json["nombre"],
-        valores: List<Valor>.from(json["valores"].map((x) => Valor.fromJson(x))),
+        valores: json["valores"] == null ? [] : List<Valor>.from(json["valores"].map((x) => Valor.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {

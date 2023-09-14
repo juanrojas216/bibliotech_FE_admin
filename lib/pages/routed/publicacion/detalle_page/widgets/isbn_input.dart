@@ -13,7 +13,7 @@ class IsbnInput extends ConsumerWidget {
     var publicacionDetalle = ref.watch(detallePublicacionProvider);
     
     return TextFormField(
-      initialValue: publicacionDetalle.isbn!.toString(),
+      initialValue: publicacionDetalle.isbnPublicacion,
       onChanged: (value) => ref.read(detallePublicacionProvider.notifier).actualizarISBN(int.parse(value)),
       decoration: InputDecoration(
           isDense: true,
