@@ -1,16 +1,34 @@
-import 'package:bibliotech_admin/config/router/admin_router.dart';
+import 'package:bibliotech_admin/config/auth/logged_in_state_info.dart';
+import 'package:bibliotech_admin/pages/routed/autenticacion/login_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends ConsumerWidget {
-  LoginPage({super.key});
-
-  final _formKey = GlobalKey<FormState>();
+class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => LoginPageState();
+}
+
+class LoginPageState extends ConsumerState<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  String user = '';
+  String password = '';
+
+  @override
+  Widget build(BuildContext context) {
+    void login() {
+      bool isOk = _formKey.currentState!.validate();
+      if (isOk) {
+        if (loginFunc(user, password)) {
+          print(ref.read(loggedInProvider));
+          ref.read(loggedInProvider.notifier).state = true;
+        }
+      }
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xffF8F8F8),
       body: Center(
@@ -27,7 +45,7 @@ class LoginPage extends ConsumerWidget {
                   children: [
                     const SizedBox(height: 30),
                     TextFormField(
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      //inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       validator: (value) {
                         if (value != null) {
                           if (value.length >= 6) {
@@ -39,11 +57,14 @@ class LoginPage extends ConsumerWidget {
                       style: GoogleFonts.poppins(),
                       decoration: InputDecoration(
                         labelText: 'DNI',
-                        hintText: 'Su número de dni',
                         hintStyle: GoogleFonts.poppins(fontSize: 14),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: const OutlineInputBorder(),
                       ),
+                      onChanged: (value) => {
+                        user = value,
+                        setState(() {}),
+                      },
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
@@ -59,30 +80,19 @@ class LoginPage extends ConsumerWidget {
                       style: GoogleFonts.poppins(),
                       decoration: InputDecoration(
                         labelText: 'CONTRASEÑA',
-                        hintText: 'Su contraseña',
                         hintStyle: GoogleFonts.poppins(fontSize: 14),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: const OutlineInputBorder(),
                       ),
-                      onFieldSubmitted: (value) {
-                        bool isOk = _formKey.currentState!.validate();
-                        if (isOk) {
-                          ref
-                              .read(routesProvider)
-                              .pushReplacement('/publicacion');
-                        }
+                      onFieldSubmitted: (v) => login,
+                      onChanged: (value) => {
+                        password = value,
+                        setState(() {}),
                       },
                     ),
                     const SizedBox(height: 30),
                     ElevatedButton(
-                        onPressed: () {
-                          bool isOk = _formKey.currentState!.validate();
-                          if (isOk) {
-                            ref
-                                .read(routesProvider)
-                                .pushReplacement('/publicacion');
-                          }
-                        },
+                        onPressed: login,
                         child: Text('Iniciar Sesión',
                             style: GoogleFonts.poppins()))
                   ],

@@ -17,72 +17,81 @@ import '../../pages/parametrospages/categorias_abm.dart';
 import '../../pages/parametrospages/edicion/ediciones_abm.dart';
 import '../../pages/parametrospages/facultades_abm.dart';
 import '../../pages/parametrospages/ubicaciones_abm.dart';
+import '../auth/logged_in_state_info.dart';
 
 final routesProvider = Provider<GoRouter>((ref) {
-  return GoRouter(routes: [
-    GoRoute(
-      path: '/',
-      builder: (_, __) => LoginPage(),
-    ),
-    GoRoute(
-      path: '/publicacion',
-      builder: (_, __) => const PublicacionesPage(),
-    ),
-    GoRoute(
-      path: '/multa',
-      builder: (_, __) => const MultasPage(),
-    ),
-    GoRoute(
-      path: '/prestamo',
-      builder: (_, __) => const PrestamosPage(),
-    ),
-    GoRoute(
-      path: '/reporte',
-      builder: (_, __) => const ReportesPage(),
-    ),
-    GoRoute(
-      path: '/usuario',
-      builder: (_, __) => const UsuariosPage(),
-    ),
-    GoRoute(
-      path: '/publicacion/create',
-      builder: (_, __) => const NuevaPublicacion(),
-    ),
-    GoRoute(
-      path: '/publicacion/detalle',
-      builder: (_, rs) => DetallePublicacion(publicacionId: rs.extra as int),
-    ),
-    GoRoute(
-      path: '/parametro/editorial',
-      builder: (_, __) => const EditorialesAbm(),
-    ),
-    GoRoute(
-      path: '/parametro/edicion',
-      builder: (_, __) => const EdicionesAbm(),
-    ),
-    GoRoute(
-      path: '/parametro/autor',
-      builder: (_, __) => const AutoresAbm(),
-    ),
-    GoRoute(
-      path: '/parametro/categoria',
-      builder: (_, __) => CategoriasAbm(),
-    ),
-    GoRoute(
-      path: '/parametro/ubicacion',
-      builder: (_, __) => UbicacionesAbm(),
-    ),
-    GoRoute(
-      path: '/parametro/tipospublicacion',
-      builder: (_, __) => TiposPublicacionAbm(),
-    ),
-    GoRoute(
-      path: '/parametro/facultad',
-      builder: (_, __) => FacultadesAbm(),
-    ),
-    GoRoute(
-      path: '/parametro/carrera',
-      builder: (_, __) => CarrerasAbm(),
-    ),
-  ]);
+  return GoRouter(
+      redirect: (context, state) async {
+        final isLoggedIn = ref.read(loggedInProvider);
+        print(isLoggedIn);
+        if (!isLoggedIn) return "/";
+        return null;
+      },
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (_, __) => const LoginPage(),
+        ),
+        GoRoute(
+          path: '/publicacion',
+          builder: (_, __) => const PublicacionesPage(),
+        ),
+        GoRoute(
+          path: '/multa',
+          builder: (_, __) => const MultasPage(),
+        ),
+        GoRoute(
+          path: '/prestamo',
+          builder: (_, __) => const PrestamosPage(),
+        ),
+        GoRoute(
+          path: '/reporte',
+          builder: (_, __) => const ReportesPage(),
+        ),
+        GoRoute(
+          path: '/usuario',
+          builder: (_, __) => const UsuariosPage(),
+        ),
+        GoRoute(
+          path: '/publicacion/create',
+          builder: (_, __) => const NuevaPublicacion(),
+        ),
+        GoRoute(
+          path: '/publicacion/detalle',
+          builder: (_, rs) =>
+              DetallePublicacion(publicacionId: rs.extra as int),
+        ),
+        GoRoute(
+          path: '/parametro/editorial',
+          builder: (_, __) => const EditorialesAbm(),
+        ),
+        GoRoute(
+          path: '/parametro/edicion',
+          builder: (_, __) => const EdicionesAbm(),
+        ),
+        GoRoute(
+          path: '/parametro/autor',
+          builder: (_, __) => const AutoresAbm(),
+        ),
+        GoRoute(
+          path: '/parametro/categoria',
+          builder: (_, __) => CategoriasAbm(),
+        ),
+        GoRoute(
+          path: '/parametro/ubicacion',
+          builder: (_, __) => UbicacionesAbm(),
+        ),
+        GoRoute(
+          path: '/parametro/tipospublicacion',
+          builder: (_, __) => TiposPublicacionAbm(),
+        ),
+        GoRoute(
+          path: '/parametro/facultad',
+          builder: (_, __) => FacultadesAbm(),
+        ),
+        GoRoute(
+          path: '/parametro/carrera',
+          builder: (_, __) => CarrerasAbm(),
+        ),
+      ]);
 });
