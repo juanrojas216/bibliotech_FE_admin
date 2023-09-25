@@ -27,7 +27,7 @@ class TipoInput extends ConsumerWidget {
                 isDense: true,
                 isExpanded: true,
                 hint: const Text('TIPO DE PUBLICACION'),
-                value: publicacionDetalle.tipo!.id,
+                value: publicacionDetalle.tipo.id,
                 style: TextStyle(
                     fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
                 items: [

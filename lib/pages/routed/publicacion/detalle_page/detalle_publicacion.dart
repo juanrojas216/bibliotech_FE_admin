@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/detalle_page/detalle_controller.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/publicacion_page/widgets/mostrar_usuario.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/mostrar_usuario.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

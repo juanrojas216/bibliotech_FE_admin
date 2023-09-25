@@ -1,17 +1,20 @@
 
 // import 'dart:convert';
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:http/http.dart';
 
 import 'http_method.dart';
 
-// dynamic _parseBody(dynamic body) {
-//   try {
-//     return jsonEncode(body);
-//   } catch (_) {
-//     return body;
-//   }
-// }
+dynamic _parseBody(dynamic body) {
+  try {
+    return jsonEncode(body);
+  } catch (_) {
+    return body;
+  }
+}
 
 Future<Response> sendRequest({
   required Uri url,
@@ -21,14 +24,14 @@ Future<Response> sendRequest({
   required Duration timeOut,
 }) {
 
-  var finalHeaders = {...headers};
+  var finalHeaders = {...headers, HttpHeaders.authorizationHeader: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpZ25hY2lvbnZhbGVudGUwN0BnbWFpbC5jb20iLCJpYXQiOjE2OTU2NDkwMjAsImV4cCI6MTY5NTY1MDQ2MH0.eC-iAx4s9ZVMxGwAdBzjG_DpBlGASNcpZepMKH8iAh4',};
 
   if (method != HttpMethod.get) {
     final contentType = headers['Content-Type'];
     if (contentType == null || contentType.contains("application/json")) {
-      finalHeaders["Content-Type"] = "application/json";
+      finalHeaders["content-type"] = "application/json";
       // finalHeaders["Content-Type"] = "application/json; charset = UTF-8";
-      // body = _parseBody(body);
+      if(method == HttpMethod.post) body = _parseBody(body);
     }
   }
 

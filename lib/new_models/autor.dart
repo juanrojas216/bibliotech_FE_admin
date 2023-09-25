@@ -59,7 +59,7 @@ class Autor {
     Map<String, dynamic> toJson() => {
         "id": id,
         "nombre": nombre,
-        "fechaNacimiento": "${fechaNacimiento.year.toString().padLeft(4, '0')}-${fechaNacimiento.month.toString().padLeft(2, '0')}-${fechaNacimiento.day.toString().padLeft(2, '0')}",
+        "fechaNacimiento": '${fechaNacimiento.toIso8601String().split('.')[0]}Z',
         "nacionalidad": nacionalidad,
         "biografia": biografia,
     };

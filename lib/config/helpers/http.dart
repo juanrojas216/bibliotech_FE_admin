@@ -1,3 +1,4 @@
+
 import 'http_method.dart';
 import 'http_result.dart';
 import 'parse_response_body.dart';
@@ -8,10 +9,11 @@ typedef Parser<T> = T Function(dynamic data);
 class Http {
   final String baseUrl;
 
-  Http({this.baseUrl = ''});
+  Http({this.baseUrl = '', });
 
   Future<HtttpResult<T>> request<T>(
-    String path, {
+    String path,
+    {
     HttpMethod method = HttpMethod.get,
     Map<String, String> headers = const {},
     Map<String, String> queryParameters = const {},
@@ -44,10 +46,10 @@ class Http {
         timeOut: timeOut,
       );
 
-
       data = parseResponseBody(response.body);
 
       statusCode = response.statusCode;
+
       if (statusCode >= 400) {
         throw HttpError(
           exception: null,

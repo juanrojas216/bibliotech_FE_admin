@@ -106,7 +106,9 @@ class MenuButton extends ConsumerWidget {
                         title:
                             Text('Publicacion', style: GoogleFonts.poppins()),
                         onTap: () {
-                          ref.read(routesProvider).pushReplacement('/publicacion');
+                          ref
+                              .read(routesProvider)
+                              .pushReplacement('/publicacion');
                         },
                       ),
                       CupertinoListTile(
@@ -114,9 +116,7 @@ class MenuButton extends ConsumerWidget {
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                         title: Text('Prestamo', style: GoogleFonts.poppins()),
                         onTap: () {
-                          ref
-                              .read(routesProvider)
-                              .pushReplacement('/prestamo');
+                          ref.read(routesProvider).pushReplacement('/prestamo');
                         },
                       ),
                       CupertinoListTile(
@@ -132,9 +132,7 @@ class MenuButton extends ConsumerWidget {
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                         title: Text('Usuario', style: GoogleFonts.poppins()),
                         onTap: () {
-                          ref
-                              .read(routesProvider)
-                              .pushReplacement('/usuario');
+                          ref.read(routesProvider).pushReplacement('/usuario');
                         },
                       ),
                       CupertinoListTile(
@@ -142,9 +140,7 @@ class MenuButton extends ConsumerWidget {
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                         title: Text('Reporte', style: GoogleFonts.poppins()),
                         onTap: () {
-                          ref
-                              .read(routesProvider)
-                              .pushReplacement('/reporte');
+                          ref.read(routesProvider).pushReplacement('/reporte');
                         },
                       ),
                       CupertinoListTile(
@@ -159,13 +155,14 @@ class MenuButton extends ConsumerWidget {
                     ],
                   ),
                   actionsAlignment: MainAxisAlignment.center,
+                  actionsPadding: const EdgeInsets.only(bottom: 20),
                   actions: [
                     ElevatedButton(
-                        child: Text('Cancelar', style: GoogleFonts.poppins()),
-                        onPressed: () {
-                          ref.read(routesProvider).pop();
-                        },
-                      ),
+                      child: Text('CANCELAR', style: GoogleFonts.poppins()),
+                      onPressed: () {
+                        ref.read(routesProvider).pop();
+                      },
+                    ),
                   ],
                 ),
               ),
