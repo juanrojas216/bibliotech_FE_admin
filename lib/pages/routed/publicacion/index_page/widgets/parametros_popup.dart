@@ -36,6 +36,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     leading: const Icon(Icons.edit),
                     trailing: const Icon(Icons.arrow_right),
                     onTap: () {
+                      ref.read(routesProvider).pop();
                       ref.read(routesProvider).push('/parametro/editorial');
                     },
                   ),
@@ -55,6 +56,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     leading: const Icon(Icons.edit),
                     trailing: const Icon(Icons.arrow_right),
                     onTap: () {
+                      ref.read(routesProvider).pop();
                       ref.read(routesProvider).push('/parametro/edicion');
                     },
                   ),
@@ -74,6 +76,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     leading: const Icon(Icons.edit),
                     trailing: const Icon(Icons.arrow_right),
                     onTap: () {
+                      ref.read(routesProvider).pop();
                       ref.read(routesProvider).push('/parametro/autor');
                     },
                   ),
@@ -93,6 +96,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     leading: const Icon(Icons.edit),
                     trailing: const Icon(Icons.arrow_right),
                     onTap: () {
+                      ref.read(routesProvider).pop();
                       ref.read(routesProvider).push('/parametro/categoria');
                     },
                   ),
@@ -112,6 +116,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     leading: const Icon(Icons.edit),
                     trailing: const Icon(Icons.arrow_right),
                     onTap: () {
+                      ref.read(routesProvider).pop();
                       ref.read(routesProvider).push('/parametro/tipospublicacion');
                     },
                   ),
@@ -131,6 +136,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     leading: const Icon(Icons.edit),
                     trailing: const Icon(Icons.arrow_right),
                     onTap: () {
+                      ref.read(routesProvider).pop();
                       ref.read(routesProvider).push('/parametro/ubicacion');
                     },
                   ),
@@ -150,6 +156,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     leading: const Icon(Icons.edit),
                     trailing: const Icon(Icons.arrow_right),
                     onTap: () {
+                      ref.read(routesProvider).pop();
                       ref.read(routesProvider).push('/parametro/facultad');
                     },
                   ),
@@ -161,7 +168,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
                   child: CupertinoListTile(
-                    title: Text('Carreraas',
+                    title: Text('Carreras',
                         style: GoogleFonts.poppins(color: Colors.white)),
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -169,6 +176,7 @@ class ParametrosPopUp extends ConsumerWidget {
                     leading: const Icon(Icons.edit),
                     trailing: const Icon(Icons.arrow_right),
                     onTap: () {
+                      ref.read(routesProvider).pop();
                       ref.read(routesProvider).push('/parametro/carrera');
                     },
                   ),
@@ -181,10 +189,11 @@ class ParametrosPopUp extends ConsumerWidget {
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  foregroundColor: Colors.purple // Background color
+                  shadowColor: Colors.white,
+                  side: const BorderSide(color: Colors.purple)
                   ),
-              icon: const Icon(Icons.close),
-              label: Text('Cerrar', style: GoogleFonts.poppins()),
+              icon: const Icon(Icons.close, color: Colors.purple,),
+              label: Text('Cerrar', style: GoogleFonts.poppins(color: Colors.purple)),
               onPressed: () {
                 ref.read(routesProvider).pop();
               },

@@ -1,147 +1,149 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/publicacion_controller.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/mostrar_usuario.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/widgets_publicacion.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:layout/layout.dart';
-import '../../../../widgets/menubutton.dart';
+// import 'package:auto_size_text/auto_size_text.dart';
+// import 'package:bibliotech_admin/pages/routed/publicacion/index_page/publicacion_controller.dart';
+// import 'package:bibliotech_admin/widgets/menubutton.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:layout/layout.dart';
 
-class PublicacionesPage extends StatelessWidget {
-  const PublicacionesPage({super.key});
+// import '../widgets/index.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const MenuButton(),
-        elevation: 0,
-        title: AutoSizeText('PUBLICACIONES',
-            style: GoogleFonts.poppins(color: Colors.black)),
-        backgroundColor: Colors.white,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: NuevaPublicacion(),
-          ),
-          SizedBox(width: 20),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: ParametrosPopUp(),
-          ),
-          VerticalDivider(),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: SizedBox(width: 280, child: Center(child: MostrarUsuario())),
-          ),
-          SizedBox(width: 20),
-        ],
-      ),
-      body: const Margin(
-        child: Column(
-          children: [
-            SizedBox(height: 20),
-            InputBusqueda(),
-            SizedBox(height: 5),
-            Resultados(),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// class PublicacionesPage extends StatelessWidget {
+  
+//   const PublicacionesPage({super.key});
 
-class BotonBusqueda extends ConsumerWidget {
-  const BotonBusqueda({
-    super.key,
-  });
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         leading: const MenuButton(),
+//         elevation: 0,
+//         title: AutoSizeText('PUBLICACIONES',
+//             style: GoogleFonts.poppins(color: Colors.black)),
+//         backgroundColor: Colors.white,
+//         actions: const [
+//           Padding(
+//             padding: EdgeInsets.symmetric(vertical: 10),
+//             child: NuevaPublicacion(),
+//           ),
+//           SizedBox(width: 20),
+//           Padding(
+//             padding: EdgeInsets.symmetric(vertical: 10),
+//             child: ParametrosPopUp(),
+//           ),
+//           VerticalDivider(),
+//           Padding(
+//             padding: EdgeInsets.symmetric(vertical: 10),
+//             child: SizedBox(width: 280, child: Center(child: MostrarUsuario())),
+//           ),
+//           SizedBox(width: 20),
+//         ],
+//       ),
+//       body: const Margin(
+//         child: Column(
+//           children: [
+//             SizedBox(height: 20),
+//             InputBusqueda(),
+//             SizedBox(height: 5),
+//             Resultados(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var inputTituloBusqueda = ref.watch(entradaBusquedaTituloProvider);
-    var inputAutorBusqueda = ref.watch(entradaBusquedaAutorProvider);
-    var inputAnioBusqueda = ref.watch(entradaBusquedaAnioProvider);
-    var inputISBNBusqueda = ref.watch(entradaBusquedaISBNProvider);
+// class BotonBusqueda extends ConsumerWidget {
+//   const BotonBusqueda({
+//     super.key,
+//   });
 
-    return ElevatedButton(
-      style: ButtonStyle(
-          backgroundColor: (inputTituloBusqueda.trim().isEmpty &&
-                  inputAutorBusqueda.trim().isEmpty &&
-                  inputAnioBusqueda.trim().isEmpty &&
-                  inputISBNBusqueda.trim().isEmpty)
-              ? const MaterialStatePropertyAll(Colors.grey)
-              : const MaterialStatePropertyAll(Colors.purple)),
-      onPressed: () {
-        if (inputTituloBusqueda.trim().isEmpty &&
-            inputAutorBusqueda.trim().isEmpty &&
-            inputAnioBusqueda.trim().isEmpty &&
-            inputISBNBusqueda.trim().isEmpty) {
-          ref.read(mostrarResultadosProvider.notifier).update((state) => false);
-          return;
-        }
-        ref.read(mostrarResultadosProvider.notifier).update((state) => true);
-        ref.invalidate(tablaResultadosProvider);
-      },
-      child: Text('Buscar resultados', style: GoogleFonts.poppins()),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     var inputTituloBusqueda = ref.watch(entradaBusquedaTituloProvider);
+//     var inputAutorBusqueda = ref.watch(entradaBusquedaAutorProvider);
+//     var inputAnioBusqueda = ref.watch(entradaBusquedaAnioProvider);
+//     var inputISBNBusqueda = ref.watch(entradaBusquedaISBNProvider);
 
-class Resultados extends ConsumerWidget {
-  const Resultados({
-    super.key,
-  });
+//     return ElevatedButton(
+//       style: ButtonStyle(
+//           backgroundColor: (inputTituloBusqueda.trim().isEmpty &&
+//                   inputAutorBusqueda.trim().isEmpty &&
+//                   inputAnioBusqueda.trim().isEmpty &&
+//                   inputISBNBusqueda.trim().isEmpty)
+//               ? const MaterialStatePropertyAll(Colors.grey)
+//               : const MaterialStatePropertyAll(Colors.purple)),
+//       onPressed: () {
+//         if (inputTituloBusqueda.trim().isEmpty &&
+//             inputAutorBusqueda.trim().isEmpty &&
+//             inputAnioBusqueda.trim().isEmpty &&
+//             inputISBNBusqueda.trim().isEmpty) {
+//           ref.read(mostrarResultadosProvider.notifier).update((state) => false);
+//           return;
+//         }
+//         ref.read(mostrarResultadosProvider.notifier).update((state) => true);
+//         ref.invalidate(tablaResultadosProvider);
+//       },
+//       child: Text('Buscar resultados', style: GoogleFonts.poppins()),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var tablaResultados = ref.watch(tablaResultadosProvider);
-    var mostrarResultados = ref.watch(mostrarResultadosProvider);
+// class Resultados extends ConsumerWidget {
+  
+//   const Resultados({
+//     super.key,
+//   });
 
-    return Expanded(
-      child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Visibility(
-            visible: mostrarResultados,
-            replacement: Visibility(
-              visible: !mostrarResultados,
-              child: IgnorePointer(
-                child: Center(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(),
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.info_outline),
-                          SizedBox(height: 5),
-                          Text('Debe llenar al menos 1 campo de búsqueda'),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            child: tablaResultados.when(
-              skipError: true,
-              skipLoadingOnRefresh: false,
-              error: (_, __) => const SizedBox(),
-              data: (data) => data,
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          )),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     var tablaResultados = ref.watch(tablaResultadosProvider);
+//     var mostrarResultados = ref.watch(mostrarResultadosProvider);
+
+//     return Expanded(
+//       child: Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 10),
+//           child: Visibility(
+//             visible: mostrarResultados,
+//             replacement: Visibility(
+//               visible: !mostrarResultados,
+//               child: IgnorePointer(
+//                 child: Center(
+//                   child: DecoratedBox(
+//                     decoration: BoxDecoration(
+//                       color: Colors.white,
+//                       border: Border.all(),
+//                       borderRadius: const BorderRadius.all(Radius.circular(5)),
+//                     ),
+//                     child: const Padding(
+//                       padding: EdgeInsets.all(10),
+//                       child: Column(
+//                         mainAxisSize: MainAxisSize.min,
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: [
+//                           Icon(Icons.info_outline),
+//                           SizedBox(height: 5),
+//                           Text('Debe llenar al menos 1 campo de búsqueda'),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             child: tablaResultados.when(
+//               skipError: true,
+//               skipLoadingOnRefresh: false,
+//               error: (_, __) => const SizedBox(),
+//               data: (data) => data,
+//               loading: () => const Center(
+//                 child: CircularProgressIndicator(),
+//               ),
+//             ),
+//           )),
+//     );
+//   }
+// }
 
 /*
 class RowLazyPaginationScreen extends ConsumerStatefulWidget {

@@ -6,9 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'acciones_publicacion.dart';
+import 'acciones_publicacion.widget.dart';
 
 class TablaPublicaciones extends ConsumerStatefulWidget {
+  
   final List<PlutoRow> rows;
 
   const TablaPublicaciones({

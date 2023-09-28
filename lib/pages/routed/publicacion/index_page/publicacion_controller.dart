@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
-import 'widgets/widgets_publicacion.dart';
+import 'widgets/index.dart';
 
 final entradaBusquedaTituloProvider = StateProvider<String>((ref) {
   return '';

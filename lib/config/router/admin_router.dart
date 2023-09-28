@@ -8,27 +8,30 @@ import 'package:bibliotech_admin/pages/parametrospages/editorial/pages/indexEdit
 import 'package:bibliotech_admin/pages/parametrospages/facultad/pages/indexFacultades.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/pages/indexTipoPublicacion.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/ubicacion/pages/indexUbicaciones.page.dart';
-import 'package:bibliotech_admin/pages/routed/autenticacion/login.dart';
+import 'package:bibliotech_admin/pages/routed/autenticacion/page/login.dart';
 import 'package:bibliotech_admin/pages/routed/multa/multas.dart';
 import 'package:bibliotech_admin/pages/routed/prestamos/prestamos.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/detalle_page/detalle_publicacion.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/publicaciones_page.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/widgets_publicacion.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/index_page/pages/publicaciones.page.dart';
 import 'package:bibliotech_admin/pages/routed/reporte/reportes.dart';
 import 'package:bibliotech_admin/pages/routed/usuario/usuarios.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../pages/routed/publicacion/index_page/widgets/index.dart';
+
 
 final routesProvider = Provider<GoRouter>((ref) {
-  return GoRouter(routes: [
+  return GoRouter(
+    routerNeglect: true,
+    routes: [
     GoRoute(
       path: '/',
       builder: (_, __) => LoginPage(),
     ),
     GoRoute(
       path: '/publicacion',
-      builder: (_, __) => const PublicacionesPage(),
+      builder: (_, __) => const PublicacionesIndex(),
     ),
     GoRoute(
       path: '/publicacion/create',

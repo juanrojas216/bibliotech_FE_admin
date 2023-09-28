@@ -7,3 +7,5 @@ export 'expTitulo.validacion.dart';
 export 'sinCaracteresSinEspacio.validation.dart';
 export 'sinCaracteresConEspacio.validation.dart';
 export 'menorFechaActual.validation.dart';
+export 'email.validation.dart';
+export 'password.validation.dart';

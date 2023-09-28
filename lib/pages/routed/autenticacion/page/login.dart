@@ -1,9 +1,11 @@
-import 'package:bibliotech_admin/config/auth/token_admin.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/publicaciones_page.dart';
-import 'package:bibliotech_admin/widgets/result_dialog.dart';
+import 'package:bibliotech_admin/config/auth/get_token.controller.dart';
+import 'package:bibliotech_admin/config/auth/inicio_sesion.dto.dart';
+import 'package:bibliotech_admin/pages/routed/autenticacion/validations/login.validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../widgets/iniciarSesionPopup.page.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   LoginPage({super.key});
@@ -36,17 +38,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   children: [
                     const SizedBox(height: 30),
                     TextFormField(
-                      // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onChanged: (value) {
                         email = value;
-                      },
-                      validator: (value) {
-                        if (value != null) {
-                          if (value.length >= 6) {
-                            return null;
-                          }
-                        }
-                        return 'Error en el dato ingresado.';
+                        setState(() {});
                       },
                       style: GoogleFonts.poppins(),
                       decoration: InputDecoration(
@@ -62,14 +56,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       obscureText: true,
                       onChanged: (value) {
                         password = value;
-                      },
-                      validator: (value) {
-                        if (value != null) {
-                          if (value.trim().length >= 4) {
-                            return null;
-                          }
-                        }
-                        return 'Error en la contraseña ingresada.';
+                        setState(() {});
                       },
                       style: GoogleFonts.poppins(),
                       decoration: InputDecoration(
@@ -83,20 +70,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     const SizedBox(height: 30),
                     ElevatedButton(
                         onPressed: () {
-                          bool isOk = widget._formKey.currentState!.validate();
-                          if (isOk) {
-                            // ref
-                            //     .read(routesProvider)
-                            //     .pushReplacement('/publicacion');
-                            showDialog(
+                          if(!loginValidacion(email, password)) return;
+                          showDialog(
                               context: context,
-                              builder: (_) => IngresoLogin(entidad: {
-                                "email": email,
-                                "password": password
-                              }),
-                            );
-                          }
+                              builder: (_) => IniciarSesion(
+                                  nombreProvider: getTokenProvider(InicioSesionDto(email, password)),
+                                  mensajeResult: 'SESIÓN INICIADA CON ÉXITO',
+                                  mensajeError: 'ERROR AL INICIAR SESIÓN'));
                         },
+                        style: ButtonStyle(
+                          backgroundColor: loginValidacion(email, password)
+                            ? const MaterialStatePropertyAll(Colors.purple) 
+                            : const MaterialStatePropertyAll(Colors.grey)
+                        ),
                         child: Text('Iniciar Sesión',
                             style: GoogleFonts.poppins()))
                   ],
@@ -110,24 +96,4 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 }
 
-class IngresoLogin extends ConsumerWidget {
-  final Map<String, String> entidad;
 
-  const IngresoLogin({
-    required this.entidad,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var addEntidad = ref.watch(tokenProvider(entidad));
-
-    return addEntidad.when(
-      data: (_) => const PublicacionesPage(),
-      error: (_, __) => const ResultDialog(
-          iconDialog: Icon(Icons.error),
-          messageDialog: "No se a podidio iniciar sesión"),
-      loading: () => const AlertDialog(content: LinearProgressIndicator()),
-    );
-  }
-}
