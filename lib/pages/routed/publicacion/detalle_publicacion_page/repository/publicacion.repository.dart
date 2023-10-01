@@ -1,30 +1,23 @@
-import 'dart:js_interop';
 
 import 'package:bibliotech_admin/new_models/index.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/create_publicacion.dto.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/link.dto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final publicacionDtoProvider =
-    StateNotifierProvider<PublicacionDtoNotifier, PublicacionDto>((ref) {
-  return PublicacionDtoNotifier();
+final publicacionProvider =
+    StateNotifierProvider<PublicacionNotifier, Publicacion>((ref) {
+  return PublicacionNotifier();
 });
 
-class PublicacionDtoNotifier extends StateNotifier<PublicacionDto> {
-  PublicacionDtoNotifier()
-      : super(
-          PublicacionDto(
-              anioPublicacion: 0,
-              isbnPublicacion: '0',
-              tituloPublicacion: 'Titulo',
-              nroPaginas: 0,
-              autores: [],
-              edicion: null,
-              link: LinkDto(url: null, estado: null, plataformaId: null), 
-              categorias: [],
-              tipo: null,
-              editoriales: []),
-        );
+class PublicacionNotifier extends StateNotifier<Publicacion> {
+  PublicacionNotifier()
+      : super( 
+        Publicacion(
+          id: 0, anioPublicacion: 0, isbnPublicacion: '0', tituloPublicacion: 'Titulo', nroPaginas: 0, autores: [], edicion: Edicion(id: 0, nombre: 'Edicion'), link: Link(id: 0, url: 'url', estado: 'estado', plataforma: Plataforma(id: 0, nombre: 'Plataforma', url: 'url', instrucciones: 'instrucciones')), categorias: [], tipo: TipoPublicacion(id: 0, nombre: 'Tipo'), editoriales: [], comentarios: [], ejemplares: [],
+        ),
+      );
+
+  actualizarPublicacion(Publicacion publicacion){
+    state = publicacion.copyWith();
+  }
 
   actualizarAnio(int anio) {
     state.anioPublicacion = anio;
@@ -108,28 +101,16 @@ class PublicacionDtoNotifier extends StateNotifier<PublicacionDto> {
   }
 
   actualizarLinkUrl(String url){
-    if (state.link.isNull) {
-      state = state.copyWith(link: LinkDto(url: url, estado: null, plataformaId: null));
-      return;
-    }
     state.link.url = url;
     state = state.copyWith();
   }
 
-  actualizarLinkPlataforma(int id){
-    if (state.link.isNull) {
-      state = state.copyWith(link: LinkDto(url: null, estado: null, plataformaId: id));
-      return;
-    }
-    state.link.plataformaId = id;
+  actualizarLinkPlataforma(Plataforma plataforma){
+    state.link.plataforma = plataforma;
     state = state.copyWith();
   }
 
   actualizarLinkEstado(String estado){
-    if (state.link.isNull) {
-      state = state.copyWith(link: LinkDto(url: null, estado: estado, plataformaId: null));
-      return;
-    }
     state.link.estado = estado;
     state = state.copyWith();
   }

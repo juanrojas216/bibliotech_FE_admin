@@ -70,21 +70,21 @@ void accionesPublicacion(BuildContext context, WidgetRef ref) {
           const SizedBox(
             height: 10,
           ),
-          DecoratedBox(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(16)),
-            child: CupertinoListTile.notched(
-              onTap: () {},
-              leading: const Icon(Icons.link),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              title: Text(
-                'Link digital',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(),
-              ),
-            ),
-          ),
+          // DecoratedBox(
+          //   decoration: BoxDecoration(
+          //       border: Border.all(color: Colors.grey),
+          //       borderRadius: BorderRadius.circular(16)),
+          //   child: CupertinoListTile.notched(
+          //     onTap: () {},
+          //     leading: const Icon(Icons.link),
+          //     trailing: const Icon(Icons.arrow_forward_ios),
+          //     title: Text(
+          //       'Link digital',
+          //       textAlign: TextAlign.center,
+          //       style: GoogleFonts.poppins(),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
       actionsAlignment: MainAxisAlignment.center,

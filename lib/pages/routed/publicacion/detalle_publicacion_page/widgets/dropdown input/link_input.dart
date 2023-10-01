@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../repository/publicacionDto.repository.dart';
+import '../../repository/publicacion.repository.dart';
 
 class LinkInput extends ConsumerWidget {
   const LinkInput({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var publicacionDto = ref.watch(publicacionDtoProvider);
+    var publicacionDto = ref.watch(publicacionProvider);
     var tipos = ref.watch(getAllPlataformasProvider);
 
     return tipos.when(
@@ -31,7 +31,7 @@ class LinkInput extends ConsumerWidget {
                       isDense: true,
                       isExpanded: true,
                       hint: const Text('PLATAFORMA'),
-                      value: publicacionDto.link.plataformaId,
+                      value: publicacionDto.link.plataforma.id,
                       style: TextStyle(
                           fontFamily: GoogleFonts.poppins.toString(),
                           fontSize: 14),
@@ -44,8 +44,8 @@ class LinkInput extends ConsumerWidget {
                       onChanged: (value) {
                         if (value != null) {
                           ref
-                              .read(publicacionDtoProvider.notifier)
-                              .actualizarLinkPlataforma(value);
+                              .read(publicacionProvider.notifier)
+                              .actualizarLinkPlataforma(ref.read(plataformasProvider).firstWhere((p) => p.id == value));
                         }
                       },
                     ),
@@ -55,7 +55,7 @@ class LinkInput extends ConsumerWidget {
                 Expanded(
                   child: TextFormField(
                     onChanged: (value) => ref
-                        .read(publicacionDtoProvider.notifier)
+                        .read(publicacionProvider.notifier)
                         .actualizarLinkUrl(value),
                     decoration: InputDecoration(
                       isDense: true,
@@ -93,7 +93,7 @@ class LinkInput extends ConsumerWidget {
                       onChanged: (value) {
                         if (value != null) {
                           ref
-                              .read(publicacionDtoProvider.notifier)
+                              .read(publicacionProvider.notifier)
                               .actualizarLinkEstado(value);
                         }
                       },

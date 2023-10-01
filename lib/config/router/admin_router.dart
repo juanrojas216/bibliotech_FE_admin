@@ -12,7 +12,7 @@ import 'package:bibliotech_admin/pages/routed/autenticacion/page/login.dart';
 import 'package:bibliotech_admin/pages/routed/multa/multas.dart';
 import 'package:bibliotech_admin/pages/routed/prestamos/prestamos.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/pages/create_publicacion.page.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/detalle_page/detalle_publicacion.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/detalle_publicacion_page/pages/update_publicacion.page.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/index_page/pages/publicaciones.page.dart';
 import 'package:bibliotech_admin/pages/routed/reporte/reportes.dart';
 import 'package:bibliotech_admin/pages/routed/usuario/usuarios.dart';
@@ -60,7 +60,7 @@ final routesProvider = Provider<GoRouter>((ref) {
     ),
     GoRoute(
       path: '/publicacion/detalle',
-      builder: (_, rs) => DetallePublicacion(publicacionId: rs.extra as int),
+      builder: (_, rs) => UpdatePublicacionPage(publicacionId: rs.extra as int),
     ),
     GoRoute(
       path: '/parametro/editorial',
