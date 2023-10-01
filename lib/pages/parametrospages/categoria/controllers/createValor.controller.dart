@@ -6,12 +6,13 @@ import 'package:bibliotech_admin/new_models/index.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categoria/dto/valor.dto.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categoria/repository/categorias.repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:simple_logger/simple_logger.dart';
 
 
 final createValorProvider = FutureProvider.family<void, ValorDto>((ref, valorDto) async {
   
   var response = await ref.watch(apiProvider).request(
-    '/valores',
+    '/categoria-valores',
     method: HttpMethod.post,
     body: valorDto.toMap(),
     parser: valorFromJson,
@@ -19,8 +20,10 @@ final createValorProvider = FutureProvider.family<void, ValorDto>((ref, valorDto
 
   if (response.error != null) {
     throw response.error!;
+  } else {
+    var logger = SimpleLogger();
+    logger.info(response.data!.toJson());
   }
-
   ref.read(categoriasProvider.notifier).update((state) {
     for (var c in state) { 
       if(c.id == valorDto.idCategoria){
@@ -28,6 +31,6 @@ final createValorProvider = FutureProvider.family<void, ValorDto>((ref, valorDto
       }
       continue;
     }
-    return state;
+    return [...state];
   });
 });

@@ -23,10 +23,20 @@ class AutorEditar extends ConsumerStatefulWidget {
 
 class _AutorEditarState extends ConsumerState<AutorEditar> {
   
-  String nombre = '';
-  DateTime fechaNacimiento = DateTime(2000, 1, 12);
-  String nacionalidad = '';
-  String biografia = '';
+  late String nombre;
+  late DateTime fechaNacimiento;
+  late String nacionalidad;
+  late String biografia;
+
+  @override
+  void initState() {
+    super.initState();
+    var autor = ref.read(autoresProvider).firstWhere((e) => e.id == widget.idAutor);
+    nombre = autor.nombre; 
+    fechaNacimiento = autor.fechaNacimiento; 
+    nacionalidad = autor.nacionalidad; 
+    biografia = autor.biografia; 
+  }
 
   @override
   Widget build(BuildContext context) {

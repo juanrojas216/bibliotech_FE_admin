@@ -15,6 +15,7 @@ class EditorialAdd extends ConsumerStatefulWidget {
 }
 
 class _AddEdicionState extends ConsumerState<EditorialAdd> {
+  
   String nombreEditorial = '';
 
   @override
@@ -23,7 +24,7 @@ class _AddEdicionState extends ConsumerState<EditorialAdd> {
       title: Text('Nueva editorial',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: nombreEditorial,
         onChanged: (value) => {
           nombreEditorial = value,
           setState(() {}),

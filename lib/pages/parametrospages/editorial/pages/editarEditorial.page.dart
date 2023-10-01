@@ -19,7 +19,14 @@ class EditorialEditar extends ConsumerStatefulWidget {
 }
 
 class _EditorialEditarState extends ConsumerState<EditorialEditar> {
-  var editorial = '';
+  
+  late String editorial;
+
+  @override
+  void initState() {
+    super.initState();
+    editorial = ref.read(editorialesProvider).firstWhere((e) => e.id == widget.idEditorial).nombre;
+  }
 
   @override
   Widget build(BuildContext context) {

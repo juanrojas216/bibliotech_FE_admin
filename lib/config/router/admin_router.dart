@@ -1,16 +1,17 @@
 
-import 'package:bibliotech_admin/pages/creatorpages/Publicacion/nueva_publicacion.dart';
 import 'package:bibliotech_admin/pages/parametrospages/autor/pages/indexAutores.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/carrerra/pages/indexCarreras.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categoria/pages/indexCategorias.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/edicion/pages/indexEdiciones.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/editorial/pages/indexEditoriales.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/facultad/pages/indexFacultades.page.dart';
+import 'package:bibliotech_admin/pages/parametrospages/plataforma/pages/indexPlataformas.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/pages/indexTipoPublicacion.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/ubicacion/pages/indexUbicaciones.page.dart';
 import 'package:bibliotech_admin/pages/routed/autenticacion/page/login.dart';
 import 'package:bibliotech_admin/pages/routed/multa/multas.dart';
 import 'package:bibliotech_admin/pages/routed/prestamos/prestamos.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/pages/create_publicacion.page.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/detalle_page/detalle_publicacion.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/index_page/pages/publicaciones.page.dart';
 import 'package:bibliotech_admin/pages/routed/reporte/reportes.dart';
@@ -35,7 +36,7 @@ final routesProvider = Provider<GoRouter>((ref) {
     ),
     GoRoute(
       path: '/publicacion/create',
-      builder: (_, __) => const NuevaPublicacionPage(),
+      builder: (_, __) => const CreatePublicacionPage(),
     ),
     GoRoute(
       path: '/multa',
@@ -92,6 +93,10 @@ final routesProvider = Provider<GoRouter>((ref) {
     GoRoute(
       path: '/parametro/carrera',
       builder: (_, __) => const CarrerasIndex(),
+    ),
+    GoRoute(
+      path: '/parametro/plataforma',
+      builder: (_, __) => const PlataformasIndex(),
     ),
   ]);
 });

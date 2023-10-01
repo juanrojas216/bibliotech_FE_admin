@@ -23,7 +23,7 @@ class _AddEdicionState extends ConsumerState<EdicionAdd> {
       title: Text('Nueva edicion',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: nombreEdicion,
         onChanged: (value) => {
           nombreEdicion = value,
           setState(() {}),

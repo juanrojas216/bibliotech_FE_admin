@@ -23,7 +23,7 @@ class _TipoPublicacionState extends ConsumerState<TipoPublicacionAdd> {
       title: Text('Nuevo tipo de publicación',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: nombreTipoPublicacion,
         onChanged: (value) => {
           nombreTipoPublicacion = value,
           setState(() {}),

@@ -9,3 +9,5 @@ export 'sinCaracteresConEspacio.validation.dart';
 export 'menorFechaActual.validation.dart';
 export 'email.validation.dart';
 export 'password.validation.dart';
+export 'url.validation.dart';
+export 'anio.validation.dart';

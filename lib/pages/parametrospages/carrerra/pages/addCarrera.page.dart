@@ -24,7 +24,6 @@ class _AddCarreraState extends ConsumerState<CarreraAdd> {
       title: Text('Nueva carrera',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
         onChanged: (value) => {
           nombreCarrera = value,
           setState(() {}),

@@ -1,7 +1,8 @@
-import 'package:bibliotech_admin/pages/routed/publicacion/detalle_page/detalle_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../repository/detallep.repository.dart';
 
 class TituloInput extends ConsumerWidget {
   const TituloInput({super.key});

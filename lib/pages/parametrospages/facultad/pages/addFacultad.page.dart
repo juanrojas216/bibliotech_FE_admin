@@ -24,7 +24,7 @@ class _AddFacultadState extends ConsumerState<FacultadAdd> {
       title: Text('Nueva facultad',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: nombreFacultad,
         onChanged: (value) => {
           nombreFacultad = value,
           setState(() {}),

@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:layout/layout.dart';
 
-import 'widgets/widgets_detallep.dart';
+import 'widgets/index.dart';
 
 class DetallePublicacion extends ConsumerWidget {
   final int publicacionId;

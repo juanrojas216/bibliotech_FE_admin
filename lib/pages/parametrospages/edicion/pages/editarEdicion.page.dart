@@ -20,7 +20,13 @@ class EdicionEditar extends ConsumerStatefulWidget {
 
 class _EdicionEditarState extends ConsumerState<EdicionEditar> {
 
-  String edicion = '';
+  late String edicion;
+
+  @override
+  void initState() {
+    super.initState();
+    edicion = ref.read(edicionesProvider).firstWhere((element) => element.id == widget.idEdicion).nombre;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class _EdicionEditarState extends ConsumerState<EdicionEditar> {
       title: Text('Editar edicion',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: edicion,
         onChanged: (value) => {
           edicion = value,
           setState(() {}),

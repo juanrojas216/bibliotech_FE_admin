@@ -20,7 +20,13 @@ class FacultadEditar extends ConsumerStatefulWidget {
 
 class _FacultadEditarState extends ConsumerState<FacultadEditar> {
 
-  String facultad = '';
+  late String facultad;
+
+  @override
+  void initState() {
+    super.initState();
+    facultad = ref.read(facultadesProvider).firstWhere((e) => e.id == widget.idFacultad).nombre;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class _FacultadEditarState extends ConsumerState<FacultadEditar> {
       title: Text('Editar facultad',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: facultad,
         onChanged: (value) => {
           facultad = value,
           setState(() {}),

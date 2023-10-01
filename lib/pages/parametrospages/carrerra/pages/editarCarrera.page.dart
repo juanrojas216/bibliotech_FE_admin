@@ -21,7 +21,13 @@ class CarreraEditar extends ConsumerStatefulWidget {
 
 class _CarreraEditarState extends ConsumerState<CarreraEditar> {
 
-  String carrera = '';
+  late String carrera;
+
+  @override
+  void initState() {
+    super.initState();
+    carrera = ref.read(carrerasProvider).firstWhere((e) => e.id == widget.idCarrera).nombre;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,7 @@ class _CarreraEditarState extends ConsumerState<CarreraEditar> {
       title: Text('Editar carrera',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: carrera,
         onChanged: (value) => {
           carrera = value,
           setState(() {}),

@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final updateValorProvider = FutureProvider.family<void, Valor>((ref, valor) async {
   var response = await ref.watch(apiProvider).request(
-        '/valores/${valor.id}',
+        '/categoria-valores/${valor.id}',
         method: HttpMethod.put,
-        body: valor.toJson(),
+        body: valorToJson(valor),
       );
 
   if (response.error != null) {
@@ -24,6 +24,6 @@ final updateValorProvider = FutureProvider.family<void, Valor>((ref, valor) asyn
         return v;
       }).toList();
     }
-    return value;
+    return [...value];
   });
 });

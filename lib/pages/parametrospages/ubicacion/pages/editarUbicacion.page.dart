@@ -4,32 +4,40 @@ import 'package:bibliotech_admin/pages/parametrospages/ubicacion/repository/ubic
 import 'package:bibliotech_admin/pages/parametrospages/ubicacion/validations/descripcionUbicacion.validation.dart';
 import 'package:bibliotech_admin/widgets/eliminar_entidad.dart';
 import 'package:bibliotech_admin/widgets/modificar_entidad.dart';
+import 'package:bibliotech_admin/widgets/result_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UbicacionEditar extends ConsumerStatefulWidget {
-  
   final int idUbicacion;
 
   const UbicacionEditar(this.idUbicacion, {super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _UbicacionEditarState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _UbicacionEditarState();
 }
 
 class _UbicacionEditarState extends ConsumerState<UbicacionEditar> {
+  late String ubicacion;
 
-  String ubicacion = '';
+  @override
+  void initState() {
+    super.initState();
+    ubicacion = ref
+        .read(ubicacionesProvider)
+        .firstWhere((e) => e.id == widget.idUbicacion)
+        .descripcion;
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
       title: Text('Editar ubicación',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: ubicacion,
         onChanged: (value) => {
           ubicacion = value,
           setState(() {}),
@@ -71,6 +79,20 @@ class _UbicacionEditarState extends ConsumerState<UbicacionEditar> {
               backgroundColor: MaterialStatePropertyAll(Colors.redAccent)),
           onPressed: () {
             ref.read(routesProvider).pop();
+            if (ref
+                .read(ubicacionesProvider)
+                .firstWhere((e) => e.id == widget.idUbicacion)
+                .ocupada) {
+              showDialog(
+                context: context,
+                builder: (_) => const ResultDialog(
+                  iconDialog: Icon(Icons.error),
+                  messageDialog:
+                      'Ubicación ocupada, desocúpela para poder eliminarla.',
+                ),
+              );
+              return;
+            }
             showDialog(
                 context: context,
                 builder: (_) => EliminarEntidad(
@@ -92,4 +114,3 @@ class _UbicacionEditarState extends ConsumerState<UbicacionEditar> {
     );
   }
 }
-

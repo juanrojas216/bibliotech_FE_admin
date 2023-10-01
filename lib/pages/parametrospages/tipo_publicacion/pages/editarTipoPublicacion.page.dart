@@ -20,7 +20,14 @@ class TipoPublicacionEditar extends ConsumerStatefulWidget {
 }
 
 class _TipoPublicacionEditarState extends ConsumerState<TipoPublicacionEditar> {
-  var tipoPublicacion = '';
+  
+  late String tipoPublicacion;
+
+  @override
+  void initState() {
+    super.initState();
+    tipoPublicacion = ref.read(tiposPublicacionProvider).firstWhere((e) => e.id == widget.idTipoPublicacion).nombre;
+  }
 
   @override
   Widget build(BuildContext context) {

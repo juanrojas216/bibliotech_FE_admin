@@ -82,7 +82,7 @@ class _AddEditorialState extends ConsumerState<AutorAdd> {
                 const SizedBox(height: 20),
                 TextFormField(
                   maxLines: 15,
-                  initialValue: '  ',
+                  initialValue: 'Biografía...',
                   onChanged: (value) => {
                     biografia = value,
                     setState(() {}),

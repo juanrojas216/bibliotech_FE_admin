@@ -95,7 +95,7 @@ class CategoriasIndex extends ConsumerWidget {
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) =>
-                                                          const ValorAdd());
+                                                          ValorAdd(categorias[index].id));
                                                 },
                                                 child: Text('Agregar valor',
                                                     style: GoogleFonts.poppins(

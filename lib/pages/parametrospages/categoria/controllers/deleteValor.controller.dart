@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final deleteValorProvider = FutureProvider.family<void, int>((ref, id) async {
   
   var response = await ref.watch(apiProvider).request(
-        '/valores/$id',
+        '/categoria-valores/$id',
         method: HttpMethod.delete,
   );
 
@@ -18,6 +18,6 @@ final deleteValorProvider = FutureProvider.family<void, int>((ref, id) async {
     for (var c in value) {
       c.valores = c.valores.where((v) => v.id != id).toList();
     }
-    return value;
+    return [...value];
   });
 });

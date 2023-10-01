@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/index.dart';
+import '../dto/categoria.dto.dart';
 import '../validations/nombreCategoria.validation.dart';
 
 class CategoriaAdd extends ConsumerStatefulWidget {
@@ -24,7 +25,7 @@ class _AddCategoriaState extends ConsumerState<CategoriaAdd> {
       title: Text('Nueva cateogoria',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: nombreCategoria,
         onChanged: (value) => {
           nombreCategoria = value,
           setState(() {}),
@@ -44,8 +45,8 @@ class _AddCategoriaState extends ConsumerState<CategoriaAdd> {
               ref.read(routesProvider).pop();
               showDialog(
                   context: context,
-                  builder: (_) => CrearEntidad<String>(
-                        entidad: nombreCategoria,
+                  builder: (_) => CrearEntidad<CategoriaDto>(
+                        entidad: CategoriaDto(nombre: nombreCategoria),
                         nombreProvider: createCategoriaProvider,
                         mensajeResult: 'CATEGORÍA CREADA',
                         mensajeError: 'ERROR AL CREAR CATEGORÍA',

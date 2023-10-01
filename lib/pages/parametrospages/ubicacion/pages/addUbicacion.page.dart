@@ -25,7 +25,7 @@ class _AddUbicacionState extends ConsumerState<UbicacionAdd> {
       title: Text('Nueva ubicacion',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: descripcion,
         onChanged: (value) => {
           descripcion = value,
           setState(() {}),

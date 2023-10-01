@@ -21,7 +21,14 @@ class CategoriaEditar extends ConsumerStatefulWidget {
 }
 
 class _CategoriaEditarState extends ConsumerState<CategoriaEditar> {
-  var categoria = '';
+  
+  late String categoria;
+
+  @override
+  void initState() {
+    super.initState();
+    categoria = ref.read(categoriasProvider).firstWhere((e) => e.id == widget.idCategoria).nombre;
+  }
 
   @override
   Widget build(BuildContext context) {

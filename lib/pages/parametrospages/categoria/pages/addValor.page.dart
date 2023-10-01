@@ -1,4 +1,5 @@
 import 'package:bibliotech_admin/config/router/admin_router.dart';
+import 'package:bibliotech_admin/pages/parametrospages/categoria/dto/valor.dto.dart';
 import 'package:bibliotech_admin/widgets/crear_entidad.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +9,10 @@ import '../controllers/index.dart';
 import '../validations/nombreValor.validation.dart';
 
 class ValorAdd extends ConsumerStatefulWidget {
-  const ValorAdd({super.key});
+  
+  final int idCategoria;
+  
+  const ValorAdd(this.idCategoria, {super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _AddValorState();
@@ -24,7 +28,7 @@ class _AddValorState extends ConsumerState<ValorAdd> {
       title: Text('Nuevo valor de categoría',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: TextFormField(
-        initialValue: '',
+        initialValue: nombreValor,
         onChanged: (value) => {
           nombreValor = value,
           setState(() {}),
@@ -44,8 +48,8 @@ class _AddValorState extends ConsumerState<ValorAdd> {
               ref.read(routesProvider).pop();
               showDialog(
                   context: context,
-                  builder: (_) => CrearEntidad<String>(
-                        entidad: nombreValor,
+                  builder: (_) => CrearEntidad<ValorDto>(
+                        entidad: ValorDto(idCategoria: widget.idCategoria, nombre: nombreValor),
                         nombreProvider: createValorProvider,
                         mensajeResult: 'VALOR DE CATEGORÍA CREADA',
                         mensajeError: 'ERROR AL CREAR VALOR DE CATEGORÍA',

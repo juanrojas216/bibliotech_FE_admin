@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../detalle_controller.dart';
+import '../repository/detallep.repository.dart';
+
 
 class IsbnInput extends ConsumerWidget {
   const IsbnInput({super.key});

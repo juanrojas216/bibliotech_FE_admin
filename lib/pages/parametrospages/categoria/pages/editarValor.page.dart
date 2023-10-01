@@ -22,7 +22,19 @@ class ValorEditar extends ConsumerStatefulWidget {
 
 class _ValorEditarState extends ConsumerState<ValorEditar> {
   
-  String valor = '';
+  late String valor;
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(categoriasProvider).forEach((e) {
+      for (var v in e.valores) { 
+        if (v.id == widget.idValor) {
+          valor = v.nombre;
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
