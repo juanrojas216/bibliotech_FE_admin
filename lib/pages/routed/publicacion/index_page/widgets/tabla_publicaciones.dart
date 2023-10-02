@@ -104,7 +104,7 @@ class TablaPublicacionesState extends ConsumerState<TablaPublicaciones> {
       ),
       mode: PlutoGridMode.select,
       onRowDoubleTap: (e) {
-        accionesPublicacion(context, ref);
+        accionesPublicacion(context, ref, e.rowIdx);
       },
       createFooter: (stateManager) {
         stateManager.setPageSize(20, notify: true);

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bibliotech_admin/new_models/comentario.dart';
+import 'package:bibliotech_admin/new_models/index.dart';
 
 List<Ejemplar> ejemplaresFromJson(dynamic data) {
   List<dynamic> str = data;
@@ -24,8 +24,8 @@ class Ejemplar {
     int id;
     int serialNfc;
     List<Comentario> comentarios;
-    List<dynamic> estados;
-    String ubicacion;
+    List<EjemplarEstado> estados;
+    Ubicacion? ubicacion;
 
     Ejemplar({
         required this.id,
@@ -39,8 +39,8 @@ class Ejemplar {
         int? id,
         int? serialNfc,
         List<Comentario>? comentarios,
-        List<dynamic>? estados,
-        String? ubicacion,
+        List<EjemplarEstado>? estados,
+        Ubicacion? ubicacion,
     }) => 
         Ejemplar(
             id: id ?? this.id,
@@ -53,16 +53,16 @@ class Ejemplar {
     factory Ejemplar.fromJson(Map<String, dynamic> json) => Ejemplar(
         id: json["id"],
         serialNfc: json["serialNFC"],
-        comentarios: List<Comentario>.from(json["comentarios"].map((x) => x)),
-        estados: List<dynamic>.from(json["estados"].map((x) => x)),
-        ubicacion: json["ubicacion"],
+        comentarios: List<Comentario>.from(json["comentarios"].map((x) => Comentario.fromJson(x))),
+        estados: List<EjemplarEstado>.from(json["estados"].map((x) => EjemplarEstado.fromJson(x))),
+        ubicacion: json["ubicacion"].isNull ? null : Ubicacion.fromJson(json["ubicacion"]),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "serialNFC": serialNfc,
-        "comentarios": List<dynamic>.from(comentarios.map((x) => x)),
-        "estados": List<dynamic>.from(estados.map((x) => x)),
+        "comentarios": List<dynamic>.from(comentarios.map((x) => x.toJson())),
+        "estados": List<dynamic>.from(estados.map((x) => x.toJson())),
         "ubicacion": ubicacion,
     };
 }

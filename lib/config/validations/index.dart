@@ -11,3 +11,5 @@ export 'email.validation.dart';
 export 'password.validation.dart';
 export 'url.validation.dart';
 export 'anio.validation.dart';
+export 'serialNFC.validation.dart';
+export 'soloNumeros.validation.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void accionesPublicacion(BuildContext context, WidgetRef ref) {
+void accionesPublicacion(BuildContext context, WidgetRef ref, int id) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -20,7 +20,7 @@ void accionesPublicacion(BuildContext context, WidgetRef ref) {
               onTap: () {
                 ref
                     .read(routesProvider)
-                    .push('/publicacion/detalle', extra: 1);
+                    .push('/publicacion/detalle', extra: id);
               },
               leading: const Icon(Icons.plagiarism_outlined),
               trailing: const Icon(Icons.arrow_forward_ios),
@@ -39,7 +39,11 @@ void accionesPublicacion(BuildContext context, WidgetRef ref) {
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(16)),
             child: CupertinoListTile.notched(
-              onTap: () {},
+              onTap: () {
+                ref
+                    .read(routesProvider)
+                    .push('/publicacion/comentarios', extra: id);
+              },
               leading: const Icon(Icons.comment),
               trailing: const Icon(Icons.arrow_forward_ios),
               title: Text(
@@ -57,7 +61,11 @@ void accionesPublicacion(BuildContext context, WidgetRef ref) {
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(16)),
             child: CupertinoListTile.notched(
-              onTap: () {},
+              onTap: () {
+                ref
+                    .read(routesProvider)
+                    .push('/publicacion/ejemplares', extra: id);
+              },
               leading: const Icon(Icons.account_tree_outlined),
               trailing: const Icon(Icons.arrow_forward_ios),
               title: Text(
@@ -70,21 +78,6 @@ void accionesPublicacion(BuildContext context, WidgetRef ref) {
           const SizedBox(
             height: 10,
           ),
-          // DecoratedBox(
-          //   decoration: BoxDecoration(
-          //       border: Border.all(color: Colors.grey),
-          //       borderRadius: BorderRadius.circular(16)),
-          //   child: CupertinoListTile.notched(
-          //     onTap: () {},
-          //     leading: const Icon(Icons.link),
-          //     trailing: const Icon(Icons.arrow_forward_ios),
-          //     title: Text(
-          //       'Link digital',
-          //       textAlign: TextAlign.center,
-          //       style: GoogleFonts.poppins(),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
       actionsAlignment: MainAxisAlignment.center,
