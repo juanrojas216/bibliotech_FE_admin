@@ -1,18 +1,18 @@
-import 'package:bibliotech_admin/new_models/index.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/detalle_publicacion_page/controllers/getPublicacion.controller.dart';
 import 'package:bibliotech_admin/widgets/modificar_entidad.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:layout/layout.dart';
 
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/mostrar_usuario.dart';
 
 import '../controllers/updatePublicacion.controller.dart';
-import '../repository/publicacion.repository.dart';
+import '../../../../../config/router/admin_router.dart';
+import '../controllers/getPublicacion.controller.dart';
+import '../../../../../widgets/mostrar_usuario.dart';
 import '../validations/publicacion.validation.dart';
+import '../repository/publicacion.repository.dart';
+import '../dto/editar-publicacion.dto.dart';
 import '../widgets/index.dart';
 
 class UpdatePublicacionPage extends ConsumerStatefulWidget {
@@ -49,8 +49,8 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
                 if (!publicacionValidacion(publicacion)) return;
                 showDialog(
                   context: context,
-                  builder: (_) => ModificarEntidad<Publicacion>(
-                      entidad: publicacion,
+                  builder: (_) => ModificarEntidad<EditarPublicacionDto>(
+                      entidad: createDtoUpdatePublicaion(publicacion),
                       nombreProvider: updatePublicacionProvider,
                       mensajeResult: 'PUBLICACIÓN ACUTALIZADA',
                       mensajeError: 'ERROR AL ACTUALIZAR PUBLICACIÓN'),

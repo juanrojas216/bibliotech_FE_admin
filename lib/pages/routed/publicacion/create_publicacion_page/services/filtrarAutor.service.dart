@@ -1,4 +1,4 @@
-import 'package:bibliotech_admin/new_models/index.dart';
+import 'package:bibliotech_admin/models/index.dart';
 
 List<Autor> filtroAutor(String filtro, List<Autor> autores) {
 

@@ -1,5 +1,5 @@
 
-import '../dto/create_publicacion.dto.dart';
+import '../dto/publicacion.dto.dart';
 import 'index.dart';
 
 bool publicacionValidacion(PublicacionDto publicacion){

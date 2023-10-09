@@ -1,15 +1,20 @@
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/repository/publicacionDto.repository.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
+
+import '../../repository/publicacionDto.repository.dart';
 
 class TituloInput extends ConsumerWidget {
+  
   const TituloInput({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var _ = ref.watch(publicacionDtoProvider);
+    
+    var publicacion = ref.watch(publicacionDtoProvider);
+   
     return TextFormField(
+      initialValue: publicacion.tituloPublicacion,
       onChanged: (value) =>
           ref.read(publicacionDtoProvider.notifier).actualizarTitulo(value),
       decoration: InputDecoration(

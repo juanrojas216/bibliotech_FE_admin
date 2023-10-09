@@ -1,14 +1,17 @@
+import 'dart:convert';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
-import 'package:bibliotech_admin/new_models/index.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../dto/editar-publicacion.dto.dart';
 
 
-final updatePublicacionProvider = FutureProvider.family<void, Publicacion>((ref, publicacion) async {
+final updatePublicacionProvider = FutureProvider.family<void, EditarPublicacionDto>((ref, publicacion) async {
   var response = await ref.watch(apiProvider).request(
-        '/publicaciones/${publicacion.id}',
+        '/publicaciones/${publicacion.idPublicacion}',
         method: HttpMethod.put,
-        body: publicacionToJson(publicacion),
+        body: json.encode(publicacion.toMap()),
       );
 
   if (response.error != null) {

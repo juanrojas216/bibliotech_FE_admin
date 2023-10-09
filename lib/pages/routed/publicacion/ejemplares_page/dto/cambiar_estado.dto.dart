@@ -1,20 +1,20 @@
 class CambiarEstadoDto {
 
   int idEjemplar;
-  int idUsuario;
+  // int idUsuario;
   String nombreEstado;
 
 
   CambiarEstadoDto({
     required this.idEjemplar,
-    required this.idUsuario,
+    // required this.idUsuario,
     required this.nombreEstado,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'idEjemplar': idEjemplar,
-      'idUsuario': idUsuario,
+      // 'idUsuario': idUsuario,
       'nombreEstado': nombreEstado,
     };
   }

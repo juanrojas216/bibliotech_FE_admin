@@ -1,6 +1,6 @@
 
 
-import 'package:bibliotech_admin/new_models/index.dart';
+import 'package:bibliotech_admin/models/index.dart';
 import 'package:bibliotech_admin/pages/parametrospages/carrerra/repository/carreras.repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

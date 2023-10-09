@@ -1,5 +1,5 @@
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/new_models/index.dart';
+import 'package:bibliotech_admin/models/index.dart';
 import 'package:bibliotech_admin/widgets/eliminar_entidad.dart';
 import 'package:bibliotech_admin/widgets/modificar_entidad.dart';
 import 'package:flutter/material.dart';

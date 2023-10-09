@@ -8,9 +8,9 @@ import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:layout/layout.dart';
 
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/controllers/updatePublicacion.controller.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/create_publicacion.dto.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/mostrar_usuario.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/controllers/createPublicacion.controller.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/publicacion.dto.dart';
+import 'package:bibliotech_admin/widgets/mostrar_usuario.dart';
 
 import '../widgets/index.dart';
 
@@ -23,8 +23,14 @@ class CreatePublicacionPage extends ConsumerStatefulWidget {
 }
 
 class _CreatePublicacionPageState extends ConsumerState<CreatePublicacionPage> {
+  
+  var mostrarLink = false;
+
   @override
   Widget build(BuildContext context) {
+
+    var publicacion = ref.watch(publicacionDtoProvider);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton.filled(
@@ -42,7 +48,6 @@ class _CreatePublicacionPageState extends ConsumerState<CreatePublicacionPage> {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
               onPressed: () {
-                var publicacion = ref.read(publicacionDtoProvider);
                 if (!publicacionValidacion(publicacion)) return;
                 showDialog(
                   context: context,
@@ -55,7 +60,7 @@ class _CreatePublicacionPageState extends ConsumerState<CreatePublicacionPage> {
               },
               style: ButtonStyle(
                 backgroundColor:
-                    (!publicacionValidacion(ref.read(publicacionDtoProvider)))
+                    (!publicacionValidacion(publicacion))
                         ? const MaterialStatePropertyAll(Colors.grey)
                         : const MaterialStatePropertyAll(Colors.purple),
               ),
@@ -108,7 +113,7 @@ class _CreatePublicacionPageState extends ConsumerState<CreatePublicacionPage> {
               Container(
                 width: double.maxFinite,
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: const LinkInput(),
+                child: const LinkInput(), 
               ),
               Container(
                 width: double.maxFinite,

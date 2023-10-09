@@ -4,16 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PagesInput extends ConsumerWidget {
+  
   const PagesInput({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     
-    var _ = ref.watch(publicacionDtoProvider);
+    var publicacion = ref.watch(publicacionDtoProvider);
     
     return TextFormField(
+      initialValue: publicacion.nroPaginas.toString(),
       keyboardType: TextInputType.number,
-      onChanged: (value) => ref.read(publicacionDtoProvider.notifier).actualizarPages(int.parse(value)),
+      onChanged: (value) => ref.read(publicacionDtoProvider.notifier).actualizarPages(int.tryParse(value)),
       decoration: InputDecoration(
           isDense: true,
           labelText: 'Número de paginas',

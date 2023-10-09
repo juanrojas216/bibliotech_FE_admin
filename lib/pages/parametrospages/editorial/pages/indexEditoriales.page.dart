@@ -4,7 +4,7 @@ import 'package:bibliotech_admin/pages/parametrospages/editorial/controllers/ind
 import 'package:bibliotech_admin/pages/parametrospages/editorial/pages/addEditorial.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/editorial/pages/editarEditorial.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/editorial/services/filterEditoriales.services.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/mostrar_usuario.dart';
+import 'package:bibliotech_admin/widgets/mostrar_usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';

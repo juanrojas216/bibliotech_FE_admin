@@ -17,7 +17,7 @@ class PlataformaAdd extends ConsumerStatefulWidget {
 
 class _AddPlataformaState extends ConsumerState<PlataformaAdd> {
   String nombre = '';
-  String url = '';
+  // String url = '';
   String instrucciones = '';
 
   @override
@@ -43,18 +43,18 @@ class _AddPlataformaState extends ConsumerState<PlataformaAdd> {
                       border: const OutlineInputBorder()),
                 ),
                 const SizedBox(height: 10),
-                TextFormField(
-                  onChanged: (value) => {
-                    url = value,
-                    setState(() {}),
-                  },
-                  decoration: InputDecoration(
-                      isDense: true,
-                      labelText: 'Url de la plataforma',
-                      labelStyle: TextStyle(
-                          fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
-                      border: const OutlineInputBorder()),
-                ),
+                // TextFormField(
+                //   onChanged: (value) => {
+                //     url = value,
+                //     setState(() {}),
+                //   },
+                //   decoration: InputDecoration(
+                //       isDense: true,
+                //       labelText: 'Url de la plataforma',
+                //       labelStyle: TextStyle(
+                //           fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
+                //       border: const OutlineInputBorder()),
+                // ),
                 const SizedBox(height: 10),
                 TextFormField(
                   maxLines: 15,
@@ -78,14 +78,14 @@ class _AddPlataformaState extends ConsumerState<PlataformaAdd> {
       actions: [
         ElevatedButton(
             onPressed: () {
-              if (!plataformaValidacion(nombre, url, instrucciones)) return;
+              if (!plataformaValidacion(nombre/*, url*/, instrucciones)) return;
               ref.read(routesProvider).pop();
               showDialog(
                   context: context,
                   builder: (_) => CrearEntidad(
                         entidad: CreatePlataformaDto(
                             nombre: nombre,
-                            url: url,
+                            // url: url,
                             instrucciones: instrucciones),
                         nombreProvider: createPlataformaProvider,
                         mensajeResult: 'PLATAFORMA CREADA',
@@ -94,7 +94,7 @@ class _AddPlataformaState extends ConsumerState<PlataformaAdd> {
             },
             style: ButtonStyle(
               backgroundColor:
-                  (!plataformaValidacion(nombre, url, instrucciones))
+                  (!plataformaValidacion(nombre /*, url*/, instrucciones))
                       ? const MaterialStatePropertyAll(Colors.grey)
                       : const MaterialStatePropertyAll(Colors.purple),
             ),

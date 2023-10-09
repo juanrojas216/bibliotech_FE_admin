@@ -21,7 +21,9 @@ class _AlertCategoriaState extends ConsumerState<AlertCategoria> {
 
   @override
   Widget build(BuildContext context) {
+
     var listaCategoria = ref.watch(categoriasProvider);
+    var _ = ref.watch(getAllCategoriasProvider);
 
     return AlertDialog(
       title: Column(

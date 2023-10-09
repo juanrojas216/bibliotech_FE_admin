@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 
-import 'package:bibliotech_admin/new_models/index.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/create_publicacion.dto.dart';
+import 'package:bibliotech_admin/models/index.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/publicacion.dto.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/link.dto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,13 +26,13 @@ class PublicacionDtoNotifier extends StateNotifier<PublicacionDto> {
               editoriales: []),
         );
 
-  actualizarAnio(int anio) {
-    state.anioPublicacion = anio;
+  actualizarAnio(int? anio) {
+    state.anioPublicacion = anio ?? 0;
     state = state.copyWith();
   }
 
-  actualizarPages(int pages) {
-    state.nroPaginas = pages;
+  actualizarPages(int? pages) {
+    state.nroPaginas = pages ?? 0;
     state = state.copyWith();
   }
 
@@ -104,6 +104,11 @@ class PublicacionDtoNotifier extends StateNotifier<PublicacionDto> {
 
   deleteEditorial(int index) {
     state.editoriales.removeAt(index);
+    state = state.copyWith();
+  }
+
+  resetearLink(){
+    state.link = LinkDto(url: null, estado: null, plataformaId: null);
     state = state.copyWith();
   }
 

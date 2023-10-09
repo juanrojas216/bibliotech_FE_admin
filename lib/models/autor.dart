@@ -1,59 +1,66 @@
-// To parse this JSON data, do
-//
-//     final autor = autorFromJson(jsonString);
-
 import 'dart:convert';
 
-List<Autor> autorFromJson(dynamic data) {
+List<Autor> autoresFromJson(dynamic data) {
   List<dynamic> str = data;
   return List<Autor>.from(str.map((x) => Autor.fromJson(x)));
 }
 
-String autorToJson(List<Autor> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+Autor autorFromJson(dynamic str){
+  Map<String, dynamic> data = str;
+  return Autor.fromJson(data);
+}
+
+String autoresToJson(List<Autor> data) {
+  return json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+}
+
+String autorToJson(Autor data) {
+  return json.encode(data.toJson());
+}
 
 class Autor {
-    final String biografia;
-    final DateTime fechaNacimiento;
-    final int id;
-    final String nacionalidad;
-    final String nombre;
+    int id;
+    String nombre;
+    DateTime fechaNacimiento;
+    String nacionalidad;
+    String biografia;
 
     Autor({
-        required this.biografia,
-        required this.fechaNacimiento,
         required this.id,
-        required this.nacionalidad,
         required this.nombre,
+        required this.fechaNacimiento,
+        required this.nacionalidad,
+        required this.biografia,
     });
 
     Autor copyWith({
-        String? biografia,
-        DateTime? fechaNacimiento,
         int? id,
-        String? nacionalidad,
         String? nombre,
+        DateTime? fechaNacimiento,
+        String? nacionalidad,
+        String? biografia,
     }) => 
         Autor(
-            biografia: biografia ?? this.biografia,
-            fechaNacimiento: fechaNacimiento ?? this.fechaNacimiento,
             id: id ?? this.id,
-            nacionalidad: nacionalidad ?? this.nacionalidad,
             nombre: nombre ?? this.nombre,
+            fechaNacimiento: fechaNacimiento ?? this.fechaNacimiento,
+            nacionalidad: nacionalidad ?? this.nacionalidad,
+            biografia: biografia ?? this.biografia,
         );
 
     factory Autor.fromJson(Map<String, dynamic> json) => Autor(
-        biografia: json["biografia"],
-        fechaNacimiento: DateTime.parse(json["fechaNacimiento"]),
         id: json["id"],
-        nacionalidad: json["nacionalidad"],
         nombre: json["nombre"],
+        fechaNacimiento: DateTime.parse(json["fechaNacimiento"]),
+        nacionalidad: json["nacionalidad"],
+        biografia: json["biografia"],
     );
 
     Map<String, dynamic> toJson() => {
-        "biografia": biografia,
-        "fechaNacimiento": "${fechaNacimiento.year.toString().padLeft(4, '0')}-${fechaNacimiento.month.toString().padLeft(2, '0')}-${fechaNacimiento.day.toString().padLeft(2, '0')}",
         "id": id,
-        "nacionalidad": nacionalidad,
         "nombre": nombre,
+        "fechaNacimiento": '${fechaNacimiento.toIso8601String().split('.')[0]}Z',
+        "nacionalidad": nacionalidad,
+        "biografia": biografia,
     };
 }

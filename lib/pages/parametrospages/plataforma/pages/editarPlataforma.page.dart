@@ -1,5 +1,5 @@
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/new_models/index.dart';
+import 'package:bibliotech_admin/models/index.dart';
 import 'package:bibliotech_admin/pages/parametrospages/plataforma/controllers/index.dart';
 import 'package:bibliotech_admin/pages/parametrospages/plataforma/repository/plataformas.repository.dart';
 import 'package:bibliotech_admin/widgets/eliminar_entidad.dart';
@@ -58,20 +58,20 @@ class _PlataformaEditarState extends ConsumerState<PlataformaEditar> {
                           fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
                       border: const OutlineInputBorder()),
                 ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  initialValue: plataforma.url,
-                  onChanged: (value) => {
-                    plataforma.url = value,
-                    setState(() {}),
-                  },
-                  decoration: InputDecoration(
-                      isDense: true,
-                      labelText: 'Nuevo url de la plataforma',
-                      labelStyle: TextStyle(
-                          fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
-                      border: const OutlineInputBorder()),
-                ),
+                // const SizedBox(height: 10),
+                // TextFormField(
+                //   initialValue: plataforma.url,
+                //   onChanged: (value) => {
+                //     plataforma.url = value,
+                //     setState(() {}),
+                //   },
+                //   decoration: InputDecoration(
+                //       isDense: true,
+                //       labelText: 'Nuevo url de la plataforma',
+                //       labelStyle: TextStyle(
+                //           fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
+                //       border: const OutlineInputBorder()),
+                // ),
                 const SizedBox(height: 10),
                 TextFormField(
                         maxLines: 15,
@@ -97,7 +97,7 @@ class _PlataformaEditarState extends ConsumerState<PlataformaEditar> {
       actions: [
         ElevatedButton(
           onPressed: () {
-            if (!plataformaValidacion(plataforma.nombre, plataforma.url, plataforma.instrucciones)) return;
+            if (!plataformaValidacion(plataforma.nombre /*, plataforma.url*/, plataforma.instrucciones)) return;
             ref.read(routesProvider).pop();
             showDialog(
                 context: context,
@@ -109,7 +109,7 @@ class _PlataformaEditarState extends ConsumerState<PlataformaEditar> {
           },
           style: ButtonStyle(
               backgroundColor:
-                  (!plataformaValidacion(plataforma.nombre, plataforma.url, plataforma.instrucciones))
+                  (!plataformaValidacion(plataforma.nombre /*, plataforma.url*/, plataforma.instrucciones))
                       ? const MaterialStatePropertyAll(Colors.grey)
                       : const MaterialStatePropertyAll(Colors.purple),
             ),

@@ -19,6 +19,14 @@ class LinkInput extends ConsumerWidget {
         data: (_) => Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                ElevatedButton(
+                      onPressed: () {
+                         ref.read(publicacionDtoProvider.notifier)
+                            .resetearLink();
+                      },
+                      child: Text('Eliminar link', style: GoogleFonts.poppins()),
+                    ),
+                const SizedBox(width: 10),
                 Expanded(
                   child: DecoratedBox(
                     decoration: BoxDecoration(

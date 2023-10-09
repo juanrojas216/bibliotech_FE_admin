@@ -1,10 +1,9 @@
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/mostrar_usuario.dart';
+import 'package:bibliotech_admin/widgets/mostrar_usuario.dart';
 import '../controllers/index.dart';
 import '../services/filterAutores.service.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -103,18 +102,13 @@ class _AutoresIndexState extends ConsumerState<AutoresIndex> {
                                       borderRadius: BorderRadius.circular(16)),
                                   child: ListTile(
                                     trailing: const Icon(Icons.more_vert),
-                                    title: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(a.nombre,
-                                            style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w500)),
-                                        Text(
-                                            '${a.fechaNacimiento.day}/${a.fechaNacimiento.month}/${a.fechaNacimiento.year} - ${a.nacionalidad.toUpperCase()}'),
-                                        Text(a.biografia),
-                                      ],
+                                    title: Text(
+                                      '${a.nombre} - ${a.fechaNacimiento.day}/${a.fechaNacimiento.month}/${a.fechaNacimiento.year} - ${a.nacionalidad.toUpperCase()}',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
+                                    subtitle: Text(a.biografia),
                                     onTap: () {
                                       showDialog(
                                         context: context,

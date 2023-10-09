@@ -62,7 +62,7 @@ class _AlertAutorState extends ConsumerState<AlertAutor> {
                   },
                 ),
                 SizedBox(
-                  height: 200,
+                  height: 100,
                   width: 500,
                   child: ListView.builder(
                       itemBuilder: (context, index) => items[index],

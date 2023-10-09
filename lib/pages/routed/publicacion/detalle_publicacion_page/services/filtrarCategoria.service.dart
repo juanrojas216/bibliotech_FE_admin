@@ -1,5 +1,5 @@
 
-import 'package:bibliotech_admin/new_models/index.dart';
+import 'package:bibliotech_admin/models/index.dart';
 
 List<Categoria> filtrarCategorias(String filtro, List<Categoria> lista){
 

@@ -12,6 +12,7 @@ import '../repository/ubicaciones.repository.dart';
 import '../validations/ejemplar.validation.dart';
 
 class EjemplarAdd extends ConsumerStatefulWidget {
+  
   final int idPublicacion;
 
   const EjemplarAdd({required this.idPublicacion, super.key});
@@ -113,8 +114,6 @@ class _AddEjemplarState extends ConsumerState<EjemplarAdd> {
               final ejemplarDto = EjemplarDto(
                 publicacionId: widget.idPublicacion,
                 serialNFC: serialNFC,
-                //TODO: USUARIO ID
-                // usuarioId: 0,
                 ubicacionId: ubicacion,
               );
               if (!ejemplarValidacion(ejemplarDto)) return;
@@ -132,8 +131,6 @@ class _AddEjemplarState extends ConsumerState<EjemplarAdd> {
               backgroundColor: ejemplarValidacion(EjemplarDto(
                 publicacionId: widget.idPublicacion,
                 serialNFC: serialNFC,
-                //TODO: USUARIO ID
-                // usuarioId: 0,
                 ubicacionId: ubicacion,
               ))
                   ? const MaterialStatePropertyAll(Colors.purple)

@@ -1,69 +1,56 @@
-
-
 import 'dart:convert';
 
-List<Categoria> categoriaFromJson(dynamic data) {
+import 'valor.dart';
+
+List<Categoria> categoriasFromJson(dynamic data) {
   List<dynamic> str = data;
   return List<Categoria>.from(str.map((x) => Categoria.fromJson(x)));
 }
 
-String categoriaToJson(List<Categoria> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
-class Categoria {
-  final int idCategoria;
-  final String nombreCategoria;
-  List<Valor> valores;
-  bool seleccionadoCategoria = false;
-
-
-  Categoria({
-    required this.idCategoria,
-    required this.nombreCategoria,
-    required this.valores,
-  });
-
-  factory Categoria.fromJson(Map<String, dynamic> json) => Categoria(
-        idCategoria: json["idCategoria"],
-        nombreCategoria: json["nombreCategoria"],
-        valores:
-            List<Valor>.from(json["valores"].map((x) => Valor.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "idCategoria": idCategoria,
-        "nombreCategoria": nombreCategoria,
-        "valores": List<dynamic>.from(valores.map((x) => x.toJson())),
-      };
-  
-  set setValores (List<Valor> valors) {
-    valores = valors;
-  }
-
-  Categoria copyInstance() => Categoria(idCategoria: idCategoria, nombreCategoria: nombreCategoria, valores: valores.map((e) => e.copyInstance()).toList());
+Categoria categoriaFromJson(dynamic str) {
+  Map<String, dynamic> data = str;
+  return Categoria.fromJson(data);
 }
 
-class Valor {
-  final int idValor;
-  final String nombreValor;
-  bool seleccionadoValor;
+String categoriaToJson(Categoria data) {
+  return json.encode(data.toJson());
+}
 
-  Valor({
-    required this.idValor,
-    required this.nombreValor,
-    this.seleccionadoValor = false,
-  });
+String categoriasToJson(List<Categoria> data) {
+  return json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+}
 
-  factory Valor.fromJson(Map<String, dynamic> json) => Valor(
-        idValor: json["idValor"],
-        nombreValor: json["nombreValor"],
-      );
+class Categoria {
+    int id;
+    String nombre;
+    List<Valor> valores;
 
-  Map<String, dynamic> toJson() => {
-        "idValor": idValor,
-        "nombreValor": nombreValor,
-      };
+    Categoria({
+        required this.id,
+        required this.nombre,
+        required this.valores,
+    });
 
-  Valor copyInstance() => Valor(idValor: idValor, nombreValor: nombreValor, seleccionadoValor: seleccionadoValor);
-  
+    Categoria copyWith({
+        int? id,
+        String? nombre,
+        List<Valor>? valores,
+    }) => 
+        Categoria(
+            id: id ?? this.id,
+            nombre: nombre ?? this.nombre,
+            valores: valores ?? this.valores,
+        );
+
+    factory Categoria.fromJson(Map<String, dynamic> json) => Categoria(
+        id: json["id"],
+        nombre: json["nombre"],
+        valores: json["valores"] == null ? [] : List<Valor>.from(json["valores"].map((x) => Valor.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "nombre": nombre,
+        "valores": List<dynamic>.from(valores.map((x) => x.toJson())),
+    };
 }

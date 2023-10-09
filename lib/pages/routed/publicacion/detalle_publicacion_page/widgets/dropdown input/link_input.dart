@@ -11,7 +11,7 @@ class LinkInput extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var publicacionDto = ref.watch(publicacionProvider);
+    var publicacion = ref.watch(publicacionProvider);
     var tipos = ref.watch(getAllPlataformasProvider);
 
     return tipos.when(
@@ -19,6 +19,14 @@ class LinkInput extends ConsumerWidget {
         data: (_) => Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                ElevatedButton(
+                      onPressed: () {
+                         ref.read(publicacionProvider.notifier)
+                            .resetearLink();
+                      },
+                      child: Text('Eliminar link', style: GoogleFonts.poppins()),
+                ),
+                const SizedBox(width: 10),
                 Expanded(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
@@ -31,7 +39,7 @@ class LinkInput extends ConsumerWidget {
                       isDense: true,
                       isExpanded: true,
                       hint: const Text('PLATAFORMA'),
-                      value: publicacionDto.link.plataforma.id,
+                      value: publicacion.link.plataforma?.id,
                       style: TextStyle(
                           fontFamily: GoogleFonts.poppins.toString(),
                           fontSize: 14),
@@ -54,6 +62,7 @@ class LinkInput extends ConsumerWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: TextFormField(
+                    initialValue: publicacion.link.url,
                     onChanged: (value) => ref
                         .read(publicacionProvider.notifier)
                         .actualizarLinkUrl(value),
@@ -80,7 +89,7 @@ class LinkInput extends ConsumerWidget {
                       isDense: true,
                       isExpanded: true,
                       hint: const Text('ESTADO'),
-                      value: publicacionDto.link.estado,
+                      value: publicacion.link.estado,
                       style: TextStyle(
                           fontFamily: GoogleFonts.poppins.toString(),
                           fontSize: 14),

@@ -1,5 +1,4 @@
-
-import 'package:bibliotech_admin/new_models/index.dart';
+import 'package:bibliotech_admin/models/index.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final publicacionProvider =
@@ -9,13 +8,31 @@ final publicacionProvider =
 
 class PublicacionNotifier extends StateNotifier<Publicacion> {
   PublicacionNotifier()
-      : super( 
-        Publicacion(
-          id: 0, anioPublicacion: 0, isbnPublicacion: '0', tituloPublicacion: 'Titulo', nroPaginas: 0, autores: [], edicion: Edicion(id: 0, nombre: 'Edicion'), link: Link(id: 0, url: 'url', estado: 'estado', plataforma: Plataforma(id: 0, nombre: 'Plataforma', url: 'url', instrucciones: 'instrucciones')), categorias: [], tipo: TipoPublicacion(id: 0, nombre: 'Tipo'), editoriales: [], comentarios: [], ejemplares: [],
-        ),
-      );
+      : super(
+          Publicacion(
+            id: 0,
+            anioPublicacion: 0,
+            isbnPublicacion: '0',
+            tituloPublicacion: 'Titulo',
+            nroPaginas: 0,
+            autores: [],
+            edicion: Edicion(id: 0, nombre: 'Edicion'),
+            link: Link(
+                url: null,
+                estado: null,
+                plataforma: Plataforma(
+                    id: 0,
+                    nombre: 'Plataforma',
+                    // url: 'url',
+                    instrucciones: 'instrucciones')),
+            categorias: [],
+            tipo: TipoPublicacion(id: 0, nombre: 'Tipo'),
+            editoriales: [], 
+            //comentarios: [], ejemplares: [],
+          ),
+        );
 
-  actualizarPublicacion(Publicacion publicacion){
+  actualizarPublicacion(Publicacion publicacion) {
     state = publicacion.copyWith();
   }
 
@@ -100,19 +117,25 @@ class PublicacionNotifier extends StateNotifier<Publicacion> {
     state = state.copyWith();
   }
 
-  actualizarLinkUrl(String url){
+  resetearLink() {
+    state.link.estado = null;
+    state.link.plataforma = null;
+    state.link.url = null;
+    state = state.copyWith();
+  }
+
+  actualizarLinkUrl(String url) {
     state.link.url = url;
     state = state.copyWith();
   }
 
-  actualizarLinkPlataforma(Plataforma plataforma){
+  actualizarLinkPlataforma(Plataforma plataforma) {
     state.link.plataforma = plataforma;
     state = state.copyWith();
   }
 
-  actualizarLinkEstado(String estado){
+  actualizarLinkEstado(String estado) {
     state.link.estado = estado;
     state = state.copyWith();
   }
-
 }

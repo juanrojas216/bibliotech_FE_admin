@@ -1,12 +1,13 @@
 
 
-import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
-import 'package:bibliotech_admin/new_models/index.dart';
-import 'package:bibliotech_admin/pages/parametrospages/categoria/dto/valor.dto.dart';
-import 'package:bibliotech_admin/pages/parametrospages/categoria/repository/categorias.repository.dart';
+import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bibliotech_admin/models/index.dart';
 import 'package:simple_logger/simple_logger.dart';
+
+import '../repository/categorias.repository.dart';
+import '../dto/valor.dto.dart';
 
 
 final createValorProvider = FutureProvider.family<void, ValorDto>((ref, valorDto) async {

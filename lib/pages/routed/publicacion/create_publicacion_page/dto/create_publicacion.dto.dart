@@ -1,68 +1,109 @@
-import 'package:bibliotech_admin/new_models/index.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/link.dto.dart';
+import 'link.dto.dart';
+import 'publicacion.dto.dart';
 
-class PublicacionDto {
-  int anioPublicacion;
-  String isbnPublicacion;
-  String tituloPublicacion;
-  int nroPaginas;
-  List<Autor> autores;
-  Edicion? edicion;
-  LinkDto link;
-  List<CategoriaPublicacion> categorias;
-  TipoPublicacion? tipo;
-  List<Editorial> editoriales;
+class CreatePublicacionDto {
+  final int anioPublicacion;
+  final String isbnPublicacion;
+  final String tituloPublicacion;
+  final int nroPaginas;
+  final List<int> idAutores;
+  final int idEdicion;
+  final LinkDto link;
+  final List<CategoriaDto> categorias;
+  final int idTipo;
+  final List<int> idEditoriales;
 
-  PublicacionDto({
+  CreatePublicacionDto({
     required this.anioPublicacion,
     required this.isbnPublicacion,
     required this.tituloPublicacion,
     required this.nroPaginas,
-    required this.autores,
-    required this.edicion,
+    required this.idAutores,
+    required this.idEdicion,
     required this.link,
     required this.categorias,
-    required this.tipo,
-    required this.editoriales,
+    required this.idTipo,
+    required this.idEditoriales,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'anioPublicacion': anioPublicacion,
-      'isbnPublicacion': isbnPublicacion,
-      'tituloPublicacion': tituloPublicacion,
-      'nroPaginas': nroPaginas,
-      'autores': autores,
-      'edicion': edicion,
-      'link': link,
-      'categorias': categorias,
-      'tipo': tipo,
-      'editoriales': editoriales,
-    };
-  }
+  CreatePublicacionDto copyWith({
+    int? anioPublicacion,
+    String? isbnPublicacion,
+    String? tituloPublicacion,
+    int? nroPaginas,
+    List<int>? idAutores,
+    int? idEdicion,
+    LinkDto? link,
+    List<CategoriaDto>? categorias,
+    int? idTipo,
+    List<int>? idEditoriales,
+  }) =>
+      CreatePublicacionDto(
+        anioPublicacion: anioPublicacion ?? this.anioPublicacion,
+        isbnPublicacion: isbnPublicacion ?? this.isbnPublicacion,
+        tituloPublicacion: tituloPublicacion ?? this.tituloPublicacion,
+        nroPaginas: nroPaginas ?? this.nroPaginas,
+        idAutores: idAutores ?? this.idAutores,
+        idEdicion: idEdicion ?? this.idEdicion,
+        link: link ?? this.link,
+        categorias: categorias ?? this.categorias,
+        idTipo: idTipo ?? this.idTipo,
+        idEditoriales: idEditoriales ?? this.idEditoriales,
+      );
 
-  PublicacionDto copyWith({
-        int? anioPublicacion,
-        String? isbnPublicacion,
-        String? tituloPublicacion,
-        int? nroPaginas,
-        List<Autor>? autores,
-        Edicion? edicion,
-        LinkDto? link,
-        List<CategoriaPublicacion>? categorias,
-        TipoPublicacion? tipo,
-        List<Editorial>? editoriales,
-    }) => 
-        PublicacionDto(
-            anioPublicacion: anioPublicacion ?? this.anioPublicacion,
-            isbnPublicacion: isbnPublicacion ?? this.isbnPublicacion,
-            tituloPublicacion: tituloPublicacion ?? this.tituloPublicacion,
-            nroPaginas: nroPaginas ?? this.nroPaginas,
-            autores: autores ?? this.autores,
-            edicion: edicion ?? this.edicion,
-            link: link ?? this.link,
-            categorias: categorias ?? this.categorias,
-            tipo: tipo ?? this.tipo,
-            editoriales: editoriales ?? this.editoriales,
-        );
+  Map<String, dynamic> toMap() => {
+        "anioPublicacion": anioPublicacion,
+        "isbnPublicacion": isbnPublicacion,
+        "tituloPublicacion": tituloPublicacion,
+        "nroPaginas": nroPaginas,
+        "idAutores": List<dynamic>.from(idAutores.map((x) => x)),
+        "idEdicion": idEdicion,
+        "link": link.toMap(),
+        "categorias": List<dynamic>.from(categorias.map((x) => x.toMap())),
+        "idTipo": idTipo,
+        "idEditoriales": List<dynamic>.from(idEditoriales.map((x) => x)),
+      };
+}
+
+class CategoriaDto {
+  final int idCategoria;
+  final List<int> idValores;
+
+  CategoriaDto({
+    required this.idCategoria,
+    required this.idValores,
+  });
+
+  CategoriaDto copyWith({
+    int? idCategoria,
+    List<int>? idValores,
+  }) =>
+      CategoriaDto(
+        idCategoria: idCategoria ?? this.idCategoria,
+        idValores: idValores ?? this.idValores,
+      );
+
+  Map<String, dynamic> toMap() => {
+        "idCategoria": idCategoria,
+        "idValores": List<dynamic>.from(idValores.map((x) => x)),
+      };
+}
+
+createDtoPublicaion(PublicacionDto p) {
+  return CreatePublicacionDto(
+      anioPublicacion: p.anioPublicacion,
+      isbnPublicacion: p.isbnPublicacion,
+      tituloPublicacion: p.tituloPublicacion,
+      nroPaginas: p.nroPaginas,
+      idAutores: p.autores.map((e) => e.id).toList(),
+      idEdicion: p.edicion!.id,
+      link: p.link,
+      categorias: p.categorias.map(
+        (e) => CategoriaDto(
+          idCategoria: e.categoria.id,
+          idValores: e.valores.map((v) => v.id).toList(),
+        ),
+      ).toList(),
+      idTipo: p.tipo!.id,
+      idEditoriales: p.editoriales.map((e) => e.id).toList());
 }

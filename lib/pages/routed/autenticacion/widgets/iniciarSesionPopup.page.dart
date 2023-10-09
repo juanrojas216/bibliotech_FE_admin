@@ -1,24 +1,28 @@
+import 'package:bibliotech_admin/config/auth/inicio_sesion.dto.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/widgets/result_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class IniciarSesion extends ConsumerWidget {
-  final FutureProvider nombreProvider;
+  final InicioSesionDto entidad;
+  final AutoDisposeFutureProviderFamily provider;
   final String mensajeResult;
   final String mensajeError;
 
   const IniciarSesion(
-      {required this.nombreProvider,
+      {required this.entidad,
+      required this.provider,
       required this.mensajeResult,
       required this.mensajeError,
       super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var iniciarSesion = ref.watch(nombreProvider);
 
-    return iniciarSesion.when(
+    var user = ref.watch(provider(entidad));
+
+    return user.when(
       data: (_) {
         return AlertDialog(
           content: DecoratedBox(
@@ -44,9 +48,7 @@ class IniciarSesion extends ConsumerWidget {
           actions: [
             ElevatedButton(
               onPressed: () {
-                ref
-                    .read(routesProvider)
-                    .pushReplacement<Widget>('/publicacion');
+                ref.read(routesProvider).pushReplacement('/publicacion');
               },
               child: const Text('Aceptar'),
             )

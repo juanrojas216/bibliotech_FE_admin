@@ -4,7 +4,7 @@ import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/controllers/getAllEjemplares.controller.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/repository/ejemplares.repository.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/widgets/acciones_ejemplar.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/mostrar_usuario.dart';
+import 'package:bibliotech_admin/widgets/mostrar_usuario.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';

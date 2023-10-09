@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'editoriales_dialog.dart';
 
 class EditorialesPublicacion extends ConsumerWidget {
+  
   const EditorialesPublicacion({super.key});
 
   @override

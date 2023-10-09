@@ -1,5 +1,5 @@
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/new_models/index.dart';
+import 'package:bibliotech_admin/models/index.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categoria/controllers/deleteValor.controller.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categoria/controllers/updateValor.controller.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categoria/repository/categorias.repository.dart';

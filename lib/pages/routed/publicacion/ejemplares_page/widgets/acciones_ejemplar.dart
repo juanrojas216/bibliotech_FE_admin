@@ -75,10 +75,9 @@ void accionesEjemplar(BuildContext context, WidgetRef ref, int id) {
                       showDialog(
                           context: context,
                           builder: (_) => ModificarEntidad(
-                              //TODO: IMPLEMENTAR ID USUARIO
                               entidad: CambiarEstadoDto(
                                   idEjemplar: id,
-                                  idUsuario: 0,
+                                  // idUsuario: 0,
                                   nombreEstado: 'EXTRAVIADO'),
                               nombreProvider: cambiarEstadoEjemplarProvider,
                               mensajeResult: 'EJEMPLAR MARCADO A EXTRAVIADO',
@@ -114,10 +113,9 @@ void accionesEjemplar(BuildContext context, WidgetRef ref, int id) {
                       showDialog(
                           context: context,
                           builder: (_) => ModificarEntidad(
-                              //TODO: IMPLEMENTAR ID USUARIO
                               entidad: CambiarEstadoDto(
                                   idEjemplar: id,
-                                  idUsuario: 0,
+                                  // idUsuario: 0,
                                   nombreEstado: 'REPARACION'),
                               nombreProvider: cambiarEstadoEjemplarProvider,
                               mensajeResult: 'EJEMPLAR EN REPARACIÓN',
@@ -153,10 +151,9 @@ void accionesEjemplar(BuildContext context, WidgetRef ref, int id) {
                       showDialog(
                           context: context,
                           builder: (_) => ModificarEntidad(
-                              //TODO: IMPLEMENTAR ID USUARIO
                               entidad: CambiarEstadoDto(
                                   idEjemplar: id,
-                                  idUsuario: 0,
+                                  // idUsuario: 0,
                                   nombreEstado: 'DISPONIBLE'),
                               nombreProvider: cambiarEstadoEjemplarProvider,
                               mensajeResult: 'EJEMPLAR DISPONIBLE',

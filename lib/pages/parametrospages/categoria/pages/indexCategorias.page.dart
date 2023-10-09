@@ -3,7 +3,7 @@ import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categoria/controllers/index.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categoria/pages/addValor.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/categoria/repository/categorias.repository.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/index_page/widgets/mostrar_usuario.dart';
+import 'package:bibliotech_admin/widgets/mostrar_usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';

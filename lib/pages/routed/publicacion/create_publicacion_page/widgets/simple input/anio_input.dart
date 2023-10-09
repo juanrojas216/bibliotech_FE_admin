@@ -8,12 +8,13 @@ class AnioInput extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var _ = ref.watch(publicacionDtoProvider);
+    var publicacion = ref.watch(publicacionDtoProvider);
     return TextFormField(
+      initialValue: publicacion.anioPublicacion.toString(),
       onChanged: (value) {
         ref
             .read(publicacionDtoProvider.notifier)
-            .actualizarAnio(int.parse(value));
+            .actualizarAnio(int.tryParse(value));
       },
       decoration: InputDecoration(
           isDense: true,

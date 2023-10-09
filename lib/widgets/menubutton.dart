@@ -1,3 +1,4 @@
+import 'package:bibliotech_admin/config/auth/auth.service.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +74,7 @@ class MenuButton extends ConsumerWidget {
                         title: Text('Cerrar sesion',
                             style: GoogleFonts.poppins(color: Colors.black)),
                         onTap: () {
+                          Auth.isActive = false;
                           ref.read(routesProvider).pushReplacement('/');
                         },
                       ),
