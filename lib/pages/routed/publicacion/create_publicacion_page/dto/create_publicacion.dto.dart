@@ -56,12 +56,12 @@ class CreatePublicacionDto {
         "isbnPublicacion": isbnPublicacion,
         "tituloPublicacion": tituloPublicacion,
         "nroPaginas": nroPaginas,
-        "idAutores": List<dynamic>.from(idAutores.map((x) => x)),
+        "idsAutores": List<dynamic>.from(idAutores.map((x) => x)),
         "idEdicion": idEdicion,
         "link": link.toMap(),
         "categorias": List<dynamic>.from(categorias.map((x) => x.toMap())),
-        "idTipo": idTipo,
-        "idEditoriales": List<dynamic>.from(idEditoriales.map((x) => x)),
+        "idTipoPublicacion": idTipo,
+        "idsEditoriales": List<dynamic>.from(idEditoriales.map((x) => x)),
       };
 }
 
