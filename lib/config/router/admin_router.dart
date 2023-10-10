@@ -9,6 +9,7 @@ import 'package:bibliotech_admin/pages/parametrospages/plataforma/pages/indexPla
 import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/pages/indexTipoPublicacion.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/ubicacion/pages/indexUbicaciones.page.dart';
 import 'package:bibliotech_admin/pages/routed/autenticacion/page/login.dart';
+import 'package:bibliotech_admin/pages/routed/autenticacion/page/signup.dart';
 import 'package:bibliotech_admin/pages/routed/multa/create_page/pages/seleccion_prestamo.page.dart';
 import 'package:bibliotech_admin/pages/routed/multa/create_page/pages/seleccion_usuario.page.dart';
 import 'package:bibliotech_admin/pages/routed/multa/index_page/pages/multas.page.dart';
@@ -27,6 +28,10 @@ final routesProvider = Provider<GoRouter>((ref) {
   return GoRouter(routerNeglect: true, routes: [
     GoRoute(
       path: '/',
+      builder: (_, __) => SignUpPage(),
+    ),
+    GoRoute(
+      path: '/login',
       builder: (_, __) => LoginPage(),
     ),
     GoRoute(

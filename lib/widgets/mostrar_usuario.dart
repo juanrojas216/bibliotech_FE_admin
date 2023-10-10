@@ -11,7 +11,6 @@ class MostrarUsuario extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     var _ = ref.watch(usuarioProvider);
 
     return ref.read(usuarioProvider).when(
@@ -36,10 +35,15 @@ class MostrarUsuario extends ConsumerWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.person, color: Colors.black,),
+                          const Icon(
+                            Icons.person,
+                            color: Colors.black,
+                          ),
                           const SizedBox(height: 5),
-                          Text(Auth.name!, style: GoogleFonts.poppins()),
-                          Text(Auth.roles!.join(' - '), style: GoogleFonts.poppins()),
+                          Text(Auth.name!.toLowerCase(),
+                              style: GoogleFonts.arimo()),
+                          Text(Auth.roles!.join(' - '),
+                              style: GoogleFonts.abel()),
                           const SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: () {
@@ -55,11 +59,13 @@ class MostrarUsuario extends ConsumerWidget {
                 ),
               );
             },
-            child: Text(Auth.name!.toUpperCase(), style: GoogleFonts.poppins(
-              fontSize: 20,
-              color: Colors.black,
-            ))),
-        error: (_, __) => const Text("Error", style: TextStyle(color: Colors.red)),
+            child: Text(Auth.name!.toUpperCase(),
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  color: Colors.black,
+                ))),
+        error: (_, __) =>
+            const Text("Error", style: TextStyle(color: Colors.red)),
         loading: () => const CircularProgressIndicator());
   }
 }

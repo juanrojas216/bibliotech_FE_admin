@@ -75,7 +75,7 @@ class MenuButton extends ConsumerWidget {
                             style: GoogleFonts.poppins(color: Colors.black)),
                         onTap: () {
                           Auth.isActive = false;
-                          ref.read(routesProvider).pushReplacement('/');
+                          ref.read(routesProvider).pushReplacement('/login');
                         },
                       ),
                     ],
