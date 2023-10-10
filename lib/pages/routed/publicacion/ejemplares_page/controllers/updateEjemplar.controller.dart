@@ -7,7 +7,7 @@ import '../repository/ejemplares.repository.dart';
 
 final updateEjemplarProvider = FutureProvider.family<void, Ejemplar>((ref, ejemplar) async {
   var response = await ref.watch(apiProvider).request(
-        '/ejemplares_publicacion/${ejemplar.id}',
+        '/ejemplares/${ejemplar.id}',
         method: HttpMethod.put,
         body: ejemplarToJson(ejemplar),
       );

@@ -7,7 +7,7 @@ import '../repository/ejemplares.repository.dart';
 final getAllEjemplaresProvider = FutureProvider.family<void, int>((ref, id) async {
   
   var response = await ref.watch(apiProvider).request<List<Ejemplar>>(
-        '/ejemplares_publicacion/$id',
+        '/ejemplares/$id',
         parser: ejemplaresFromJson,
   );
 

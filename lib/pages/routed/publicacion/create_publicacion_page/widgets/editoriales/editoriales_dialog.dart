@@ -17,13 +17,12 @@ class AlertEditorial extends ConsumerStatefulWidget {
 }
 
 class _AlertEditorialState extends ConsumerState<AlertEditorial> {
-  
   String filtro = '';
 
   @override
   Widget build(BuildContext context) {
-    
     var listaEditoriales = ref.watch(editorialesProvider);
+    var search = ref.watch(getAllEditorialProvider);
 
     return AlertDialog(
       title: Column(
@@ -38,9 +37,8 @@ class _AlertEditorialState extends ConsumerState<AlertEditorial> {
           )
         ],
       ),
-      content: ref.read(getAllEditorialProvider).when(
+      content: search.when(
             data: (_) {
-              
               List<ListTile> items = [];
 
               for (var e in filtroEditorial(filtro, listaEditoriales)) {

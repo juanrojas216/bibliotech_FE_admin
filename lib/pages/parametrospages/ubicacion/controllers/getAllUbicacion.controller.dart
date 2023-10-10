@@ -4,7 +4,7 @@ import 'package:bibliotech_admin/models/index.dart';
 import 'package:bibliotech_admin/pages/parametrospages/ubicacion/repository/ubicaciones.repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final getAllUbicacionProvider = FutureProvider<void>((ref) async {
+final getAllUbicacionProvider = FutureProvider.autoDispose<void>((ref) async {
   var response = await ref.watch(apiProvider).request<List<Ubicacion>>(
         '/ubicaciones',
         parser: ubicacionesFromJson,

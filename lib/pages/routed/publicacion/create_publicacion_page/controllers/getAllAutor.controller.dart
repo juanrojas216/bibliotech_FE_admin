@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../repository/autores.repository.dart';
 
-final getAllAutoresProvider = FutureProvider<void>((ref) async {
+final getAllAutoresProvider = FutureProvider.autoDispose<void>((ref) async {
   
   var response = await ref.watch(apiProvider).request<List<Autor>>(
         '/autores',

@@ -9,7 +9,7 @@ import '../repository/ejemplares.repository.dart';
 final createEjemplarProvider = FutureProvider.family<void, EjemplarDto>((ref, dto) async {
   
   var response = await ref.watch(apiProvider).request<Ejemplar>(
-        '/ejemplares_publicacion',
+        '/ejemplares',
         method: HttpMethod.post,
         body: dto.toMap(),
         parser: ejemplarFromJson,

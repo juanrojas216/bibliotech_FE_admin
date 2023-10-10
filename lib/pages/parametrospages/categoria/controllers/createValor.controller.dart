@@ -1,5 +1,7 @@
 
 
+import 'dart:math';
+
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +22,9 @@ final createValorProvider = FutureProvider.family<void, ValorDto>((ref, valorDto
   );
 
   if (response.error != null) {
+    var logger = SimpleLogger();
+    logger.warning(response.error!.exception);
+    logger.warning(response.error!.data);
     throw response.error!;
   } else {
     var logger = SimpleLogger();

@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../repository/edicion.repository.dart';
 
 
-final getAllEdicionProvider = FutureProvider<void>((ref) async {
+final getAllEdicionProvider = FutureProvider.autoDispose<void>((ref) async {
   
   var response = await ref
       .watch(apiProvider)

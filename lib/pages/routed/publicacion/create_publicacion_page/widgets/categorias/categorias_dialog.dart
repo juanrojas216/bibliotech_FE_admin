@@ -23,7 +23,7 @@ class _AlertCategoriaState extends ConsumerState<AlertCategoria> {
   Widget build(BuildContext context) {
 
     var listaCategoria = ref.watch(categoriasProvider);
-    var _ = ref.watch(getAllCategoriasProvider);
+    var search = ref.watch(getAllCategoriasProvider);
 
     return AlertDialog(
       title: Column(
@@ -38,7 +38,7 @@ class _AlertCategoriaState extends ConsumerState<AlertCategoria> {
           ),
         ],
       ),
-      content: ref.read(getAllCategoriasProvider).when(
+      content: search.when(
             data: (_) {
               
               List<ListTile> items = [];

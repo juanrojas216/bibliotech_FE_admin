@@ -3,7 +3,7 @@ import 'package:bibliotech_admin/models/index.dart';
 import 'package:bibliotech_admin/pages/parametrospages/facultad/repository/facultades.repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final getAllFacultadProvider = FutureProvider<void>((ref) async {
+final getAllFacultadProvider = FutureProvider.autoDispose<void>((ref) async {
   
   var response = await ref
       .watch(apiProvider)

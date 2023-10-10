@@ -3,7 +3,7 @@ import 'package:bibliotech_admin/models/index.dart';
 import 'package:bibliotech_admin/pages/parametrospages/editorial/repository/editoriales.repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final getAllEditorialProvider = FutureProvider<void>((ref) async {
+final getAllEditorialProvider = FutureProvider.autoDispose<void>((ref) async {
   
   var response = await ref
       .watch(apiProvider)

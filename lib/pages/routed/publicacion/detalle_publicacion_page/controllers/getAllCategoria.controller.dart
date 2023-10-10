@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_logger/simple_logger.dart';
 import '../repository/categorias.repository.dart';
 
-final getAllCategoriasProvider = FutureProvider<void>((ref) async {
+final getAllCategoriasProvider = FutureProvider.autoDispose<void>((ref) async {
   var response = await ref.watch(apiProvider).request<List<Categoria>>(
         '/categorias',
         parser: categoriasFromJson,

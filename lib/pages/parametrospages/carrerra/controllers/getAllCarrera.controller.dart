@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../repository/carreras.repository.dart';
 
-final getAllCarreraProvider = FutureProvider<void>((ref) async {
+final getAllCarreraProvider = FutureProvider.autoDispose<void>((ref) async {
   
   var response = await ref
       .watch(apiProvider)

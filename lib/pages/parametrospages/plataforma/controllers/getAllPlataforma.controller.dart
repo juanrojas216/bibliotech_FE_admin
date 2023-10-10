@@ -4,7 +4,7 @@ import 'package:bibliotech_admin/pages/parametrospages/plataforma/repository/pla
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_logger/simple_logger.dart';
 
-final getAllPlataformasProvider = FutureProvider<void>((ref) async {
+final getAllPlataformasProvider = FutureProvider.autoDispose<void>((ref) async {
   
   var response = await ref
       .watch(apiProvider)

@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:bibliotech_admin/config/api/http_admin.dart';
+import 'package:bibliotech_admin/config/helpers/http_method.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_logger/simple_logger.dart';
 
@@ -18,6 +20,7 @@ final searchPublicacionesProvider = FutureProvider<void>((ref) async {
 
   var response = await ref.watch(apiProvider).request<List<PublicacionDto>>(
       '/publicaciones/findByParams',
+      method: HttpMethod.post,
       body: dto!.toMap(),
       parser: publicacionesFromJson
   );

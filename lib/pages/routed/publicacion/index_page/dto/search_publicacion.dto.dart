@@ -13,7 +13,8 @@ class SearchPublicacionDto {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return
+     {
       'titulo': titulo,
       'autor': autor,
       'isbn': isbn,

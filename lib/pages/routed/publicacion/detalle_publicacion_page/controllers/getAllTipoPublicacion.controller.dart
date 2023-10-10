@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../repository/tipo_publicacion.repository.dart';
 
-final getAllTipoPublicacionProvider = FutureProvider<void>((ref) async {
+final getAllTipoPublicacionProvider = FutureProvider.autoDispose<void>((ref) async {
   
   var response = await ref
       .watch(apiProvider)

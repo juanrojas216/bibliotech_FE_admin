@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final deleteEjemplarProvider = FutureProvider.family<void, int>((ref, id) async {
   
   var response = await ref.watch(apiProvider).request(
-        '/ejemplares_publicacion/$id',
+        '/ejemplares/$id',
         method: HttpMethod.delete,
   );
 

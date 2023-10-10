@@ -27,6 +27,7 @@ class _AlertAutorState extends ConsumerState<AlertAutor> {
   Widget build(BuildContext context) {
 
     var listaAutores = ref.watch(autoresProvider);
+    var search = ref.watch(getAllAutoresProvider);
     
     return AlertDialog(
       title: const Column(
@@ -35,7 +36,7 @@ class _AlertAutorState extends ConsumerState<AlertAutor> {
           SizedBox(height: 10)
         ],
       ),
-      content: ref.read(getAllAutoresProvider).when(
+      content: search.when(
             
             data: (_) {
 

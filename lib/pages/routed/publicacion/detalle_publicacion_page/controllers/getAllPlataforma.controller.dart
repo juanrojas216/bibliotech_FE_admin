@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../repository/plataformas.repository.dart';
 
-final getAllPlataformasProvider = FutureProvider<void>((ref) async {
+final getAllPlataformasProvider = FutureProvider.autoDispose<void>((ref) async {
   
   var response = await ref.watch(apiProvider).request<List<Plataforma>>(
         '/plataformas',
