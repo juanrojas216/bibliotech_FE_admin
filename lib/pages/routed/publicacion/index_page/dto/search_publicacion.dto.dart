@@ -1,9 +1,9 @@
 
 class SearchPublicacionDto {
-  final String titulo;
-  final String autor;
-  final String isbn;
-  final String anio;
+  final String? titulo;
+  final String? autor;
+  final String? isbn;
+  final String? anio;
   
   SearchPublicacionDto({
     required this.titulo,

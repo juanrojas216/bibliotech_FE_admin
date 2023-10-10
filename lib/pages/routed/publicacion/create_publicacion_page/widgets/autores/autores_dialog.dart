@@ -54,7 +54,9 @@ class _AlertAutorState extends ConsumerState<AlertAutor> {
                 );
               }
               
-              return Column(children: [
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
                 CupertinoSearchTextField(
                   onChanged: (value) {
                     filtro = value;
@@ -62,7 +64,7 @@ class _AlertAutorState extends ConsumerState<AlertAutor> {
                   },
                 ),
                 SizedBox(
-                  height: 100,
+                  height: 200,
                   width: 500,
                   child: ListView.builder(
                       itemBuilder: (context, index) => items[index],

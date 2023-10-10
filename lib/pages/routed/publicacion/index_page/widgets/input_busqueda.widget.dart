@@ -1,3 +1,4 @@
+import 'package:bibliotech_admin/pages/routed/publicacion/index_page/repositoy/search.repository.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/index_page/validations/search.validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,10 +16,10 @@ class InputBusqueda extends ConsumerStatefulWidget {
 }
 
 class InputBusquedaState extends ConsumerState<InputBusqueda> {
-  String titulo = '';
-  String autor = '';
-  String anio = '';
-  String isbn = '';
+  String? titulo;
+  String? autor;
+  String? anio;
+  String? isbn;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class InputBusquedaState extends ConsumerState<InputBusqueda> {
                   borderRadius: BorderRadius.all(Radius.circular(50))),
             ),
             onChanged: (value) {
-              titulo = value;
+              titulo = value == '' ? null : value;
               setState(() {});
             },
             style: const TextStyle(
@@ -55,7 +56,7 @@ class InputBusquedaState extends ConsumerState<InputBusqueda> {
                   borderRadius: BorderRadius.all(Radius.circular(50))),
             ),
             onChanged: (value) {
-              autor = value;
+              autor = (value.isEmpty ? null : value);
               setState(() {});
             },
             style: const TextStyle(
@@ -76,7 +77,7 @@ class InputBusquedaState extends ConsumerState<InputBusqueda> {
             ),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             onChanged: (value) {
-              anio = value;
+              anio = value.isEmpty ? null : value;
               setState(() {});
             },
             style: const TextStyle(
@@ -97,7 +98,7 @@ class InputBusquedaState extends ConsumerState<InputBusqueda> {
             ),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             onChanged: (value) {
-              isbn = value;
+              isbn = value.isEmpty ? null : value;
               setState(() {});
             },
             style: const TextStyle(
@@ -113,10 +114,10 @@ class InputBusquedaState extends ConsumerState<InputBusqueda> {
 }
 
 class BotonBusqueda extends ConsumerWidget {
-  final String titulo;
-  final String autor;
-  final String anio;
-  final String isbn;
+  final String? titulo;
+  final String? autor;
+  final String? anio;
+  final String? isbn;
 
   const BotonBusqueda({
     required this.titulo,
@@ -130,21 +131,21 @@ class BotonBusqueda extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
       style: ButtonStyle(
-          backgroundColor: (!searchPublicacionValidacion(titulo, autor, anio, isbn))
-              ? const MaterialStatePropertyAll(Colors.grey)
-              : const MaterialStatePropertyAll(Colors.purple)),
+          backgroundColor:
+              (!searchPublicacionValidacion(titulo, autor, anio, isbn))
+                  ? const MaterialStatePropertyAll(Colors.grey)
+                  : const MaterialStatePropertyAll(Colors.purple)),
       onPressed: () {
         if (!searchPublicacionValidacion(titulo, autor, anio, isbn)) return;
-        ref.read(
-          searchPublicacionesProvider(
-            SearchPublicacionDto(
-              titulo: titulo,
-              anio: anio,
-              autor: autor,
-              isbn: isbn,
-            ),
-          ),
+        ref.read(searchPublicacionRepositoryProvider.notifier).update(
+              (state) => SearchPublicacionDto(
+                titulo: titulo,
+                anio: anio,
+                autor: autor,
+                isbn: isbn,
+              ),
         );
+        ref.invalidate(searchPublicacionesProvider);
       },
       child: Text('Buscar resultados', style: GoogleFonts.poppins()),
     );

@@ -10,7 +10,7 @@ final createPublicacionProvider = FutureProvider.family<void, PublicacionDto>((r
   
   var publicacionDto = createDtoPublicaion(publicacion);
   var logger = SimpleLogger();
-  logger.info(publicacion.toMap());
+  // logger.info(publicacion.toMap());
 
   
   var response = await ref.watch(apiProvider).request(
@@ -20,8 +20,11 @@ final createPublicacionProvider = FutureProvider.family<void, PublicacionDto>((r
       );
 
   if (response.error != null) {
-    logger.fine(response.error!.exception);
+    logger.warning(response.error!.exception);
+    logger.warning(response.error!.data);
     throw response.error!;
+  } else {
+    logger.warning('funciona');
   }
 
 });
