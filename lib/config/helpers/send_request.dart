@@ -1,4 +1,3 @@
-
 // import 'dart:convert';
 
 import 'dart:convert';
@@ -24,13 +23,15 @@ Future<Response> sendRequest({
   required dynamic body,
   required Duration timeOut,
 }) async {
-
-  Map<String, String> finalHeaders; 
-  if (method != HttpMethod.signing) {
-    finalHeaders = {...headers, HttpHeaders.authorizationHeader: 'Bearer ${await storage.read(key: 'token')}',};
-    // finalHeaders = {...headers, HttpHeaders.authorizationHeader: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbWFpbEBzdXBlcmFkbWluLmNvbSIsImlhdCI6MTY5Njg4OTIyMSwiZXhwIjo1NDE2OTY4ODkyMjF9.qKluk_xI8YbpD4ByFE9mzRt-CceC1ov3BRR8czXuHv8',};
+  Map<String, String> finalHeaders;
+  if (method != HttpMethod.signing && method != HttpMethod.signup) {
+    finalHeaders = {
+      ...headers,
+      HttpHeaders.authorizationHeader:
+          'Bearer ${await storage.read(key: 'token')}',
+    };
   } else {
-    finalHeaders = { ...headers };
+    finalHeaders = {...headers};
   }
 
   if (method != HttpMethod.get) {
@@ -38,24 +39,40 @@ Future<Response> sendRequest({
     if (contentType == null || contentType.contains("application/json")) {
       finalHeaders["content-type"] = "application/json";
       // finalHeaders["Content-Type"] = "application/json; charset = UTF-8";
-      if(method == HttpMethod.post || method == HttpMethod.signing) body = _parseBody(body);
+      if (method == HttpMethod.post ||
+          method == HttpMethod.signing ||
+          method == HttpMethod.signing) body = _parseBody(body);
     }
   }
 
   final client = Client();
 
   switch (method) {
+    case HttpMethod.signup:
+      return client
+          .post(url, headers: finalHeaders, body: body)
+          .timeout(timeOut);
     case HttpMethod.signing:
-      return client.post(url, headers: finalHeaders, body: body).timeout(timeOut);
+      return client
+          .post(url, headers: finalHeaders, body: body)
+          .timeout(timeOut);
     case HttpMethod.get:
       return client.get(url, headers: finalHeaders).timeout(timeOut);
     case HttpMethod.post:
-      return client.post(url, headers: finalHeaders, body: body).timeout(timeOut);
+      return client
+          .post(url, headers: finalHeaders, body: body)
+          .timeout(timeOut);
     case HttpMethod.put:
-      return client.put(url, headers: finalHeaders, body: body).timeout(timeOut);
+      return client
+          .put(url, headers: finalHeaders, body: body)
+          .timeout(timeOut);
     case HttpMethod.patch:
-      return client.patch(url, headers: finalHeaders, body: body).timeout(timeOut);
+      return client
+          .patch(url, headers: finalHeaders, body: body)
+          .timeout(timeOut);
     case HttpMethod.delete:
-      return client.delete(url, headers: finalHeaders, body: body).timeout(timeOut);
+      return client
+          .delete(url, headers: finalHeaders, body: body)
+          .timeout(timeOut);
   }
 }

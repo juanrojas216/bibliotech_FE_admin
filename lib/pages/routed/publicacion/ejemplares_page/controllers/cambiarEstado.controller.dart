@@ -9,8 +9,8 @@ import '../repository/ejemplares.repository.dart';
 final cambiarEstadoEjemplarProvider = FutureProvider.family<void, CambiarEstadoDto>((ref, dto) async {
   
   var response = await ref.watch(apiProvider).request<Ejemplar>(
-        '/ejemplares_publicacion/${dto.idEjemplar}',
-        method: HttpMethod.post,
+        '/ejemplares/${dto.idEjemplar}',
+        method: HttpMethod.put,
         body: dto.toMap(),
         parser: ejemplarFromJson,
   );

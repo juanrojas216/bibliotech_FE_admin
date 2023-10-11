@@ -7,13 +7,14 @@ List<PlutoRow> getRows(List<PublicacionDto> publicaciones) {
     publicaciones.length,
     (index) => PlutoRow(
       cells: {
+        'id': PlutoCell(value: publicaciones[index].id),
         'titulo': PlutoCell(value: publicaciones[index].titulo),
         'autor': PlutoCell(value: publicaciones[index].autores.join(' - ')),
         'editorial': PlutoCell(value: publicaciones[index].editoriales.join(' - ')),
         'edicion': PlutoCell(value: publicaciones[index].edicion),
         'anio': PlutoCell(value: publicaciones[index].anio),
       },
-      sortIdx: index,
+      // sortIdx: publicaciones[index].id,
     ),
   );
 

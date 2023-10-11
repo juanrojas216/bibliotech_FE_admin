@@ -92,7 +92,7 @@ class Publicacion {
     factory Publicacion.fromJson(Map<String, dynamic> json) => Publicacion(
         id: json["id"],
         anioPublicacion: json["anioPublicacion"],
-        isbnPublicacion: json["ISBNPublicacion"],
+        isbnPublicacion: json["isbnPublicacion"],
         tituloPublicacion: json["tituloPublicacion"],
         nroPaginas: json["nroPaginas"],
         autores: List<Autor>.from(json["autores"].map((x) => Autor.fromJson(x))),

@@ -26,8 +26,13 @@ class UpdatePublicacionPage extends ConsumerStatefulWidget {
 }
 
 class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
+  
+  
   @override
   Widget build(BuildContext context) {
+
+    var getPublicacion = ref.watch(getPublicacionProvider(widget.publicacionId));
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton.filled(
@@ -81,7 +86,7 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
           const SizedBox(width: 20),
         ],
       ),
-      body: ref.read(getPublicacionProvider(widget.publicacionId)).when(
+      body: getPublicacion.when(
             data: (_) => Margin(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(vertical: 20),

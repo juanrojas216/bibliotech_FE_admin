@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuButton extends ConsumerWidget {
   const MenuButton({
@@ -65,8 +66,10 @@ class MenuButton extends ConsumerWidget {
                         leading: const Icon(Icons.data_thresholding_outlined),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                         title: Text('Reporte', style: GoogleFonts.poppins()),
-                        onTap: () {
-                          ref.read(routesProvider).pushReplacement('/reporte');
+                        onTap: () async {
+                          // var url = Uri(path: 'http://localhost:3002/login');
+                          await launch("http://localhost:3002/login");
+                          // ref.read(routesProvider).pushReplacement('/reporte');
                         },
                       ),
                       CupertinoListTile(

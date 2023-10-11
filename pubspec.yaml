@@ -32,6 +32,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   date_field: ^3.0.5
   dropdown_search: ^5.0.6
+  editable: ^2.0.0
   faker: ^2.1.0
   flutter:
     sdk: flutter
@@ -47,6 +48,7 @@ dependencies:
   searchable_listview: ^2.5.1
   sidebarx: ^0.16.1
   simple_logger: ^1.9.0+3
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_lints: ^2.0.0

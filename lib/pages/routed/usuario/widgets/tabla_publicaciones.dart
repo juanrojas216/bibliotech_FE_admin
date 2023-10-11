@@ -1,15 +1,11 @@
-
-
+import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'acciones_publicacion.widget.dart';
-
 class TablaPublicaciones extends ConsumerStatefulWidget {
-  
   final List<PlutoRow> rows;
 
   const TablaPublicaciones({
@@ -26,39 +22,20 @@ class TablaPublicacionesState extends ConsumerState<TablaPublicaciones> {
     PlutoColumn(
       title: 'ID',
       field: 'id',
-      type: PlutoColumnType.number(),
-      enableColumnDrag: false,
-      readOnly: true,
-    ),
-    PlutoColumn(
-      title: 'Título',
-      field: 'titulo',
       type: PlutoColumnType.text(),
       enableColumnDrag: false,
       readOnly: true,
     ),
     PlutoColumn(
-        title: 'Autor',
-        field: 'autor',
+        title: 'Nombre',
+        field: 'name',
         type: PlutoColumnType.text(),
         enableColumnDrag: false,
         readOnly: true),
     PlutoColumn(
-        title: 'Editorial',
-        field: 'editorial',
+        title: 'Roles',
+        field: 'roles',
         type: PlutoColumnType.text(),
-        enableColumnDrag: false,
-        readOnly: true),
-    PlutoColumn(
-        title: 'Edición',
-        field: 'edicion',
-        type: PlutoColumnType.text(),
-        enableColumnDrag: false,
-        readOnly: true),
-    PlutoColumn(
-        title: 'Año',
-        field: 'anio',
-        type: PlutoColumnType.number(format: '####', negative: false),
         enableColumnDrag: false,
         readOnly: true),
   ];
@@ -111,7 +88,8 @@ class TablaPublicacionesState extends ConsumerState<TablaPublicaciones> {
       ),
       mode: PlutoGridMode.select,
       onRowDoubleTap: (e) {
-        accionesPublicacion(context, ref, e.row.cells.entries.firstWhere((e) => e.key == 'id').value.value);
+        final id = e.row.cells.entries.firstWhere((e) => e.key == 'id').value.value;
+        ref.read(routesProvider).push('/usuario/detalle', extra: id);
       },
       createFooter: (stateManager) {
         stateManager.setPageSize(20, notify: true);

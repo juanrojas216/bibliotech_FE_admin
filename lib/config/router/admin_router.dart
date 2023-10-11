@@ -15,9 +15,10 @@ import 'package:bibliotech_admin/pages/routed/multa/index_page/pages/multas.page
 import 'package:bibliotech_admin/pages/routed/prestamos/prestamos.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/pages/create_publicacion.page.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/detalle_publicacion_page/pages/update_publicacion.page.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/pages/ejemplares.page.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/index_page/pages/publicaciones.page.dart';
 import 'package:bibliotech_admin/pages/routed/reporte/reportes.dart';
-import 'package:bibliotech_admin/pages/routed/usuario/usuarios.dart';
+import 'package:bibliotech_admin/pages/routed/usuario/pages/usuarios.page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -76,7 +77,7 @@ final routesProvider = Provider<GoRouter>((ref) {
     ),
     GoRoute(
       path: '/usuario',
-      builder: (_, __) => const UsuariosPage(),
+      builder: (_, __) => const UsuariosIndex(),
       redirect: (__, _) => _redirect(),
     ),
     GoRoute(
@@ -87,6 +88,11 @@ final routesProvider = Provider<GoRouter>((ref) {
     GoRoute(
       path: '/publicacion/detalle',
       builder: (_, rs) => UpdatePublicacionPage(publicacionId: rs.extra as int),
+      redirect: (__, _) => _redirect(),
+    ),
+    GoRoute(
+      path: '/publicacion/ejemplares',
+      builder: (_, rs) => EjemplaresIndex(idPublicacion: rs.extra as int),
       redirect: (__, _) => _redirect(),
     ),
     GoRoute(
