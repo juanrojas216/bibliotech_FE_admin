@@ -23,6 +23,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../pages/routed/publicacion/index_page/widgets/index.dart';
+import '../../pages/routed/usuario/pages/updateUsuario.page.dart';
 
 final routesProvider = Provider<GoRouter>((ref) {
   return GoRouter(routerNeglect: true, routes: [
@@ -80,6 +81,12 @@ final routesProvider = Provider<GoRouter>((ref) {
       builder: (_, __) => const UsuariosIndex(),
       redirect: (__, _) => _redirect(),
     ),
+    GoRoute(
+      path: '/usuario/detalle',
+      builder: (_, rs) => UsuarioUpdate(idUsuario: rs.extra as int),
+      redirect: (__, _) => _redirect(),
+    ),
+    
     GoRoute(
       path: '/publicacion/create',
       builder: (_, __) => const NuevaPublicacion(),

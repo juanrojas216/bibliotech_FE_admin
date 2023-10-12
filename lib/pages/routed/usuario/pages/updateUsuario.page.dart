@@ -1,15 +1,19 @@
-import 'package:bibliotech_admin/pages/routed/usuario/controllers/getDetalleUsuario.controller.dart';
-import 'package:bibliotech_admin/pages/routed/usuario/validations/usuario.validation.dart';
-import 'package:bibliotech_admin/widgets/eliminar_entidad.dart';
+
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/router/admin_router.dart';
 import '../../../../widgets/crear_entidad.dart';
+import '../../../../widgets/eliminar_entidad.dart';
 import '../controllers/deleteUsuarios.controller.dart';
 import '../controllers/editarUsuario.controller.dart';
+import '../controllers/getDetalleUsuario.controller.dart';
 import '../dto/detalleUsuario.dto.dart';
+import '../repository/detalleUsuario.repository.dart';
+import '../validations/usuario.validation.dart';
 
 class UsuarioUpdate extends ConsumerStatefulWidget {
   final int idUsuario;
@@ -21,24 +25,24 @@ class UsuarioUpdate extends ConsumerStatefulWidget {
 }
 
 class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
-  
   @override
   void initState() {
     super.initState();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
-    
+    var detalleUsuario = ref.watch(detalleUsuarioProvider);
     var search = ref.watch(getDetalleUsuarioProvider(widget.idUsuario));
 
     return AlertDialog(
       title: Text('Modificar usuario',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: search.when(
-        data: (detalleUsuario) {          
+        data: (usuario) {
+          ref.read(detalleUsuarioProvider.notifier).update(
+                (state) => usuario,
+              );
           return SizedBox(
             width: 800,
             child: SingleChildScrollView(
@@ -48,7 +52,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                   children: [
                     TextFormField(
                       onChanged: (value) => {
-                        detalleUsuario.nombre = value,
+                        detalleUsuario!.nombre = value,
                         setState(() {}),
                       },
                       decoration: InputDecoration(
@@ -62,7 +66,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                     const SizedBox(height: 20),
                     TextFormField(
                       onChanged: (value) => {
-                        detalleUsuario.apellido = value,
+                        detalleUsuario!.apellido = value,
                         setState(() {}),
                       },
                       decoration: InputDecoration(
@@ -76,7 +80,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                     const SizedBox(height: 20),
                     TextFormField(
                       onChanged: (value) => {
-                        detalleUsuario.password = value,
+                        detalleUsuario!.password = value,
                         setState(() {}),
                       },
                       decoration: InputDecoration(
@@ -90,7 +94,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                     const SizedBox(height: 20),
                     TextFormField(
                       onChanged: (value) => {
-                        detalleUsuario.email = value,
+                        detalleUsuario!.email = value,
                         setState(() {}),
                       },
                       decoration: InputDecoration(
@@ -112,7 +116,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                             selectedColor:
                                 const Color.fromARGB(255, 214, 137, 228),
                             disabledColor: Colors.grey,
-                            selected: detalleUsuario.roles.contains(3),
+                            selected: detalleUsuario!.roles.contains(3),
                             onSelected: (value) {
                               if (value) {
                                 if (!detalleUsuario.roles.contains(3)) {
@@ -202,45 +206,45 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
       ),
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       actions: [
-        // ElevatedButton(
-        //     onPressed: () {
-        //       if (!usuarioValidacion(data)) return;
-        //       ref.read(routesProvider).pop();
-        //       showDialog(
-        //           context: context,
-        //           builder: (_) => CrearEntidad<DetalleUsuarioDto>(
-        //                 entidad: detalleUsuario,
-        //                 nombreProvider: updateUsuarioProvider,
-        //                 mensajeResult: 'USUARIO CREADO',
-        //                 mensajeError: 'ERROR AL MODIFICAR USUARIO',
-        //               ));
-        //     },
-            // style: ButtonStyle(
-            //   backgroundColor: resumenAutorValidacion(
-            //     AutorDto(
-            //         nombre: nombre,
-            //         fechaNacimiento: fechaNacimiento,
-            //         nacionalidad: nacionalidad,
-            //         biografia: biografia),
-            //   )
-            //       ? const MaterialStatePropertyAll(Colors.purple)
-            //       : const MaterialStatePropertyAll(Colors.grey),
-            // ),
-            // child: const Text('Modificar usuario')),
-        // ElevatedButton(
-        //     onPressed: () {
-        //       // if (!resumenAutorValidacion(autorDto)) return;
-        //       ref.read(routesProvider).pop();
-        //       showDialog(
-        //           context: context,
-        //           builder: (_) => EliminarEntidad(
-        //                 nombreProvider:
-        //                     deleteUsuariosProvider(detalleUsuario.id!),
-        //                 mensajeResult: 'USUARIO ELIMINADO',
-        //                 mensajeError: 'ERROR AL ELIMINAR AUTOR',
-        //               ));
-        //     },
-        //     child: const Text('Eliminar usuario')),
+        Visibility(
+          visible: !detalleUsuario.isNull,
+          child: ElevatedButton(
+              onPressed: () {
+                // if (!usuarioValidacion(detalleUsuario)) return;
+                ref.read(routesProvider).pop();
+                showDialog(
+                    context: context,
+                    builder: (_) => CrearEntidad<DetalleUsuarioDto>(
+                          entidad: detalleUsuario!,
+                          nombreProvider: updateUsuarioProvider,
+                          mensajeResult: 'USUARIO CREADO',
+                          mensajeError: 'ERROR AL MODIFICAR USUARIO',
+                        ));
+              },
+              // style: ButtonStyle(
+              //   backgroundColor: usuarioValidacion(detalleUsuario)
+              //       ? const MaterialStatePropertyAll(Colors.purple)
+              //       : const MaterialStatePropertyAll(Colors.grey),
+              // ),
+              child: const Text('Modificar usuario')),
+        ),
+        Visibility(
+          visible: !detalleUsuario.isNull,
+          child: ElevatedButton(
+              onPressed: () {
+                // if (!usuarioValidacion(detalleUsuario)) return;
+                ref.read(routesProvider).pop();
+                showDialog(
+                    context: context,
+                    builder: (_) => EliminarEntidad(
+                          nombreProvider:
+                              deleteUsuariosProvider(detalleUsuario!.id!),
+                          mensajeResult: 'USUARIO ELIMINADO',
+                          mensajeError: 'ERROR AL ELIMINAR AUTOR',
+                        ));
+              },
+              child: const Text('Eliminar usuario')),
+        ),
         ElevatedButton(
             onPressed: () {
               ref.read(routesProvider).pop();
