@@ -189,7 +189,6 @@ class _AddUsuarioState extends ConsumerState<UsuarioAdd> {
                         mensajeResult: 'USUARIO CREADO',
                         mensajeError: 'ERROR AL CREAR USUARIO',
                       ));
-              ref.invalidate(getAllUsuariosProvider);
             },
             style: ButtonStyle(
               backgroundColor: usuarioValidacion(crearUsuarioDto)

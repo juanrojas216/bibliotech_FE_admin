@@ -13,7 +13,6 @@ import '../controllers/editarUsuario.controller.dart';
 import '../controllers/getDetalleUsuario.controller.dart';
 import '../dto/detalleUsuario.dto.dart';
 import '../repository/detalleUsuario.repository.dart';
-import '../validations/usuario.validation.dart';
 
 class UsuarioUpdate extends ConsumerStatefulWidget {
   final int idUsuario;

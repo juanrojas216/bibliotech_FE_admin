@@ -24,7 +24,7 @@ Future<Response> sendRequest({
   required Duration timeOut,
 }) async {
   Map<String, String> finalHeaders;
-  if (method != HttpMethod.signing && method != HttpMethod.signup) {
+  if (method != HttpMethod.signing) {
     finalHeaders = {
       ...headers,
       HttpHeaders.authorizationHeader:
@@ -48,10 +48,6 @@ Future<Response> sendRequest({
   final client = Client();
 
   switch (method) {
-    case HttpMethod.signup:
-      return client
-          .post(url, headers: finalHeaders, body: body)
-          .timeout(timeOut);
     case HttpMethod.signing:
       return client
           .post(url, headers: finalHeaders, body: body)
