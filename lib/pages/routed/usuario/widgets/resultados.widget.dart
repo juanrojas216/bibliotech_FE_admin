@@ -15,7 +15,7 @@ class Resultados extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     var search = ref.watch(getAllUsuariosProvider);
-
+    
     return Expanded(
       child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),

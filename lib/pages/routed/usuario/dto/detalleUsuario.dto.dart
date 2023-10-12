@@ -5,11 +5,11 @@ DetalleUsuarioDto detalleUsuarioFromJson(dynamic str) {
 
 class DetalleUsuarioDto {
   final int? id;
-  late final String? nombre;
-  late final String? apellido;
-  late final String? email;
-  late final String? password;
-  final List<int> roles;
+  late String? nombre;
+  late String? apellido;
+  late String? email;
+  late String? password;
+  List<String> roles;
 
   DetalleUsuarioDto({
     required this.id,
@@ -27,7 +27,7 @@ class DetalleUsuarioDto {
         apellido: json["apellido"],
         email: json["email"],
         password: json["password"],
-        roles: List<int>.from(json["roles"].map((x) => x)),
+        roles: List<String>.from(json["roles"].map((x) => x)),
       );
 
   Map<String, dynamic> toMap() => {

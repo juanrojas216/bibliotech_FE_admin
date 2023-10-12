@@ -1,18 +1,15 @@
-
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../config/router/admin_router.dart';
-import '../../../../widgets/crear_entidad.dart';
-import '../../../../widgets/eliminar_entidad.dart';
+import '../controllers/getDetalleUsuario.controller.dart';
+import '../validations/update-usuario.validation.dart';
 import '../controllers/deleteUsuarios.controller.dart';
 import '../controllers/editarUsuario.controller.dart';
-import '../controllers/getDetalleUsuario.controller.dart';
+import '../../../../config/router/admin_router.dart';
+import '../../../../widgets/eliminar_entidad.dart';
+import '../../../../widgets/crear_entidad.dart';
 import '../dto/detalleUsuario.dto.dart';
-import '../repository/detalleUsuario.repository.dart';
 
 class UsuarioUpdate extends ConsumerStatefulWidget {
   final int idUsuario;
@@ -24,24 +21,25 @@ class UsuarioUpdate extends ConsumerStatefulWidget {
 }
 
 class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  
+  DetalleUsuarioDto? detalleUsuario;
 
   @override
   Widget build(BuildContext context) {
-    var detalleUsuario = ref.watch(detalleUsuarioProvider);
+
+    if (detalleUsuario == null) {
+      ref.read(getDetalleUsuarioProvider(widget.idUsuario)).whenData((value) {
+        detalleUsuario = value;
+      });
+    }
+
     var search = ref.watch(getDetalleUsuarioProvider(widget.idUsuario));
 
     return AlertDialog(
       title: Text('Modificar usuario',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: search.when(
-        data: (usuario) {
-          ref.read(detalleUsuarioProvider.notifier).update(
-                (state) => usuario,
-              );
+        data: (_) {
           return SizedBox(
             width: 800,
             child: SingleChildScrollView(
@@ -50,6 +48,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                 child: Column(
                   children: [
                     TextFormField(
+                      initialValue: detalleUsuario!.nombre,
                       onChanged: (value) => {
                         detalleUsuario!.nombre = value,
                         setState(() {}),
@@ -64,6 +63,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
+                      initialValue: detalleUsuario!.apellido,
                       onChanged: (value) => {
                         detalleUsuario!.apellido = value,
                         setState(() {}),
@@ -78,6 +78,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
+                      initialValue: detalleUsuario!.password,
                       onChanged: (value) => {
                         detalleUsuario!.password = value,
                         setState(() {}),
@@ -92,6 +93,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
+                      initialValue: detalleUsuario!.email,
                       onChanged: (value) => {
                         detalleUsuario!.email = value,
                         setState(() {}),
@@ -115,18 +117,18 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                             selectedColor:
                                 const Color.fromARGB(255, 214, 137, 228),
                             disabledColor: Colors.grey,
-                            selected: detalleUsuario!.roles.contains(3),
+                            selected: detalleUsuario!.roles.contains("BILBIOTECARIO"),
                             onSelected: (value) {
                               if (value) {
-                                if (!detalleUsuario.roles.contains(3)) {
-                                  detalleUsuario.roles.add(3);
+                                if (!detalleUsuario!.roles.contains("BILBIOTECARIO")) {
+                                  detalleUsuario!.roles.add("BILBIOTECARIO");
                                   setState(() {});
                                 }
                                 return;
                               } else {
-                                if (detalleUsuario.roles.contains(3)) {
-                                  detalleUsuario.roles
-                                      .removeWhere((e) => e == 3);
+                                if (detalleUsuario!.roles.contains("BILBIOTECARIO")) {
+                                  detalleUsuario!.roles
+                                      .removeWhere((e) => e == "BILBIOTECARIO");
                                   setState(() {});
                                 }
                                 return;
@@ -141,18 +143,18 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                             selectedColor:
                                 const Color.fromARGB(255, 214, 137, 228),
                             disabledColor: Colors.grey,
-                            selected: detalleUsuario.roles.contains(2),
+                            selected: detalleUsuario!.roles.contains("USER"),
                             onSelected: (value) {
                               if (value) {
-                                if (!detalleUsuario.roles.contains(2)) {
-                                  detalleUsuario.roles.add(2);
+                                if (!detalleUsuario!.roles.contains("USER")) {
+                                  detalleUsuario!.roles.add("USER");
                                   setState(() {});
                                 }
                                 return;
                               } else {
-                                if (detalleUsuario.roles.contains(2)) {
-                                  detalleUsuario.roles
-                                      .removeWhere((e) => e == 2);
+                                if (detalleUsuario!.roles.contains("USER")) {
+                                  detalleUsuario!.roles
+                                      .removeWhere((e) => e == "USER");
                                   setState(() {});
                                 }
                                 return;
@@ -167,18 +169,18 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                             selectedColor:
                                 const Color.fromARGB(255, 214, 137, 228),
                             disabledColor: Colors.grey,
-                            selected: detalleUsuario.roles.contains(1),
+                            selected: detalleUsuario!.roles.contains("SUPERADMIN"),
                             onSelected: (value) {
                               if (value) {
-                                if (!detalleUsuario.roles.contains(1)) {
-                                  detalleUsuario.roles.add(1);
+                                if (!detalleUsuario!.roles.contains("SUPERADMIN")) {
+                                  detalleUsuario!.roles.add("SUPERADMIN");
                                   setState(() {});
                                 }
                                 return;
                               } else {
-                                if (detalleUsuario.roles.contains(1)) {
-                                  detalleUsuario.roles
-                                      .removeWhere((e) => e == 1);
+                                if (detalleUsuario!.roles.contains("SUPERADMIN")) {
+                                  detalleUsuario!.roles
+                                      .removeWhere((e) => e == "SUPERADMIN");
                                   setState(() {});
                                 }
                                 return;
@@ -206,32 +208,32 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       actions: [
         Visibility(
-          visible: !detalleUsuario.isNull,
+          visible: detalleUsuario != null,
           child: ElevatedButton(
               onPressed: () {
-                // if (!usuarioValidacion(detalleUsuario)) return;
+                if (!updateUsuarioValidacion(detalleUsuario)) return;
                 ref.read(routesProvider).pop();
                 showDialog(
                     context: context,
-                    builder: (_) => CrearEntidad<DetalleUsuarioDto>(
-                          entidad: detalleUsuario!,
+                    builder: (_) => CrearEntidad<DetalleUsuarioDto?>(
+                          entidad: detalleUsuario,
                           nombreProvider: updateUsuarioProvider,
                           mensajeResult: 'USUARIO CREADO',
                           mensajeError: 'ERROR AL MODIFICAR USUARIO',
                         ));
               },
-              // style: ButtonStyle(
-              //   backgroundColor: usuarioValidacion(detalleUsuario)
-              //       ? const MaterialStatePropertyAll(Colors.purple)
-              //       : const MaterialStatePropertyAll(Colors.grey),
-              // ),
+              style: ButtonStyle(
+                backgroundColor: updateUsuarioValidacion(detalleUsuario)
+                    ? const MaterialStatePropertyAll(Colors.purple)
+                    : const MaterialStatePropertyAll(Colors.grey),
+              ),
               child: const Text('Modificar usuario')),
         ),
         Visibility(
-          visible: !detalleUsuario.isNull,
+          visible: detalleUsuario != null,
           child: ElevatedButton(
               onPressed: () {
-                // if (!usuarioValidacion(detalleUsuario)) return;
+                if (!updateUsuarioValidacion(detalleUsuario)) return;
                 ref.read(routesProvider).pop();
                 showDialog(
                     context: context,

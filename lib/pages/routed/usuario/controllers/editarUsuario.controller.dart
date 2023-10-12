@@ -11,7 +11,7 @@ import 'getAllUsuarios.controller.dart';
 
 final updateUsuarioProvider = FutureProvider.family<void, DetalleUsuarioDto>((ref, usuario) async {
   var response = await ref.watch(apiProvider).request(
-        '/usuarios/${usuario.id}',
+        '/users/${usuario.id}',
         method: HttpMethod.put,
         body: json.encode(usuario.toMap()),
       );
