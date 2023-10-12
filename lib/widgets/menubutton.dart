@@ -66,10 +66,9 @@ class MenuButton extends ConsumerWidget {
                         leading: const Icon(Icons.data_thresholding_outlined),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                         title: Text('Reporte', style: GoogleFonts.poppins()),
-                        onTap: () async {
-                          // var url = Uri(path: 'http://localhost:3002/login');
-                          await launch("http://localhost:3002/login");
-                          // ref.read(routesProvider).pushReplacement('/reporte');
+                        onTap: () {
+                          var url = Uri.parse("http://localhost:3002/login");
+                          launchUrl(url);
                         },
                       ),
                       CupertinoListTile(
