@@ -4,23 +4,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 
-import '../widgets/resultados_prestamo.widget.dart';
+import '../widgets/resultados_crear_multa.widget.dart';
 
-class SelectPrestamoPage extends ConsumerStatefulWidget {
-
+class CreateMultaPage extends ConsumerStatefulWidget {
   final int idUsuario;
+  final int idPrestamo;
 
-  const SelectPrestamoPage(this.idUsuario, {super.key});
+  const CreateMultaPage(this.idUsuario, this.idPrestamo, {super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SelectPrestamoPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CreateMultaPageState();
 }
 
-class _SelectPrestamoPageState extends ConsumerState<SelectPrestamoPage> {
-
+class _CreateMultaPageState extends ConsumerState<CreateMultaPage> {
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
       content: Card(
         shape: Border.all(color: Colors.grey),
@@ -32,7 +31,7 @@ class _SelectPrestamoPageState extends ConsumerState<SelectPrestamoPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "SELECCIONAR PRESTAMO",
+                    "CREAR MULTA",
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -60,7 +59,10 @@ class _SelectPrestamoPageState extends ConsumerState<SelectPrestamoPage> {
               const Divider(color: Colors.grey),
 
               //TABLA DE RESULTADOS
-              ResultadosPrestamos(widget.idUsuario),
+              ResultadoCrearMulta(
+                idUsuario: widget.idUsuario,
+                idPrestamo: widget.idPrestamo,
+              ),
             ],
           ),
         ),

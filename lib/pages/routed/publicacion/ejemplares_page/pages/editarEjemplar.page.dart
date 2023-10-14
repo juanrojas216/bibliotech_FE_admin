@@ -37,6 +37,9 @@ class _EjemplarEditarState extends ConsumerState<EjemplarEditar> {
 
   @override
   Widget build(BuildContext context) {
+
+    var searchUbicaiones = ref.watch(getAllUbicacionLibreProvider);
+
     return AlertDialog(
       title: Text('Editar ejemplar',
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
@@ -62,8 +65,8 @@ class _EjemplarEditarState extends ConsumerState<EjemplarEditar> {
                       border: const OutlineInputBorder()),
                 ),
                 const SizedBox(height: 20),
-                ref.read(getAllUbicacionLibreProvider).when(
-                    data: (_) => DecoratedBox(
+                searchUbicaiones.when(
+                    data: (ubicaciones) => DecoratedBox(
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(4),
@@ -79,7 +82,7 @@ class _EjemplarEditarState extends ConsumerState<EjemplarEditar> {
                                 fontFamily: GoogleFonts.poppins.toString(),
                                 fontSize: 14),
                             items: [
-                              ...ref.read(ubicacionesProvider).map(
+                              ...ubicaciones.map(
                                     (u) => DropdownMenuItem(
                                       value: u.id,
                                       child: Text(

@@ -1,7 +1,8 @@
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/repository/ejemplares.repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'getAllEjemplares.controller.dart';
 
 final deleteEjemplarProvider = FutureProvider.family<void, int>((ref, id) async {
   
@@ -14,7 +15,10 @@ final deleteEjemplarProvider = FutureProvider.family<void, int>((ref, id) async 
     throw response.error!;
   }
 
-  ref.read(ejemplaresProvider.notifier).update((value) {
-    return value.where((e) => e.id != id).toList();
-  });
+  ref.invalidate(getAllEjemplaresProvider);
+
+  // ref.read(ejemplaresProvider.notifier).update((value) {
+  //   return value.where((e) => e.id != id).toList();
+  // });
+
 });

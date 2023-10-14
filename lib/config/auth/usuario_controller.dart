@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'auth.service.dart';
 
 
-final usuarioProvider = FutureProvider<void>((ref) async {
+final usuarioProvider = FutureProvider.autoDispose<void>((ref) async {
   
   var response = await ref.watch(apiProvider).request(
       '/users/get-active-user-info',

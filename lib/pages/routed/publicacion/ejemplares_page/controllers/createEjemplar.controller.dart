@@ -5,19 +5,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../dto/create_ejemplar.dto.dart';
 import '../repository/ejemplares.repository.dart';
+import 'getAllEjemplares.controller.dart';
 
-final createEjemplarProvider = FutureProvider.family<void, EjemplarDto>((ref, dto) async {
-  
+final createEjemplarProvider =
+    FutureProvider.family<void, EjemplarDto>((ref, dto) async {
   var response = await ref.watch(apiProvider).request<Ejemplar>(
         '/ejemplares',
         method: HttpMethod.post,
         body: dto.toMap(),
         parser: ejemplarFromJson,
-  );
+      );
 
   if (response.error != null) {
     throw response.error!;
   }
 
-  ref.read(ejemplaresProvider.notifier).update((state) => [...state, response.data!]);
+  ref.invalidate(getAllEjemplaresProvider);
+
+  // ref.read(ejemplaresProvider.notifier).update((state) => [...state, response.data!]);
 });

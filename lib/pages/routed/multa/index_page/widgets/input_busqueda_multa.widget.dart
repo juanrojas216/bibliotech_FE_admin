@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/get_multas.controller.dart';
-import '../dto/search_multa.dto.dart';
 import '../validations/index.dart';
 
 class InputBusquedaMulta extends ConsumerStatefulWidget {
@@ -15,13 +14,10 @@ class InputBusquedaMulta extends ConsumerStatefulWidget {
 }
 
 class InputBusquedaState extends ConsumerState<InputBusquedaMulta> {
-  String? idUsuario;
-  String? idPrestamo;
-  DateTime? fechaDesde;
-  DateTime? fechaHasta;
-
   @override
   Widget build(BuildContext context) {
+    var search = ref.watch(busquedaMultaProvider);
+
     return Row(
       children: [
         Expanded(
@@ -35,7 +31,9 @@ class InputBusquedaState extends ConsumerState<InputBusquedaMulta> {
                   borderRadius: BorderRadius.all(Radius.circular(50))),
             ),
             onChanged: (value) {
-              idUsuario = value;
+              ref
+                  .read(busquedaMultaProvider.notifier)
+                  .update((state) => state.copyWith(idUsuario: value));
               setState(() {});
             },
             style: const TextStyle(
@@ -55,7 +53,9 @@ class InputBusquedaState extends ConsumerState<InputBusquedaMulta> {
                   borderRadius: BorderRadius.all(Radius.circular(50))),
             ),
             onChanged: (value) {
-              idPrestamo = value;
+              ref
+                  .read(busquedaMultaProvider.notifier)
+                  .update((state) => state.copyWith(idPrestamo: value));
               setState(() {});
             },
             style: const TextStyle(
@@ -67,24 +67,24 @@ class InputBusquedaState extends ConsumerState<InputBusquedaMulta> {
         Expanded(
           child: DateTimeFormField(
             decoration: InputDecoration(
-              isCollapsed: true,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-              hintStyle: const TextStyle(color: Colors.black45),
-              errorStyle: const TextStyle(color: Colors.redAccent),
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(50))
-              ),
-              suffixIcon: const Icon(Icons.event_note, size: 18),
-              labelText: 'Fecha Desde',
-              labelStyle: GoogleFonts.poppins(fontSize: 15)
-            ),
+                isCollapsed: true,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                hintStyle: const TextStyle(color: Colors.black45),
+                errorStyle: const TextStyle(color: Colors.redAccent),
+                border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                suffixIcon: const Icon(Icons.event_note, size: 18),
+                labelText: 'Fecha Desde',
+                labelStyle: GoogleFonts.poppins(fontSize: 15)),
             lastDate: DateTime.now(),
-            initialValue: fechaDesde,
+            initialValue: search.fechaDesde,
             mode: DateTimeFieldPickerMode.date,
             autovalidateMode: AutovalidateMode.always,
             onDateSelected: (DateTime value) {
-              fechaDesde = value;
+              ref
+                  .read(busquedaMultaProvider.notifier)
+                  .update((state) => state.copyWith(fechaDesde: value));
               setState(() {});
             },
           ),
@@ -93,69 +93,61 @@ class InputBusquedaState extends ConsumerState<InputBusquedaMulta> {
         Expanded(
           child: DateTimeFormField(
             decoration: InputDecoration(
-              isCollapsed: true,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-              hintStyle: const TextStyle(color: Colors.black45),
-              errorStyle: const TextStyle(color: Colors.redAccent),
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(50))
-              ),
-              suffixIcon: const Icon(Icons.event_note, size: 18),
-              labelText: 'Fecha Hasta',
-              labelStyle: GoogleFonts.poppins(fontSize: 14)
-            ),
+                isCollapsed: true,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                hintStyle: const TextStyle(color: Colors.black45),
+                errorStyle: const TextStyle(color: Colors.redAccent),
+                border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                suffixIcon: const Icon(Icons.event_note, size: 18),
+                labelText: 'Fecha Hasta',
+                labelStyle: GoogleFonts.poppins(fontSize: 14)),
             lastDate: DateTime.now(),
-            initialValue: fechaDesde,
+            initialValue: search.fechaHasta,
             mode: DateTimeFieldPickerMode.date,
             autovalidateMode: AutovalidateMode.always,
             onDateSelected: (DateTime value) {
-              fechaDesde = value;
+              ref
+                  .read(busquedaMultaProvider.notifier)
+                  .update((state) => state.copyWith(fechaHasta: value));
               setState(() {});
             },
           ),
         ),
         const SizedBox(width: 10),
-        BotonBusqueda(idUsuario: idUsuario, idPrestamo: idPrestamo, fechaDesde: fechaDesde, fechaHasta: fechaHasta),
+        BotonBusqueda(),
       ],
     );
   }
 }
 
 class BotonBusqueda extends ConsumerWidget {
-  final String? idUsuario;
-  final String? idPrestamo;
-  final DateTime? fechaDesde;
-  final DateTime? fechaHasta;
-
-  const BotonBusqueda({
-    required this.idUsuario,
-    required this.idPrestamo,
-    required this.fechaDesde,
-    required this.fechaHasta,
-    super.key,
-  });
+  const BotonBusqueda({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var search = ref.watch(busquedaMultaProvider);
+
     return ElevatedButton(
       style: ButtonStyle(
-          backgroundColor:
-              (!searchMultaValidacion(idPrestamo, idUsuario, fechaDesde, fechaHasta))
-                  ? const MaterialStatePropertyAll(Colors.grey)
-                  : const MaterialStatePropertyAll(Colors.purple)),
+        backgroundColor: !searchMultaValidacion(
+          search.idPrestamo,
+          search.idUsuario,
+          search.fechaDesde,
+          search.fechaHasta,
+        )
+            ? const MaterialStatePropertyAll(Colors.grey)
+            : const MaterialStatePropertyAll(Colors.purple),
+      ),
       onPressed: () {
-        if (!searchMultaValidacion(idPrestamo, idUsuario, fechaDesde, fechaHasta)) return;
-        ref.read(
-          searchMultasProvider(
-            SearchMultaDto(
-              idPrestamo: idPrestamo,
-              idUsuario: idUsuario,
-              fechaDesde: fechaDesde,
-              fechaHasta: fechaHasta,
-            ),
-          ),
-        );
+        if (!searchMultaValidacion(
+          search.idPrestamo,
+          search.idUsuario,
+          search.fechaDesde,
+          search.fechaHasta,
+        )) return;
+        ref.invalidate(searchMultasProvider);
       },
       child: Text('Buscar resultados', style: GoogleFonts.poppins()),
     );

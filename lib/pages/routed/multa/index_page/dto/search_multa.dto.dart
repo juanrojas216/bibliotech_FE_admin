@@ -1,5 +1,6 @@
 
 class SearchMultaDto {
+  
   final String? idUsuario;
   final String? idPrestamo;
   final DateTime? fechaDesde;
@@ -11,6 +12,19 @@ class SearchMultaDto {
     required this.fechaDesde,
     required this.fechaHasta,
   });
+
+  SearchMultaDto copyWith({
+        String? idUsuario,
+        String? idPrestamo,
+        DateTime? fechaDesde,
+        DateTime? fechaHasta,
+    }) => 
+        SearchMultaDto(
+            idUsuario: idUsuario ?? this.idUsuario,
+            idPrestamo: idPrestamo ?? this.idPrestamo,
+            fechaDesde: fechaDesde ?? this.fechaDesde,
+            fechaHasta: fechaHasta ?? this.fechaHasta,
+        );
 
   Map<String, dynamic> toMap() {
     return {

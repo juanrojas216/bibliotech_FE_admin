@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void accionesPublicacion(BuildContext context, WidgetRef ref, int id) {
+void accionesMulta(BuildContext context, WidgetRef ref, int id) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(

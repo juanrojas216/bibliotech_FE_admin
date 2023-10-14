@@ -3,9 +3,7 @@ import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/models/index.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../respository/comentarios.repository.dart';
-
-final getAllComentariosProvider = FutureProvider.family<void, int>((ref, id) async {
+final getAllComentariosProvider = FutureProvider.autoDispose.family<List<Comentario>, int>((ref, id) async {
   var response = await ref.watch(apiProvider).request<List<Comentario>>(
         '/comentarios/$id',
         parser: comentariosFromJson,
@@ -15,5 +13,6 @@ final getAllComentariosProvider = FutureProvider.family<void, int>((ref, id) asy
     throw response.error!;
   }
 
-  ref.read(comentariosProvider.notifier).update((_) => response.data!,);
+  return response.data!;
+  // ref.read(comentariosProvider.notifier).update((_) => response.data!,);
 });

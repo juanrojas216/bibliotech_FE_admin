@@ -12,7 +12,7 @@ class DetalleMultaDto {
     final String fechaHasta;
     final String estado;
     final String tipo;
-    final String? descripcion;
+    // final String? descripcion;
 
     DetalleMultaDto({
         required this.id,
@@ -23,7 +23,7 @@ class DetalleMultaDto {
         required this.fechaHasta,
         required this.estado,
         required this.tipo,
-        this.descripcion,
+        // this.descripcion,
     });
 
     factory DetalleMultaDto.fromJson(Map<String, dynamic> json) => DetalleMultaDto(
@@ -35,6 +35,6 @@ class DetalleMultaDto {
         fechaHasta: json["fechaHasta"],
         estado: json["estado"],
         tipo: json["tipo"],
-        descripcion: json["descripcion"],
+        // descripcion: json["descripcion"],
     );
 }

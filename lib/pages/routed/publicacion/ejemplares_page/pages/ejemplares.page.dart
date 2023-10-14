@@ -32,8 +32,8 @@ class _AutoresIndexState extends ConsumerState<EjemplaresIndex> {
 
   @override
   Widget build(BuildContext context) {
-    var ejemplares = ref.watch(ejemplaresProvider);
-    var _ = ref.watch(getAllEjemplaresProvider(widget.idPublicacion));
+    
+    var search = ref.watch(getAllEjemplaresProvider(widget.idPublicacion));
 
     return Scaffold(
       appBar: AppBar(
@@ -77,9 +77,9 @@ class _AutoresIndexState extends ConsumerState<EjemplaresIndex> {
                 BorderSide(color: Colors.grey, width: 2)),
             borderRadius: BorderRadius.circular(16),
           ),
-          child: ref.read(getAllEjemplaresProvider(widget.idPublicacion)).when(
+          child: search.when(
                 skipLoadingOnRefresh: false,
-                data: (_) => Column(children: [
+                data: (ejemplares) => Column(children: [
                   const SizedBox(height: 10),
                   Flexible(
                     child: ListView(

@@ -3,9 +3,8 @@ import 'package:bibliotech_admin/models/index.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_logger/simple_logger.dart';
 
-import '../repository/ejemplares.repository.dart';
 
-final getAllEjemplaresProvider = FutureProvider.family<void, int>((ref, id) async {
+final getAllEjemplaresProvider = FutureProvider.family.autoDispose<List<Ejemplar>, int>((ref, id) async {
   
   var response = await ref.watch(apiProvider).request<List<Ejemplar>>(
         '/ejemplares/$id',
@@ -18,5 +17,7 @@ final getAllEjemplaresProvider = FutureProvider.family<void, int>((ref, id) asyn
     throw response.error!;
   }
 
-  ref.read(ejemplaresProvider.notifier).update((_) => response.data!);
+  return response.data!;
+
+  // ref.read(ejemplaresProvider.notifier).update((_) => response.data!);
 });

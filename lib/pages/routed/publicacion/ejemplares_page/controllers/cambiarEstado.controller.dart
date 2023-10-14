@@ -4,7 +4,7 @@ import 'package:bibliotech_admin/models/index.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../dto/cambiar_estado.dto.dart';
-import '../repository/ejemplares.repository.dart';
+import 'getAllEjemplares.controller.dart';
 
 final cambiarEstadoEjemplarProvider = FutureProvider.family<void, CambiarEstadoDto>((ref, dto) async {
   
@@ -19,8 +19,11 @@ final cambiarEstadoEjemplarProvider = FutureProvider.family<void, CambiarEstadoD
     throw response.error!;
   }
 
-  ref.read(ejemplaresProvider.notifier).update((value) => value.map((e) {
-        if (e.id == dto.idEjemplar) return response.data!;
-        return e;
-      }).toList());
+    ref.invalidate(getAllEjemplaresProvider);
+
+
+  // ref.read(ejemplaresProvider.notifier).update((value) => value.map((e) {
+  //       if (e.id == dto.idEjemplar) return response.data!;
+  //       return e;
+  //     }).toList());
 });

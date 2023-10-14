@@ -9,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../controllers/getAllComentarios.controller.dart';
-import '../respository/comentarios.repository.dart';
 
 class ComentariosIndex extends ConsumerStatefulWidget {
   final int idPublicacion;
@@ -29,8 +28,8 @@ class _ComentariosIndexState extends ConsumerState<ComentariosIndex> {
 
   @override
   Widget build(BuildContext context) {
-    var comentarios = ref.watch(comentariosProvider);
-    var _ = ref.watch(getAllComentariosProvider(widget.idPublicacion));
+
+    var search = ref.watch(getAllComentariosProvider(widget.idPublicacion));
 
     return Scaffold(
       appBar: AppBar(
@@ -56,9 +55,9 @@ class _ComentariosIndexState extends ConsumerState<ComentariosIndex> {
                 BorderSide(color: Colors.grey, width: 2)),
             borderRadius: BorderRadius.circular(16),
           ),
-          child: ref.read(getAllComentariosProvider(widget.idPublicacion)).when(
+          child: search.when(
                 skipLoadingOnRefresh: false,
-                data: (_) => Column(children: [
+                data: (comentarios) => Column(children: [
                   const SizedBox(height: 10),
                   Flexible(
                     child: ListView(

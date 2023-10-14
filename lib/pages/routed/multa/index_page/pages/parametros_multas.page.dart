@@ -1,26 +1,24 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 
-import '../widgets/resultados_prestamo.widget.dart';
+import '../widgets/parametros_popup.dart';
+import 'create_parametro.page.dart';
 
-class SelectPrestamoPage extends ConsumerStatefulWidget {
-
-  final int idUsuario;
-
-  const SelectPrestamoPage(this.idUsuario, {super.key});
+class ParametrosMultaPage extends ConsumerStatefulWidget {
+  const ParametrosMultaPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SelectPrestamoPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ParametrosMultaPageState();
 }
 
-class _SelectPrestamoPageState extends ConsumerState<SelectPrestamoPage> {
-
+class _ParametrosMultaPageState extends ConsumerState<ParametrosMultaPage> {
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
       content: Card(
         shape: Border.all(color: Colors.grey),
@@ -32,7 +30,7 @@ class _SelectPrestamoPageState extends ConsumerState<SelectPrestamoPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "SELECCIONAR PRESTAMO",
+                    "PARAMETROS MULTA",
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -40,6 +38,22 @@ class _SelectPrestamoPageState extends ConsumerState<SelectPrestamoPage> {
                   ),
                   Row(
                     children: [
+                      ElevatedButton(
+                        style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.purple),
+                        ),
+                        onPressed: () async {
+                          await showCupertinoDialog(
+                              context: context,
+                              builder: (context) => const CreateParametroMultaPage());
+                        },
+                        child: Text(
+                          'CREAR PARAMETRO',
+                          style: GoogleFonts.poppins(fontSize: 14),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
                       ElevatedButton(
                         style: const ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll(Colors.red),
@@ -59,8 +73,8 @@ class _SelectPrestamoPageState extends ConsumerState<SelectPrestamoPage> {
               ),
               const Divider(color: Colors.grey),
 
-              //TABLA DE RESULTADOS
-              ResultadosPrestamos(widget.idUsuario),
+              //LISTA DE PARAMETROS
+              const ParametrosMulta(),
             ],
           ),
         ),

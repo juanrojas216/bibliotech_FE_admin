@@ -46,16 +46,16 @@ final routesProvider = Provider<GoRouter>((ref) {
       builder: (_, __) => const MultasIndex(),
       redirect: (__, _) => _redirect(),
     ),
-    GoRoute(
-      path: '/seleccionar-usuario',
-      builder: (_, __) => const SelectUserPage(),
-      redirect: (__, _) => _redirect(),
-    ),
-    GoRoute(
-      path: '/seleccionar-prestamo',
-      builder: (_, __) => const SelectPrestamoPage(),
-      redirect: (__, _) => _redirect(),
-    ),
+    // GoRoute(
+    //   path: '/multa/usuario',
+    //   builder: (_, __) => const SelectUserPage(),
+    //   redirect: (__, _) => _redirect(),
+    // ),
+    // GoRoute(
+    //   path: '/multa/prestamo',
+    //   builder: (_, __) => const SelectPrestamoPage(),
+    //   redirect: (__, _) => _redirect(),
+    // ),
     // GoRoute(
     //   path: '/seleccionar-prestamo',
     //   builder: (_, __) => const SelectPrestamoPage(),

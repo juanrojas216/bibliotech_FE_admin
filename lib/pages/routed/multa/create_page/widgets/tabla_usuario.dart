@@ -5,79 +5,48 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import '../pages/detalle_multa.page.dart';
+import '../pages/seleccion_prestamo.page.dart';
 
-class TablaMultas extends ConsumerStatefulWidget {
+class TablaUsuarios extends ConsumerStatefulWidget {
+  
   final List<PlutoRow> rows;
 
-  const TablaMultas({
+  const TablaUsuarios({
     super.key,
     required this.rows,
   });
 
   @override
-  TablaMultasState createState() => TablaMultasState();
+  TablaUsuariosState createState() => TablaUsuariosState();
 }
 
-class TablaMultasState extends ConsumerState<TablaMultas> {
+class TablaUsuariosState extends ConsumerState<TablaUsuarios> {
+  
   List<PlutoColumn> columns = [
     PlutoColumn(
-      title: 'ID MULTA',
-      field: 'idMulta',
+      title: 'ID',
+      field: 'id',
+      type: PlutoColumnType.number(),
+      enableColumnDrag: false,
+      readOnly: true,
+    ),
+    PlutoColumn(
+      title: 'LEGAJO',
+      field: 'legajo',
       type: PlutoColumnType.text(),
       enableColumnDrag: false,
       readOnly: true,
     ),
     PlutoColumn(
-        title: 'ID PRÉSTAMO',
-        field: 'idPrestamo',
+        title: 'DNI',
+        field: 'dni',
+        type: PlutoColumnType.number(),
+        enableColumnDrag: false,
+        readOnly: true),
+    PlutoColumn(
+        title: 'NOMBRE',
+        field: 'nombre',
         type: PlutoColumnType.text(),
-        enableColumnDrag: false,
-        readOnly: true),
-    PlutoColumn(
-        title: 'ID USUARIO',
-        field: 'idUsuario',
-        type: PlutoColumnType.text(),
-        enableColumnDrag: false,
-        readOnly: true),
-    PlutoColumn(
-        title: 'TIPO MULTA',
-        field: 'tipoMulta',
-        type: PlutoColumnType.text(),
-        enableColumnDrag: false,
-        readOnly: true),
-    PlutoColumn(
-      title: 'ESTADO DE MULTA',
-      field: 'estadoMulta',
-      type: PlutoColumnType.select(['ACTIVADA', 'FINALIZADA', 'CANCELADA']),
-      enableColumnDrag: false,
-      readOnly: true,
-      renderer: (rendererContext) {
-        Color textColor = Colors.black;
-        if (rendererContext.cell.value == 'ACTIVADA') {
-          textColor = Colors.red;
-        } else if (rendererContext.cell.value == 'FINALIZADA') {
-          textColor = Colors.green;
-        }
-        return Text(
-          rendererContext.cell.value.toString(),
-          style: TextStyle(
-            color: textColor,
-            fontWeight: FontWeight.bold,
-          ),
-        );
-      },
-    ),
-    PlutoColumn(
-        title: 'FECHA DESDE',
-        field: 'fechaDesde',
-        type: PlutoColumnType.date(),
-        enableColumnDrag: false,
-        readOnly: true),
-    PlutoColumn(
-        title: 'FECHA HASTA',
-        field: 'fechaHasta',
-        type: PlutoColumnType.date(),
         enableColumnDrag: false,
         readOnly: true),
   ];
@@ -101,7 +70,7 @@ class TablaMultasState extends ConsumerState<TablaMultas> {
                 children: [
                   Icon(Icons.info_outline),
                   SizedBox(height: 5),
-                  Text('No se han encontrado multas'),
+                  Text('No se han encontrado usuarios'),
                 ],
               ),
             ),
@@ -130,12 +99,8 @@ class TablaMultasState extends ConsumerState<TablaMultas> {
       ),
       mode: PlutoGridMode.select,
       onRowDoubleTap: (e) {
-        final idMulta = e.row.cells.entries.firstWhere((e) => e.key == 'idMulta').value.value;
-        // accionesMulta(context, ref, idMulta);
-        showCupertinoDialog(
-          context: context,
-          builder: (context) => DetalleMultaPage(idMulta),
-        );
+        final idUsuario = e.row.cells.entries.firstWhere((e) => e.key == 'id').value.value;
+        showCupertinoDialog(context: context, builder: (_) => SelectPrestamoPage(idUsuario),);
       },
       createFooter: (stateManager) {
         stateManager.setPageSize(20, notify: true);
