@@ -1,7 +1,7 @@
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../dto/detalleUsuario.dto.dart';
+import '../dto/detalle_usuario.dto.dart';
 
 final getDetalleUsuarioProvider = FutureProvider.family<DetalleUsuarioDto, int>((ref, id) async {
 

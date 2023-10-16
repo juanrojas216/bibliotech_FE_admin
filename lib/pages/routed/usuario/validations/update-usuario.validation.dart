@@ -1,7 +1,7 @@
 
 import 'dart:js_interop';
 
-import '../dto/detalleUsuario.dto.dart';
+import '../dto/detalle_usuario.dto.dart';
 import 'email.validation.dart';
 import 'nombre.validation.dart';
 import 'password.validation.dart';

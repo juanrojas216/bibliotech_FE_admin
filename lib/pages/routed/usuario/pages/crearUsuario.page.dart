@@ -6,7 +6,7 @@ import '../controllers/crearUsuario.controller.dart';
 import '../../../../config/router/admin_router.dart';
 import '../../../../widgets/crear_entidad.dart';
 import '../controllers/getAllUsuarios.controller.dart';
-import '../dto/createUsuario.dto.dart';
+import '../dto/create_usuario.dto.dart';
 import '../validations/usuario.validation.dart';
 
 class UsuarioAdd extends ConsumerStatefulWidget {

@@ -1,7 +1,7 @@
 
 import 'package:pluto_grid/pluto_grid.dart';
 
-import '../dto/listaUsuario.dto.dart';
+import '../dto/lista_usuario.dto.dart';
 
 List<PlutoRow> getRows(List<ListaUsuarioDto> usuarios) {
   

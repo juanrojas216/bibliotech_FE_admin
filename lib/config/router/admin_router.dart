@@ -9,10 +9,8 @@ import 'package:bibliotech_admin/pages/parametrospages/plataforma/pages/indexPla
 import 'package:bibliotech_admin/pages/parametrospages/tipo_publicacion/pages/indexTipoPublicacion.page.dart';
 import 'package:bibliotech_admin/pages/parametrospages/ubicacion/pages/indexUbicaciones.page.dart';
 import 'package:bibliotech_admin/pages/routed/autenticacion/page/login.dart';
-import 'package:bibliotech_admin/pages/routed/multa/create_page/pages/seleccion_prestamo.page.dart';
-import 'package:bibliotech_admin/pages/routed/multa/create_page/pages/seleccion_usuario.page.dart';
 import 'package:bibliotech_admin/pages/routed/multa/index_page/pages/multas.page.dart';
-import 'package:bibliotech_admin/pages/routed/prestamos/prestamos.dart';
+import 'package:bibliotech_admin/pages/routed/prestamos/index_page/pages/prestamos.page.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/pages/create_publicacion.page.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/detalle_publicacion_page/pages/update_publicacion.page.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/pages/ejemplares.page.dart';
@@ -68,7 +66,7 @@ final routesProvider = Provider<GoRouter>((ref) {
     // )
     GoRoute(
       path: '/prestamo',
-      builder: (_, __) => const PrestamosPage(),
+      builder: (_, __) => const PrestamoPage(),
       redirect: (__, _) => _redirect(),
     ),
     GoRoute(

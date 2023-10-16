@@ -6,7 +6,6 @@ List<PrestamoMultaDto> usuariosFromJson(dynamic data) {
 
 
 class PrestamoMultaDto {
-    bool value = false;
     int id;
     String publicacion;
     String ejemplar;

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
 
-import '../dto/createUsuario.dto.dart';
+import '../dto/create_usuario.dto.dart';
 import 'getAllUsuarios.controller.dart';
 
 

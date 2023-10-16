@@ -1,6 +1,5 @@
 
 
-export 'acciones_multa.widget.dart';
 export 'crear_multa_btn.widget.dart';
 export 'input_busqueda_multa.widget.dart';
 export '../../../../../widgets/mostrar_usuario.dart';

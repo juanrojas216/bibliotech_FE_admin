@@ -1,40 +1,51 @@
-import 'package:bibliotech_admin/config/router/admin_router.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class TablaPublicaciones extends ConsumerStatefulWidget {
+import '../pages/seleccion_publicacion.page.dart';
+
+class TablaUsuarios extends ConsumerStatefulWidget {
+  
   final List<PlutoRow> rows;
 
-  const TablaPublicaciones({
+  const TablaUsuarios({
     super.key,
     required this.rows,
   });
 
   @override
-  TablaPublicacionesState createState() => TablaPublicacionesState();
+  TablaUsuariosState createState() => TablaUsuariosState();
 }
 
-class TablaPublicacionesState extends ConsumerState<TablaPublicaciones> {
+class TablaUsuariosState extends ConsumerState<TablaUsuarios> {
+  
   List<PlutoColumn> columns = [
     PlutoColumn(
       title: 'ID',
       field: 'id',
+      type: PlutoColumnType.number(),
+      enableColumnDrag: false,
+      readOnly: true,
+    ),
+    PlutoColumn(
+      title: 'LEGAJO',
+      field: 'legajo',
       type: PlutoColumnType.text(),
       enableColumnDrag: false,
       readOnly: true,
     ),
     PlutoColumn(
-        title: 'Nombre',
-        field: 'name',
-        type: PlutoColumnType.text(),
+        title: 'DNI',
+        field: 'dni',
+        type: PlutoColumnType.number(),
         enableColumnDrag: false,
         readOnly: true),
     PlutoColumn(
-        title: 'Roles',
-        field: 'roles',
+        title: 'NOMBRE',
+        field: 'nombre',
         type: PlutoColumnType.text(),
         enableColumnDrag: false,
         readOnly: true),
@@ -59,7 +70,7 @@ class TablaPublicacionesState extends ConsumerState<TablaPublicaciones> {
                 children: [
                   Icon(Icons.info_outline),
                   SizedBox(height: 5),
-                  Text('No se han encontrado publicaciones'),
+                  Text('No se han encontrado usuarios'),
                 ],
               ),
             ),
@@ -88,8 +99,8 @@ class TablaPublicacionesState extends ConsumerState<TablaPublicaciones> {
       ),
       mode: PlutoGridMode.select,
       onRowDoubleTap: (e) {
-        final id = e.row.cells.entries.firstWhere((e) => e.key == 'id').value.value;
-        ref.read(routesProvider).push('/usuario/detalle', extra: id);
+        final idUsuario = e.row.cells.entries.firstWhere((e) => e.key == 'id').value.value;
+        showCupertinoDialog(context: context, builder: (_) => SelectPublicacionPage(idUsuario));
       },
       createFooter: (stateManager) {
         stateManager.setPageSize(20, notify: true);

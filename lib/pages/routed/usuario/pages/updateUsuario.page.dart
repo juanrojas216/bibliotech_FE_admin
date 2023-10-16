@@ -9,7 +9,7 @@ import '../controllers/editarUsuario.controller.dart';
 import '../../../../config/router/admin_router.dart';
 import '../../../../widgets/eliminar_entidad.dart';
 import '../../../../widgets/crear_entidad.dart';
-import '../dto/detalleUsuario.dto.dart';
+import '../dto/detalle_usuario.dto.dart';
 
 class UsuarioUpdate extends ConsumerStatefulWidget {
   final int idUsuario;

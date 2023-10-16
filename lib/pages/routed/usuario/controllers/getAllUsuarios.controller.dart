@@ -1,7 +1,7 @@
 
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../dto/listaUsuario.dto.dart';
+import '../dto/lista_usuario.dto.dart';
 
 final getAllUsuariosProvider = FutureProvider.autoDispose<List<ListaUsuarioDto>>((ref) async {
   

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
 
-import '../dto/detalleUsuario.dto.dart';
+import '../dto/detalle_usuario.dto.dart';
 import 'getAllUsuarios.controller.dart';
 
 

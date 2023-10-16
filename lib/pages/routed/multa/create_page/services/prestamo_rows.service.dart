@@ -1,6 +1,6 @@
 import 'package:pluto_grid/pluto_grid.dart';
 
-import '../dto/usuario_prestamo.dto.dart';
+import '../dto/prestamo_multa.dto.dart';
 
 List<PlutoRow> prestamoGetRows(List<PrestamoMultaDto> usuarios) {
   

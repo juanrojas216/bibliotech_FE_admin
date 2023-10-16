@@ -1,5 +1,5 @@
 // import 'package:bibliotech_admin/config/api/http_admin.dart';
-import 'package:bibliotech_admin/pages/routed/multa/create_page/dto/usuario_prestamo.dto.dart';
+import 'package:bibliotech_admin/pages/routed/multa/create_page/dto/prestamo_multa.dto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
