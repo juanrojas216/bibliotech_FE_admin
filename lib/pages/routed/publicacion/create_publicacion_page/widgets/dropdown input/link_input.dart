@@ -1,10 +1,11 @@
-import 'package:bibliotech_admin/pages/parametrospages/plataforma/controllers/getAllPlataforma.controller.dart';
-import 'package:bibliotech_admin/pages/parametrospages/plataforma/repository/plataformas.repository.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../../../widgets/error_mensaje.dart';
+import '../../controllers/getAllPlataforma.controller.dart';
 import '../../repository/publicacionDto.repository.dart';
+import '../../repository/plataformas.repository.dart';
 
 class LinkInput extends ConsumerWidget {
   const LinkInput({super.key});
@@ -16,7 +17,7 @@ class LinkInput extends ConsumerWidget {
 
     return tipos.when(
         skipLoadingOnRefresh: false,
-        data: (_) => Row(
+        data: (data) => Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 ElevatedButton(
@@ -43,7 +44,7 @@ class LinkInput extends ConsumerWidget {
                       style: TextStyle(
                           fontFamily: GoogleFonts.poppins.toString(),
                           fontSize: 14),
-                      items: ref.read(plataformasProvider).map(
+                      items: data.map(
                             (e) => DropdownMenuItem(
                               value: e.id,
                               child: Text(e.nombre),
@@ -110,15 +111,20 @@ class LinkInput extends ConsumerWidget {
                 ),
               ],
             ),
-        error: (_, __) => ElevatedButton(
-              onPressed: () {
-                ref.invalidate(getAllPlataformasProvider);
-              },
-              child: Text(
-                'Reintentar cargar plataformas',
-                style: GoogleFonts.poppins(),
+        // error: (_, __) => ElevatedButton(
+        //       onPressed: () {
+        //         ref.invalidate(getAllPlataformasProvider);
+        //       },
+        //       child: Text(
+        //         'Reintentar cargar plataformas',
+        //         style: GoogleFonts.poppins(),
+        //       ),
+        //     ),
+        error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllPlataformasProvider,
+                  message: 'Reintentar cargar plataformas',
               ),
-            ),
         loading: () => const LinearProgressIndicator());
   }
 }

@@ -16,7 +16,7 @@ final crearUsuarioProvider = FutureProvider.family<void, CreateUsuarioDto>((ref,
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.invalidate(getAllUsuariosProvider);

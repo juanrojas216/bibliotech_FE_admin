@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:layout/layout.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../widgets/error_mensaje.dart';
 import 'addCategoria.page.dart';
 import 'editarCategoria.page.dart';
 import 'editarValor.page.dart';
@@ -95,7 +96,9 @@ class CategoriasIndex extends ConsumerWidget {
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) =>
-                                                          ValorAdd(categorias[index].id));
+                                                          ValorAdd(
+                                                              categorias[index]
+                                                                  .id));
                                                 },
                                                 child: Text('Agregar valor',
                                                     style: GoogleFonts.poppins(
@@ -157,14 +160,19 @@ class CategoriasIndex extends ConsumerWidget {
                       );
                     },
                   ),
-                  error: (__, _) => Center(
-                    child: ElevatedButton(
-                      child: const Text('Reintentar cargar categorías'),
-                      onPressed: () {
-                        ref.invalidate(getAllCategoriasProvider);
-                      },
-                    ),
+                  error: (response, _) => ErrorResultadoWidget(
+                    response: response,
+                    provider: getAllCategoriasProvider,
+                    message: 'Reintentar cargar categorias',
                   ),
+                  // error: (__, _) => Center(
+                  //   child: ElevatedButton(
+                  //     child: const Text('Reintentar cargar categorías'),
+                  //     onPressed: () {
+                  //       ref.invalidate(getAllCategoriasProvider);
+                  //     },
+                  //   ),
+                  // ),
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
                 )),

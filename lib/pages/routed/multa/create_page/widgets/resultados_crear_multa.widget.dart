@@ -43,6 +43,7 @@ class _ResultadoCrearMultaState extends ConsumerState<ResultadoCrearMulta> {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: search.when(
+          skipLoadingOnRefresh: false,
           data: (data) => SizedBox(
             height: 300,
             width: 800,

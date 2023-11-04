@@ -1,5 +1,3 @@
-import 'package:bibliotech_admin/pages/routed/usuario/controllers/getRoles.controller.dart';
-import 'package:bibliotech_admin/pages/routed/usuario/validations/rol.validation.dart';
 import 'package:bibliotech_admin/widgets/modificar_entidad.dart';
 import 'package:bibliotech_admin/widgets/eliminar_entidad.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/editarRol.controller copy.dart';
+import '../controllers/getRoles.controller.dart';
 import '../dto/roles_usuario.dto.dart';
+import '../validations/rol.validation.dart';
 
 class RolesUsuario extends ConsumerStatefulWidget {
   const RolesUsuario({
@@ -109,7 +109,7 @@ class _RolesUsuarioState extends ConsumerState<RolesUsuario> {
                               ElevatedButton(
                                   style: ButtonStyle(
                                       backgroundColor: rolValidacion(
-                                              data["roles"][index].entidad,
+                                              data["roles"][index].entidad.idEntidad,
                                               data["roles"][index].nombreRol,
                                               data["roles"][index].privilegios)
                                           ? const MaterialStatePropertyAll(

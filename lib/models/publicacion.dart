@@ -97,7 +97,7 @@ class Publicacion {
         nroPaginas: json["nroPaginas"],
         autores: List<Autor>.from(json["autores"].map((x) => Autor.fromJson(x))),
         edicion: Edicion.fromJson(json["edicion"]),
-        link: json["link"] == null ? Link(url: null, estado: null, plataforma: null) : Link.fromJson(json["link"]),
+        link:  json["link"] == null ? Link(url: null, estado: null, plataforma: null) : Link.fromJson(json["link"]),
         categorias: List<CategoriaPublicacion>.from(json["categorias"].map((x) => CategoriaPublicacion.fromJson(x))),
         tipo: TipoPublicacion.fromJson(json["tipo"]),
         editoriales: List<Editorial>.from(json["editoriales"].map((x) => Editorial.fromJson(x))),

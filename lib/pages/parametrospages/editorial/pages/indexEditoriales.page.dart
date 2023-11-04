@@ -10,17 +10,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-
+import '../../../../widgets/error_mensaje.dart';
 
 class EditorialesIndex extends ConsumerStatefulWidget {
   const EditorialesIndex({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EditorialesIndexState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _EditorialesIndexState();
 }
 
 class _EditorialesIndexState extends ConsumerState<EditorialesIndex> {
-
   late String filtro;
 
   @override
@@ -29,9 +29,8 @@ class _EditorialesIndexState extends ConsumerState<EditorialesIndex> {
     filtro = '';
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
-    
     var editoriales = ref.watch(filtroEditorialesProvider(filtro));
     var _ = ref.watch(getAllEditorialProvider);
 
@@ -78,57 +77,62 @@ class _EditorialesIndexState extends ConsumerState<EditorialesIndex> {
             borderRadius: BorderRadius.circular(16),
           ),
           child: ref.read(getAllEditorialProvider).when(
-            skipLoadingOnRefresh: false,
-            data: (_) => Column(children: [
-              const SizedBox(height: 10),
-              TextFormField(
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
-                    label: Text('Buscador', style: GoogleFonts.poppins()),
-                    border: const OutlineInputBorder()),
-                initialValue: filtro,
-                onChanged: (value) {
-                  filtro = value;
-                  setState(() {});
-                },
-              ),
-              const SizedBox(height: 10),
-              Flexible(
-                child: ListView(
-                  children: editoriales
-                      .map((e) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: ListTile(
-                                trailing: const Icon(Icons.more_vert),
-                                title: Text(e.nombre),
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (_) => EditorialEditar(e.id),
-                                  );
-                                },
-                              ),
-                            ),
-                          ))
-                      .toList(),
+                skipLoadingOnRefresh: false,
+                data: (_) => Column(children: [
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
+                        label: Text('Buscador', style: GoogleFonts.poppins()),
+                        border: const OutlineInputBorder()),
+                    initialValue: filtro,
+                    onChanged: (value) {
+                      filtro = value;
+                      setState(() {});
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  Flexible(
+                    child: ListView(
+                      children: editoriales
+                          .map((e) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(16)),
+                                  child: ListTile(
+                                    trailing: const Icon(Icons.more_vert),
+                                    title: Text(e.nombre),
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (_) => EditorialEditar(e.id),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  )
+                ]),
+                // error: (__, _) => Center(
+                //   child: ElevatedButton(
+                //     child: const Text('Reintentar cargar editoriales'),
+                //     onPressed: () {
+                //       ref.invalidate(getAllEditorialProvider);
+                //     },
+                //   ),
+                // ),
+                error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllEditorialProvider,
+                  message: 'Reintentar cargar editoriales',
                 ),
-              )
-            ]),
-            error: (__, _) => Center(
-              child: ElevatedButton(
-                child: const Text('Reintentar cargar editoriales'),
-                onPressed: () {
-                  ref.invalidate(getAllEditorialProvider);
-                },
+                loading: () => const Center(child: CircularProgressIndicator()),
               ),
-            ),
-            loading: () => const Center(child: CircularProgressIndicator()),
-          ),
         ),
       ),
     );

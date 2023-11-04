@@ -1,5 +1,6 @@
 
 List<PublicacionDto> publicacionesFromJson(dynamic data) {
+  print(data);
   List<dynamic> str = data;
   return List<PublicacionDto>.from(str.map((x) => PublicacionDto.fromJson(x)));
 }
@@ -45,11 +46,11 @@ class PublicacionDto {
 
     factory PublicacionDto.fromJson(Map<String, dynamic> json) => PublicacionDto(
         id: json["id"],
-        titulo: json["titulo"],
-        autores: List<String>.from(json["autores"].map((x) => x)),
-        editoriales: List<String>.from(json["editoriales"].map((x) => x)),
-        edicion: json["edicion"],
-        anio: json["anio"],
+        titulo: json["tituloPublicacion"],
+        autores: List<String>.from(json["autores"].map((x) => '${x["nombre"]} ${x["apellido"]}')),
+        editoriales: List<String>.from(json["editoriales"].map((x) => x["nombre"])),
+        edicion: json["edicion"]["nombre"],
+        anio: json["anioPublicacion"],
     );
 
     Map<String, dynamic> toJson() => {

@@ -1,15 +1,20 @@
 import 'package:bibliotech_admin/models/index.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final publicacionProvider =
-    StateNotifierProvider<PublicacionNotifier, Publicacion>((ref) {
-  return PublicacionNotifier();
+import '../controllers/getPublicacion.controller.dart';
+
+final publicacionProvider = StateNotifierProvider.autoDispose
+    .family<PublicacionNotifier, Publicacion, int>((ref, id) {
+  var publicacion = ref.watch(getPublicacionProvider(id));
+  return PublicacionNotifier(publicacion);
+  // PublicacionNotifier(publicacion);
 });
 
 class PublicacionNotifier extends StateNotifier<Publicacion> {
-  PublicacionNotifier()
-      : super(
-          Publicacion(
+  PublicacionNotifier(AsyncValue<Publicacion> data)
+      : super(data.when(
+          data: (data) => data,
+          error: (error, stackTrace) => Publicacion(
             id: 0,
             anioPublicacion: 0,
             isbnPublicacion: '0',
@@ -27,10 +32,31 @@ class PublicacionNotifier extends StateNotifier<Publicacion> {
                     instrucciones: 'instrucciones')),
             categorias: [],
             tipo: TipoPublicacion(id: 0, nombre: 'Tipo'),
-            editoriales: [], 
+            editoriales: [],
             //comentarios: [], ejemplares: [],
           ),
-        );
+          loading: () => Publicacion(
+            id: 0,
+            anioPublicacion: 0,
+            isbnPublicacion: '0',
+            tituloPublicacion: 'Titulo',
+            nroPaginas: 0,
+            autores: [],
+            edicion: Edicion(id: 0, nombre: 'Edicion'),
+            link: Link(
+                url: null,
+                estado: null,
+                plataforma: Plataforma(
+                    id: 0,
+                    nombre: 'Plataforma',
+                    // url: 'url',
+                    instrucciones: 'instrucciones')),
+            categorias: [],
+            tipo: TipoPublicacion(id: 0, nombre: 'Tipo'),
+            editoriales: [],
+            //comentarios: [], ejemplares: [],
+          ),
+        ));
 
   actualizarPublicacion(Publicacion publicacion) {
     state = publicacion.copyWith();

@@ -3,19 +3,17 @@ import 'package:pluto_grid/pluto_grid.dart';
 import '../dto/usuario_prestamo.dto.dart';
 
 List<PlutoRow> usuarioGetRows(List<UsuarioPrestamoDto> usuarios) {
-  
-  List<PlutoRow> rows = List.generate(
-    usuarios.length,
-    (index) => PlutoRow(
+  List<PlutoRow> rows = List.generate(usuarios.length, (index) {
+    return PlutoRow(
       cells: {
         'id': PlutoCell(value: usuarios[index].id),
         'dni': PlutoCell(value: usuarios[index].dni),
         'legajo': PlutoCell(value: usuarios[index].legajo),
-        'nombre': PlutoCell(value: usuarios[index].nombre),
+        'nombre': PlutoCell(value: "${usuarios[index].nombre} ${usuarios[index].apellido}"),
       },
       sortIdx: index,
-    ),
-  );
+    );
+  });
 
   return rows;
 }

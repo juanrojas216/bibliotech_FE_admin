@@ -218,7 +218,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                     builder: (_) => CrearEntidad<DetalleUsuarioDto?>(
                           entidad: detalleUsuario,
                           nombreProvider: updateUsuarioProvider,
-                          mensajeResult: 'USUARIO CREADO',
+                          mensajeResult: 'USUARIO MODIFICADO',
                           mensajeError: 'ERROR AL MODIFICAR USUARIO',
                         ));
               },
@@ -241,7 +241,7 @@ class _UpdateUsuarioState extends ConsumerState<UsuarioUpdate> {
                           nombreProvider:
                               deleteUsuariosProvider(detalleUsuario!.id!),
                           mensajeResult: 'USUARIO ELIMINADO',
-                          mensajeError: 'ERROR AL ELIMINAR AUTOR',
+                          mensajeError: 'ERROR AL ELIMINAR USUARIO',
                         ));
               },
               child: const Text('Eliminar usuario')),

@@ -1,17 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../../../widgets/error_mensaje.dart';
 import '../../controllers/getAllEdicion.controller.dart';
-import '../../repository/edicion.repository.dart';
 import '../../repository/publicacionDto.repository.dart';
+import '../../repository/edicion.repository.dart';
 
 
 class EdicionInput extends ConsumerWidget {
+  
   const EdicionInput({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    
     var publicacionDetalle = ref.watch(publicacionDtoProvider);
     var ediciones = ref.watch(getAllEdicionProvider); 
 
@@ -33,7 +36,7 @@ class EdicionInput extends ConsumerWidget {
                 style: TextStyle(
                     fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
                 items: [
-                  ...ref.read(edicionesProvider).map(
+                  ...data.map(
                     (e) => DropdownMenuItem(
                       value: e.id,
                       child: Text(
@@ -47,21 +50,26 @@ class EdicionInput extends ConsumerWidget {
                   if (value != null) {
                     ref
                         .read(publicacionDtoProvider.notifier)
-                        .actualizarEdicion(ref.read(edicionesProvider).where((e) => e.id == value).first);
+                        .actualizarEdicion(data.where((e) => e.id == value).first);
                   }
                 },
               ),
             );
         },
-        error: (_, __) => ElevatedButton(
-              onPressed: () {
-                ref.invalidate(getAllEdicionProvider);
-              },
-              child: Text(
-                'Reintentar cargar ediciones',
-                style: GoogleFonts.poppins(),
+        // error: (_, __) => ElevatedButton(
+        //       onPressed: () {
+        //         ref.invalidate(getAllEdicionProvider);
+        //       },
+        //       child: Text(
+        //         'Reintentar cargar ediciones',
+        //         style: GoogleFonts.poppins(),
+        //       ),
+        //     ),
+        error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllEdicionProvider,
+                  message: 'Reintentar cargar ediciones',
               ),
-            ),
         loading: () => const LinearProgressIndicator());
   }
 }

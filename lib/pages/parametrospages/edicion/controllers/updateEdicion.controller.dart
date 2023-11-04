@@ -13,7 +13,7 @@ final updateEdicionProvider =
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(edicionesProvider.notifier).update((value) => value.map((e) {

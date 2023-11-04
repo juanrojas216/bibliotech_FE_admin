@@ -11,11 +11,13 @@ import 'package:bibliotech_admin/pages/parametrospages/ubicacion/pages/indexUbic
 import 'package:bibliotech_admin/pages/routed/autenticacion/page/login.dart';
 import 'package:bibliotech_admin/pages/routed/multa/index_page/pages/multas.page.dart';
 import 'package:bibliotech_admin/pages/routed/prestamos/index_page/pages/prestamos.page.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/pages/create_publicacion.page.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/detalle_publicacion_page/pages/update_publicacion.page.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/comentarios_page/pages/comentarios_ejemplar.page.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/comentarios_page/pages/comentarios_publicacion.page.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/pages/create_publicacion.page%20copy.dart';
+import 'package:bibliotech_admin/pages/routed/publicacion/detalle_publicacion_page/pages/update_publicacion.page%20copy.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/pages/ejemplares.page.dart';
 import 'package:bibliotech_admin/pages/routed/publicacion/index_page/pages/publicaciones.page.dart';
-import 'package:bibliotech_admin/pages/routed/reporte/reportes.dart';
+import 'package:bibliotech_admin/pages/routed/reporte/pages/indexReportes.page.dart';
 import 'package:bibliotech_admin/pages/routed/usuario/pages/usuarios.page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +29,7 @@ final routesProvider = Provider<GoRouter>((ref) {
   return GoRouter(routerNeglect: true, routes: [
     GoRoute(
       path: '/',
-      builder: (_, __) => LoginPage(),
+      builder: (_, __) => const LoginPage(),
     ),
     GoRoute(
       path: '/publicacion',
@@ -96,8 +98,18 @@ final routesProvider = Provider<GoRouter>((ref) {
       redirect: (__, _) => _redirect(),
     ),
     GoRoute(
+      path: '/publicacion/comentarios',
+      builder: (_, rs) => ComentariosPublicacionIndex(idPublicacion: rs.extra as int),
+      redirect: (__, _) => _redirect(),
+    ),
+    GoRoute(
       path: '/publicacion/ejemplares',
       builder: (_, rs) => EjemplaresIndex(idPublicacion: rs.extra as int),
+      redirect: (__, _) => _redirect(),
+    ),
+    GoRoute(
+      path: '/ejemplar/comentarios',
+      builder: (_, rs) => ComentariosEjemplarIndex(idEjemplar: rs.extra as int),
       redirect: (__, _) => _redirect(),
     ),
     GoRoute(

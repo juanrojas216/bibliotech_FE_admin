@@ -9,8 +9,8 @@ final getRolesUsuarioProvider = FutureProvider<Map>((ref) async {
   //       parser: rolesUsuarioDtoFromJson,
   //     );
 
-  // if (roles.error != null) {
-  //   throw roles.error!;
+  // if (response.error != null) {
+  //   throw response;
   // }
 
   // var entidades = await ref.watch(apiProvider).request<List<Entidad>>(

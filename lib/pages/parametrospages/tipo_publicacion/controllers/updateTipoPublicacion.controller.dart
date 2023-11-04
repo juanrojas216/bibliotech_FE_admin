@@ -13,7 +13,7 @@ final updateTipoPublicacionProvider =
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(tiposPublicacionProvider.notifier).update((value) => value.map((tp) {

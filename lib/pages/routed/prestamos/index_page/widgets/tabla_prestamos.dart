@@ -89,7 +89,7 @@ class TablaPrestamosState extends ConsumerState<TablaPrestamos> {
                 children: [
                   Icon(Icons.info_outline),
                   SizedBox(height: 5),
-                  Text('No se han encontrado multas'),
+                  Text('No se han encontrado prestamos'),
                 ],
               ),
             ),

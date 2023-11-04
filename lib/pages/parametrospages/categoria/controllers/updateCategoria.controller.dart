@@ -16,7 +16,7 @@ final updateCategoriaProvider = FutureProvider.family<void, Categoria>((ref, cat
     var logger = SimpleLogger();
     logger.severe(response.error!.exception);
     logger.warning(response.error!.data);
-    throw response.error!;
+    throw response;
   }
 
   ref.read(categoriasProvider.notifier).update((value) => value.map((c) {

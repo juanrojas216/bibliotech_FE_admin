@@ -18,7 +18,7 @@ final createCategoriaProvider = FutureProvider.family<void, CategoriaDto>((ref, 
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(categoriasProvider.notifier).update((state) {

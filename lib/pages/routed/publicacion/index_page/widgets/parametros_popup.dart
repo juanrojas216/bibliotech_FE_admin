@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../../config/auth/auth.service.dart';
+
 class ParametrosPopUp extends ConsumerWidget {
   const ParametrosPopUp({
     super.key,
@@ -62,23 +64,26 @@ class ParametrosPopUp extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
-                DecoratedBox(
-                  decoration: const BoxDecoration(
-                    color: Colors.purple,
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                  ),
-                  child: CupertinoListTile(
-                    title: Text('Autores',
-                        style: GoogleFonts.poppins(color: Colors.white)),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    backgroundColorActivated: Colors.transparent,
-                    leading: const Icon(Icons.edit),
-                    trailing: const Icon(Icons.arrow_right),
-                    onTap: () {
-                      ref.read(routesProvider).pop();
-                      ref.read(routesProvider).push('/parametro/autor');
-                    },
+                Visibility(
+                  visible: Auth.autor["leer"] as bool,
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                    ),
+                    child: CupertinoListTile(
+                      title: Text('Autores',
+                          style: GoogleFonts.poppins(color: Colors.white)),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      backgroundColorActivated: Colors.transparent,
+                      leading: const Icon(Icons.edit),
+                      trailing: const Icon(Icons.arrow_right),
+                      onTap: () {
+                        ref.read(routesProvider).pop();
+                        ref.read(routesProvider).push('/parametro/autor');
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(height: 5),

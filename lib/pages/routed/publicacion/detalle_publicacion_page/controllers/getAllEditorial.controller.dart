@@ -4,15 +4,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../repository/editorial.repository.dart';
 
-final getAllEditorialProvider = FutureProvider.autoDispose<void>((ref) async {
+final getAllEditorialProvider = FutureProvider.autoDispose<List<Editorial>>((ref) async {
   
   var response = await ref
       .watch(apiProvider)
       .request<List<Editorial>>('/editoriales', parser: editorialesFromJson);
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
-  ref.read(editorialesProvider.notifier).update((_) => response.data!);
+  return response.data!;
+  // ref.read(editorialesProvider.notifier).update((_) => response.data!);
 });

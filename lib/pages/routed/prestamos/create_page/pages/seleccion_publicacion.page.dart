@@ -7,20 +7,18 @@ import 'package:bibliotech_admin/config/router/admin_router.dart';
 import '../widgets/resultados_publicacion.widget.dart';
 
 class SelectPublicacionPage extends ConsumerStatefulWidget {
-
   final int idUsuario;
 
   const SelectPublicacionPage(this.idUsuario, {super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SelectPrestamoPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _SelectPrestamoPageState();
 }
 
 class _SelectPrestamoPageState extends ConsumerState<SelectPublicacionPage> {
-
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
       content: Card(
         shape: Border.all(color: Colors.grey),
@@ -40,6 +38,8 @@ class _SelectPrestamoPageState extends ConsumerState<SelectPublicacionPage> {
                   ),
                   Row(
                     children: [
+                      const Text("Seleccione 1 publicacion haciendo doble click sobre la fila"),
+                      const SizedBox(width: 5),
                       ElevatedButton(
                         style: const ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll(Colors.red),

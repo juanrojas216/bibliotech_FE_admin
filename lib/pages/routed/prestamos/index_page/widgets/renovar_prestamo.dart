@@ -25,7 +25,10 @@ class RenovarPrestamo extends ConsumerStatefulWidget {
 }
 
 class _RenovarPrestamoState extends ConsumerState<RenovarPrestamo> {
+  
   int? cantidadDiaz;
+  DateTime? fechaFinNueva;
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class _RenovarPrestamoState extends ConsumerState<RenovarPrestamo> {
       child: search.when(
         data: (data) => SizedBox(
           height: 100,
-          width: 800,
+          width: 1000,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Visibility(
@@ -72,7 +75,7 @@ class _RenovarPrestamoState extends ConsumerState<RenovarPrestamo> {
                             readOnly: true,
                             decoration: InputDecoration(
                                 isDense: true,
-                                labelText: 'FECHA FIN',
+                                labelText: 'FECHA FIN ACTUAL',
                                 labelStyle: TextStyle(
                                     fontFamily: GoogleFonts.poppins.toString(),
                                     fontSize: 14),
@@ -111,10 +114,25 @@ class _RenovarPrestamoState extends ConsumerState<RenovarPrestamo> {
                               onChanged: (value) {
                                 if (value != null) {
                                   cantidadDiaz = value;
+                                  fechaFinNueva = (data["renovacion"].fechaFinalizacionPrevista as DateTime).add(Duration(days: cantidadDiaz!)); 
                                   setState(() {});
                                 }
                               },
                             ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextFormField(
+                            initialValue: fechaFinNueva == null ? data["renovacion"].fechaFinalizacionPrevista : '${fechaFinNueva!.day}-${fechaFinNueva!.month}-${fechaFinNueva!.year}',
+                            readOnly: true,
+                            decoration: InputDecoration(
+                                isDense: true,
+                                labelText: 'FECHA FIN ESTIMADA',
+                                labelStyle: TextStyle(
+                                    fontFamily: GoogleFonts.poppins.toString(),
+                                    fontSize: 14),
+                                border: const OutlineInputBorder()),
                           ),
                         ),
                         const SizedBox(width: 10),

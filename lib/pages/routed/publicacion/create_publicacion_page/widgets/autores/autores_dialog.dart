@@ -1,12 +1,13 @@
 
 
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/repository/publicacionDto.repository.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../../../widgets/error_mensaje.dart';
+import '../../repository/publicacionDto.repository.dart';
 import '../../controllers/getAllAutor.controller.dart';
 import '../../repository/autores.repository.dart';
 import '../../services/filtrarAutor.service.dart';
@@ -26,7 +27,6 @@ class _AlertAutorState extends ConsumerState<AlertAutor> {
   @override
   Widget build(BuildContext context) {
 
-    var listaAutores = ref.watch(autoresProvider);
     var search = ref.watch(getAllAutoresProvider);
     
     return AlertDialog(
@@ -38,7 +38,7 @@ class _AlertAutorState extends ConsumerState<AlertAutor> {
       ),
       content: search.when(
             
-            data: (_) {
+            data: (listaAutores) {
 
               List<ListTile> items = [];
 
@@ -73,13 +73,18 @@ class _AlertAutorState extends ConsumerState<AlertAutor> {
                 ),
               ]);
             },
-            error: (error, stackTrace) => Center(
-                child: ElevatedButton(
-                    onPressed: () {
-                      ref.invalidate(autoresProvider);
-                    },
-                    child: Text('Reintentar cargar autores',
-                        style: GoogleFonts.poppins()))),
+            // error: (error, stackTrace) => Center(
+            //     child: ElevatedButton(
+            //         onPressed: () {
+            //           ref.invalidate(autoresProvider);
+            //         },
+            //         child: Text('Reintentar cargar autores',
+            //             style: GoogleFonts.poppins()))),
+            error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllAutoresProvider,
+                  message: 'Reintentar cargar autores',
+              ),
             loading: () => const Center(child: CircularProgressIndicator()),
           ),
       actions: [

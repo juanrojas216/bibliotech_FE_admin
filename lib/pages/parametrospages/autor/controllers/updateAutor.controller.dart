@@ -12,7 +12,7 @@ final updateAutorProvider = FutureProvider.family<void, Autor>((ref, autor) asyn
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(autoresProvider.notifier).update((value) => value.map((a) {

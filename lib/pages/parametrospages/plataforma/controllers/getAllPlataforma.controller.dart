@@ -14,7 +14,7 @@ final getAllPlataformasProvider = FutureProvider.autoDispose<void>((ref) async {
     var logger = SimpleLogger();
     logger.info(response.error!.exception);
     logger.info(response.error!.data);
-    throw response.error!;
+    throw response;
   }
 
   ref.read(plataformasProvider.notifier).update((state) => response.data!);

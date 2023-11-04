@@ -10,6 +10,7 @@ import '../dto/create_multa.dto.dart';
 
 final createMultaProvider = FutureProvider.family<void, CreateMultaDto>((ref, multaDto) async {
   
+  
   var response = await ref.watch(apiProvider).request(
     '/multa',
     method: HttpMethod.post,
@@ -17,7 +18,7 @@ final createMultaProvider = FutureProvider.family<void, CreateMultaDto>((ref, mu
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.invalidate(searchMultasProvider);

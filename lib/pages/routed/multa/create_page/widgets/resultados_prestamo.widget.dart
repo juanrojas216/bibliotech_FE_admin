@@ -23,10 +23,11 @@ class ResultadosPrestamos extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: search.when(
+          skipLoadingOnRefresh: false,
           data: (data) => SizedBox(
             height: 1000,
             width: 800,
-            child: TablaPrestamo( idUsuario ,rows: prestamoGetRows(data)),
+            child: TablaPrestamo(idUsuario, rows: prestamoGetRows(data)),
           ),
           error: (error, stackTrace) => Center(
               child: ElevatedButton(

@@ -25,7 +25,7 @@ final createValorProvider = FutureProvider.family<void, ValorDto>((ref, valorDto
     var logger = SimpleLogger();
     logger.warning(response.error!.exception);
     logger.warning(response.error!.data);
-    throw response.error!;
+    throw response;
   } else {
     var logger = SimpleLogger();
     logger.info(response.data!.toJson());

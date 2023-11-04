@@ -1,12 +1,13 @@
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/repository/publicacionDto.repository.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/services/filtrarCategoria.service.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../../../widgets/error_mensaje.dart';
 import '../../controllers/getAllCategoria.controller.dart';
+import '../../repository/publicacionDto.repository.dart';
+import '../../services/filtrarCategoria.service.dart';
 import '../../repository/categorias.repository.dart';
 
 class AlertCategoria extends ConsumerStatefulWidget {
@@ -22,7 +23,6 @@ class _AlertCategoriaState extends ConsumerState<AlertCategoria> {
   @override
   Widget build(BuildContext context) {
 
-    var listaCategoria = ref.watch(categoriasProvider);
     var search = ref.watch(getAllCategoriasProvider);
 
     return AlertDialog(
@@ -39,7 +39,8 @@ class _AlertCategoriaState extends ConsumerState<AlertCategoria> {
         ],
       ),
       content: search.when(
-            data: (_) {
+
+            data: (listaCategoria) {
               
               List<ListTile> items = [];
 
@@ -70,13 +71,18 @@ class _AlertCategoriaState extends ConsumerState<AlertCategoria> {
                     itemCount: items.length),
               );
             },
-            error: (error, stackTrace) => Center(
-                child: ElevatedButton(
-                    onPressed: () {
-                      ref.invalidate(categoriasProvider);
-                    },
-                    child: Text('Reintentar cargar categorias',
-                        style: GoogleFonts.poppins()))),
+            // error: (error, stackTrace) => Center(
+            //     child: ElevatedButton(
+            //         onPressed: () {
+            //           ref.invalidate(categoriasProvider);
+            //         },
+            //         child: Text('Reintentar cargar categorias',
+            //             style: GoogleFonts.poppins()))),
+            error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllCategoriasProvider,
+                  message: 'Reintentar cargar categorias',
+              ),
             loading: () => const Center(child: CircularProgressIndicator()),
           ),
       actions: [

@@ -11,7 +11,7 @@ final getAllUsuariosProvider = FutureProvider.autoDispose<List<ListaUsuarioDto>>
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   return response.data!;

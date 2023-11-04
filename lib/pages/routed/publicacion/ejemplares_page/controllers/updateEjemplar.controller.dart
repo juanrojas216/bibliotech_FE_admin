@@ -1,20 +1,20 @@
 import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
-import 'package:bibliotech_admin/models/index.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../dto/ejemplar_item.dto.dart';
 import 'getAllEjemplares.controller.dart';
 
 
-final updateEjemplarProvider = FutureProvider.family<void, Ejemplar>((ref, ejemplar) async {
+final updateEjemplarProvider = FutureProvider.family<void, EjemplarItemDto>((ref, ejemplar) async {
   var response = await ref.watch(apiProvider).request(
         '/ejemplares/${ejemplar.id}',
         method: HttpMethod.put,
-        body: ejemplarToJson(ejemplar),
+        body: ejemplarItemToJson(ejemplar),
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.invalidate(getAllEjemplaresProvider);

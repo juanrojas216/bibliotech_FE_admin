@@ -13,7 +13,7 @@ final createEditorialProvider = FutureProvider.family<void, String>((ref, nombre
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(editorialesProvider.notifier).update((state) {

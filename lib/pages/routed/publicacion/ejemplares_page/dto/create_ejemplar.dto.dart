@@ -18,8 +18,8 @@ class EjemplarDto {
   Map<String, dynamic> toMap() {
     return {
       'serialNFC': serialNFC,
-      'publicacionId': publicacionId,
-      'ubicacionId': ubicacionId,
+      'idPublicacion': publicacionId,
+      'idUbicacion': ubicacionId,
       // 'usuarioId': usuarioId,
     };
   }

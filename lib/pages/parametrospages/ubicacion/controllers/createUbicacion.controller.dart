@@ -18,7 +18,7 @@ final createUbicacionProvider = FutureProvider.family<void, UbicacionDto>((ref, 
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(ubicacionesProvider.notifier).update((state) {

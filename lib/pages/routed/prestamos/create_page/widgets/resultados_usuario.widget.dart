@@ -19,6 +19,7 @@ class ResultadosUsuarios extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: search.when(
+          skipLoadingOnRefresh: false,
           data: (data) => SizedBox(
             height: 1000,
             width: 800,

@@ -16,7 +16,7 @@ final createTipoPublicacionProvider = FutureProvider.family<void, String>((ref, 
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(tiposPublicacionProvider.notifier).update((state) {

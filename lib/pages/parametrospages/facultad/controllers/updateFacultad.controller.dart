@@ -13,7 +13,7 @@ final updateFacultadProvider =
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(facultadesProvider.notifier).update((value) => value.map((f) {

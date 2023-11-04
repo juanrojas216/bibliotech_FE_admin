@@ -12,7 +12,7 @@ final updateUbicacionProvider = FutureProvider.family<void, Ubicacion>((ref, ubi
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(ubicacionesProvider.notifier).update((value) => value.map((a) {

@@ -12,7 +12,7 @@ final deletePlataformaProvider = FutureProvider.family<void, int>((ref, id) asyn
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(facultadesProvider.notifier).update((value) {

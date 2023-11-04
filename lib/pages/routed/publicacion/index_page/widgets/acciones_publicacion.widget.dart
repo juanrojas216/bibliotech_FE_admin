@@ -42,7 +42,7 @@ void accionesPublicacion(BuildContext context, WidgetRef ref, int id) {
               onTap: () {
                 ref
                     .read(routesProvider)
-                    .push('publicacion/comentarios', extra: id);
+                    .push('/publicacion/comentarios', extra: id);
               },
               leading: const Icon(Icons.comment),
               trailing: const Icon(Icons.arrow_forward_ios),

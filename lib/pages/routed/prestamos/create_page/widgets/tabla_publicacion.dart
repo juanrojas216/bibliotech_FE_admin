@@ -32,17 +32,17 @@ class TablaPublicacionesState extends ConsumerState<TablaPublicacion> {
       enableColumnDrag: false,
       readOnly: true,
     ),
-    PlutoColumn(
-      title: 'ISBN',
-      field: 'isbn',
-      type: PlutoColumnType.text(),
-      enableColumnDrag: false,
-      readOnly: true,
-    ),
+    // PlutoColumn(
+    //   title: 'ISBN',
+    //   field: 'isbn',
+    //   type: PlutoColumnType.text(),
+    //   enableColumnDrag: false,
+    //   readOnly: true,
+    // ),
     PlutoColumn(
         title: 'TITULO',
         field: 'titulo',
-        type: PlutoColumnType.number(),
+        type: PlutoColumnType.text(),
         enableColumnDrag: false,
         readOnly: true),
     PlutoColumn(
@@ -64,8 +64,8 @@ class TablaPublicacionesState extends ConsumerState<TablaPublicacion> {
         enableColumnDrag: false,
         readOnly: true),
     PlutoColumn(
-        title: 'EDITORIALES',
-        field: 'editoriales',
+        title: 'EDITORIAL',
+        field: 'editorial',
         type: PlutoColumnType.text(),
         enableColumnDrag: false,
         readOnly: true),

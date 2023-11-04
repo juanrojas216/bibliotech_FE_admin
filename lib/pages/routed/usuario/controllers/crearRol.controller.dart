@@ -19,7 +19,7 @@ final crearRolProvider = FutureProvider.family<void, CreateRol>((ref, rol) async
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.invalidate(getRolesUsuarioProvider);

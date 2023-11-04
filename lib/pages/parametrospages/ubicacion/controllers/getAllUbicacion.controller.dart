@@ -11,7 +11,7 @@ final getAllUbicacionProvider = FutureProvider.autoDispose<void>((ref) async {
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(ubicacionesProvider.notifier).update((_) => response.data!,);

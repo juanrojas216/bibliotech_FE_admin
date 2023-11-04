@@ -1,19 +1,30 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../../../models/index.dart';
+import '../../../../../../widgets/error_mensaje.dart';
 import '../../controllers/getAllTipoPublicacion.controller.dart';
-import '../../repository/publicacion.repository.dart';
 import '../../repository/tipo_publicacion.repository.dart';
+import '../../repository/publicacion.repository.dart';
 
 
-class TipoInput extends ConsumerWidget {
-  const TipoInput({super.key});
+class TipoInput extends ConsumerStatefulWidget {
+
+  final Publicacion publicacion;
+
+  const TipoInput(this.publicacion, {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _TipoInputState();
+}
 
-    var publicacionDto = ref.watch(publicacionProvider);
+class _TipoInputState extends ConsumerState<TipoInput> {
+
+  @override
+  Widget build(BuildContext context) {
+
+    // var publicacionDto = ref.watch(publicacionProvider);
     var tipos = ref.watch(getAllTipoPublicacionProvider);
     
     return tipos.when(
@@ -29,11 +40,11 @@ class TipoInput extends ConsumerWidget {
                 isDense: true,
                 isExpanded: true,
                 hint: const Text('TIPO DE PUBLICACION'),
-                value: publicacionDto.tipo.id,
+                value: widget.publicacion.tipo.id,
                 style: TextStyle(
                     fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
                 items: [
-                  ...ref.read(tipoPublicacionProvider).map(
+                  ...data.map(
                     (t) => DropdownMenuItem(
                       value: t.id,
                       child: Text(
@@ -45,21 +56,27 @@ class TipoInput extends ConsumerWidget {
                 ],
                 onChanged: (value) {
                   if (value != null) {
-                    ref
-                        .read(publicacionProvider.notifier)
-                        .actualizarTipo(ref.read(tipoPublicacionProvider).where((t) => t.id == value).first);
+                    widget.publicacion.tipo = data.firstWhere((tipo) => tipo.id == value);
+                    // ref
+                    //     .read(publicacionProvider.notifier)
+                    //     .actualizarTipo(data.where((t) => t.id == value).first);
                   }
                 },
               ),
             ),
-        error: (_, __) => ElevatedButton(
-              onPressed: () {
-                ref.invalidate(getAllTipoPublicacionProvider);
-              },
-              child: Text(
-                'Reintentar cargar tipos',
-                style: GoogleFonts.poppins(),
-              ),
+        // error: (_, __) => ElevatedButton(
+        //       onPressed: () {
+        //         ref.invalidate(getAllTipoPublicacionProvider);
+        //       },
+        //       child: Text(
+        //         'Reintentar cargar tipos',
+        //         style: GoogleFonts.poppins(),
+        //       ),
+        //     ),
+        error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllTipoPublicacionProvider,
+                  message: 'Reintentar cargar tipos de publicacion',
             ),
         loading: () => const LinearProgressIndicator());
   }

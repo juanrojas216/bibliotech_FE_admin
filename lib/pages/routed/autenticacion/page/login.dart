@@ -9,6 +9,8 @@ import '../../../../config/api/http_admin.dart';
 import '../../../../config/auth/auth.service.dart';
 import '../../../../config/auth/token_admin.dart';
 import '../../../../config/helpers/http_method.dart';
+import '../validations/email.validation.dart';
+import '../validations/password.validation.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -18,6 +20,7 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
+
   String email = '';
   String password = '';
   bool mostrarError = false;
@@ -32,6 +35,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           children: [
             Image.asset('images/logo.png', scale: 3),
             Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: SizedBox(
                 width: 300,
                 child: Column(
@@ -44,10 +48,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         mostrarError = false;
                         setState(() {});
                       },
+                      validator: (value) {
+                        if (value != null && emailValidacion(value)) {
+                          return null;
+                        }
+                        return "El email debe seguir el formato xx@xx.xx";
+                      },
                       style: GoogleFonts.poppins(),
                       decoration: InputDecoration(
                         labelText: 'Email',
                         hintText: 'Ingrese su email',
+                        errorMaxLines: 4,
                         hintStyle: GoogleFonts.poppins(fontSize: 14),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: const OutlineInputBorder(),
@@ -61,10 +72,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         mostrarError = false;
                         setState(() {});
                       },
+                      validator: (value) {
+                        if (value != null && passwordValidacion(value)) {
+                          return null;
+                        }
+                        return "La constaseña de contener al menos 1 mayúsula, minúscula, número y ser mayor a ocho caracteres.";
+                      },
                       style: GoogleFonts.poppins(),
                       decoration: InputDecoration(
                         labelText: 'CONTRASEÑA',
                         hintText: 'Su contraseña',
+                        errorMaxLines: 4,
                         hintStyle: GoogleFonts.poppins(fontSize: 14),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: const OutlineInputBorder(),

@@ -18,7 +18,7 @@ final createAutorProvider = FutureProvider.family<void, AutorDto>((ref, autorDto
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(autoresProvider.notifier).update((state) {

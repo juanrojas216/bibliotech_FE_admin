@@ -1,10 +1,16 @@
+import 'dart:js_interop';
+
 import 'package:pluto_grid/pluto_grid.dart';
 import '../dto/publicacion.dto.dart';
 
-List<PlutoRow> getRows(List<PublicacionDto> publicaciones) {
+List<PlutoRow> getRows(List<PublicacionDto>? publicaciones) {
+
+  if (publicaciones.isNull) {
+    return [];
+  }
   
   List<PlutoRow> rows = List.generate(
-    publicaciones.length,
+    publicaciones!.length,
     (index) => PlutoRow(
       cells: {
         'id': PlutoCell(value: publicaciones[index].id),

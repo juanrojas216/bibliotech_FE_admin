@@ -10,6 +10,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../widgets/error_mensaje.dart';
+
 
 class UbicacionesIndex extends ConsumerStatefulWidget {
   
@@ -119,14 +121,19 @@ class _UbicacionesABMState extends ConsumerState<UbicacionesIndex> {
                 ),
               )
             ]),
-            error: (__, _) => Center(
-              child: ElevatedButton(
-                child: const Text('Reintentar cargar ubicaciones'),
-                onPressed: () {
-                  ref.invalidate(getAllUbicacionProvider);
-                },
+            // error: (__, _) => Center(
+            //   child: ElevatedButton(
+            //     child: const Text('Reintentar cargar ubicaciones'),
+            //     onPressed: () {
+            //       ref.invalidate(getAllUbicacionProvider);
+            //     },
+            //   ),
+            // ),
+            error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllUbicacionProvider,
+                  message: 'Reintentar cargar ubicaciones',
               ),
-            ),
             loading: () => const Center(child: CircularProgressIndicator()),
           ),
         ),

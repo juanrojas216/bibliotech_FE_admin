@@ -16,7 +16,7 @@ final cambiarEstadoEjemplarProvider = FutureProvider.family<void, CambiarEstadoD
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
     ref.invalidate(getAllEjemplaresProvider);

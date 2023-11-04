@@ -7,6 +7,8 @@ import 'package:bibliotech_admin/config/router/admin_router.dart';
 import '../widgets/parametros_prestamo.dart';
 import '../widgets/renovar_prestamo.dart';
 
+
+
 class RenovarPrestamoPage extends ConsumerStatefulWidget {
 
   final int idPrestamo;
@@ -19,6 +21,7 @@ class RenovarPrestamoPage extends ConsumerStatefulWidget {
 }
 
 class _RenovarPrestamoPageState extends ConsumerState<RenovarPrestamoPage> {
+    
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

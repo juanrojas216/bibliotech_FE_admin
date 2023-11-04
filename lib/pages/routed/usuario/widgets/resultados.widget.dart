@@ -1,3 +1,4 @@
+import 'package:bibliotech_admin/widgets/error_mensaje.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,16 +21,22 @@ class Resultados extends ConsumerWidget {
       child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: search.when(
+              skipLoadingOnRefresh: false,
               data: (data) {
                 return TablaPublicaciones(rows: getRows(data));
               },
-              error: (error, stackTrace) => Center(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        ref.invalidate(getAllUsuariosProvider);
-                      },
-                      child: Text('Reintentar cargar usuarios',
-                          style: GoogleFonts.poppins()))),
+              error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllUsuariosProvider,
+                  message: 'Reintentar cargar usuarios',
+              ),
+              // (error, stackTrace) => Center(
+              //     child: ElevatedButton(
+              //         onPressed: () {
+              //           ref.invalidate(getAllUsuariosProvider);
+              //         },
+              //         child: Text('Reintentar cargar usuarios',
+              //             style: GoogleFonts.poppins()))),
               loading: () => const Center(child: CircularProgressIndicator()))),
     );
   }

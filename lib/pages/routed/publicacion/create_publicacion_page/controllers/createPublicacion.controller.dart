@@ -22,9 +22,7 @@ final createPublicacionProvider = FutureProvider.family<void, PublicacionDto>((r
   if (response.error != null) {
     logger.warning(response.error!.exception);
     logger.warning(response.error!.data);
-    throw response.error!;
-  } else {
-    logger.warning('funciona');
+    throw response;
   }
 
 });

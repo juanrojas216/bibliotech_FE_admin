@@ -15,7 +15,7 @@ final getAllCategoriasProvider = FutureProvider.autoDispose<void>((ref) async {
     var logger = SimpleLogger();
     logger.info(response.error!.exception);
     logger.info(response.error!.data);
-    throw response.error!;
+    throw response;
   }
 
   ref.read(categoriasProvider.notifier).update((_) => response.data!,);

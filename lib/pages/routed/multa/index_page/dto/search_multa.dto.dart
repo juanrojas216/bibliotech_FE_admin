@@ -30,8 +30,8 @@ class SearchMultaDto {
     return {
       'idUsuario': idUsuario,
       'idPrestamo': idPrestamo,
-      'fechaDesde': '${fechaDesde?.toIso8601String().split('.')[0]}Z',
-      'fechaHasta': '${fechaHasta?.toIso8601String().split('.')[0]}Z',
+      'fechaDesde': fechaDesde == null ? null : '${fechaDesde?.toIso8601String().split('.')[0]}Z',
+      'fechaHasta': fechaHasta == null ? null : '${fechaHasta?.toIso8601String().split('.')[0]}Z',
     };
   }
 }

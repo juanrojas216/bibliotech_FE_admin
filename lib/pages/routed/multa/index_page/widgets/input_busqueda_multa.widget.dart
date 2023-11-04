@@ -16,6 +16,7 @@ class InputBusquedaMulta extends ConsumerStatefulWidget {
 class InputBusquedaState extends ConsumerState<InputBusquedaMulta> {
   @override
   Widget build(BuildContext context) {
+    
     var search = ref.watch(busquedaMultaProvider);
 
     return Row(
@@ -116,7 +117,7 @@ class InputBusquedaState extends ConsumerState<InputBusquedaMulta> {
           ),
         ),
         const SizedBox(width: 10),
-        BotonBusqueda(),
+        const BotonBusqueda(),
       ],
     );
   }

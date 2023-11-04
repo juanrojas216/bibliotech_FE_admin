@@ -11,7 +11,7 @@ final deleteUbicacionProvider = FutureProvider.family<void, int>((ref, id) async
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(ubicacionesProvider.notifier).update((value) {

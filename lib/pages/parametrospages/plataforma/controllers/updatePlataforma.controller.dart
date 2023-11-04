@@ -13,7 +13,7 @@ final updatePlataformaProvider =
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(plataformasProvider.notifier).update((value) => value.map((p) {

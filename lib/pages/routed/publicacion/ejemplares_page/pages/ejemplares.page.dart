@@ -1,9 +1,4 @@
-import 'dart:js_interop';
-
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/controllers/getAllEjemplares.controller.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/repository/ejemplares.repository.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/ejemplares_page/widgets/acciones_ejemplar.dart';
 import 'package:bibliotech_admin/widgets/mostrar_usuario.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -12,10 +7,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../../widgets/error_mensaje.dart';
+import '../controllers/getAllEjemplares.controller.dart';
+import '../widgets/acciones_ejemplar.dart';
 import 'addEjemplar.page.dart';
 
 class EjemplaresIndex extends ConsumerStatefulWidget {
-  
   final int idPublicacion;
 
   const EjemplaresIndex({required this.idPublicacion, super.key});
@@ -32,7 +29,6 @@ class _AutoresIndexState extends ConsumerState<EjemplaresIndex> {
 
   @override
   Widget build(BuildContext context) {
-    
     var search = ref.watch(getAllEjemplaresProvider(widget.idPublicacion));
 
     return Scaffold(
@@ -53,7 +49,9 @@ class _AutoresIndexState extends ConsumerState<EjemplaresIndex> {
             child: ElevatedButton(
                 onPressed: () {
                   showDialog(
-                      context: context, builder: (context) => EjemplarAdd(idPublicacion: widget.idPublicacion),
+                    context: context,
+                    builder: (context) =>
+                        EjemplarAdd(idPublicacion: widget.idPublicacion),
                   );
                 },
                 child: const Text('Nuevo ejemplar')),
@@ -78,54 +76,48 @@ class _AutoresIndexState extends ConsumerState<EjemplaresIndex> {
             borderRadius: BorderRadius.circular(16),
           ),
           child: search.when(
-                skipLoadingOnRefresh: false,
-                data: (ejemplares) => Column(children: [
-                  const SizedBox(height: 10),
-                  Flexible(
-                    child: ListView(
-                      children: ejemplares
-                          .map((e) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(16)),
-                                  child: ListTile(
-                                    trailing: const Icon(Icons.more_vert),
-                                    title: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text('EJEMPLAR ${e.id}',
-                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500)),
-                                        Text('ESTADO: ${e.estados.last.nombre}',
-                                            style: GoogleFonts.poppins()),
-                                        Text('UBICACION: ${e.ubicacion.isNull ? 'No asignada' : e.ubicacion!.descripcion}',
-                                            style: GoogleFonts.poppins()),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      accionesEjemplar(context, ref, e.id);
-                                    },
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                  )
-                ]),
-                error: (__, _) => Center(
-                  child: ElevatedButton(
-                    child: const Text('Reintentar cargar ejemplares'),
-                    onPressed: () {
-                      ref.invalidate(
-                          getAllEjemplaresProvider(widget.idPublicacion));
-                    },
-                  ),
+            skipLoadingOnRefresh: false,
+            data: (ejemplares) => Column(children: [
+              const SizedBox(height: 10),
+              Flexible(
+                child: ListView(
+                  children: ejemplares
+                      .map((e) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(16)),
+                              child: ListTile(
+                                trailing: const Icon(Icons.more_vert),
+                                title: Text(
+                                    'EJEMPLAR: ${e.id} - ISBN: ${e.serialNfc}',
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500)),
+                                subtitle: Text(
+                                    'ESTADO: ${e.estado} - VALORACIÓN: ${e.valoracion}/10 - UBICACIÓN: ${e.ubicacion.descripcion}',
+                                    style: GoogleFonts.poppins()),
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          accionesEjemplar(context, ref, e));
+                                },
+                              ),
+                            ),
+                          ))
+                      .toList(),
                 ),
-                loading: () => const Center(child: CircularProgressIndicator()),
-              ),
+              )
+            ]),
+            error: (response, _) => ErrorResultadoWidget(
+              response: response,
+              provider: getAllEjemplaresProvider(widget.idPublicacion),
+              message: 'Reintentar cargar ejemplares',
+            ),
+            loading: () => const Center(child: CircularProgressIndicator()),
+          ),
         ),
       ),
     );

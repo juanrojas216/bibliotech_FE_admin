@@ -26,6 +26,7 @@ class _ResultadoDetallePrestamoState
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: search.when(
+        skipLoadingOnRefresh: false,
         data: (data) => SizedBox(
           height: 300,
           width: 800,
@@ -149,8 +150,8 @@ class _ResultadoDetallePrestamoState
                   height: 100,
                   child: ListView.separated(
                       itemBuilder: (_, index) => Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: ListTile(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: ListTile(
                               title: Row(
                                 children: [
                                   Expanded(
@@ -172,8 +173,8 @@ class _ResultadoDetallePrestamoState
                                   const SizedBox(width: 10),
                                   Expanded(
                                     child: TextFormField(
-                                      initialValue: data
-                                          .renovaciones[index].fechaFinRenovacion,
+                                      initialValue: data.renovaciones[index]
+                                          .fechaFinRenovacion,
                                       readOnly: true,
                                       decoration: InputDecoration(
                                         isDense: true,
@@ -190,7 +191,7 @@ class _ResultadoDetallePrestamoState
                                 ],
                               ),
                             ),
-                      ),
+                          ),
                       separatorBuilder: (_, __) => const SizedBox(height: 20),
                       itemCount: data.renovaciones.length),
                 ),

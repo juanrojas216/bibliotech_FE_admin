@@ -1,23 +1,22 @@
 
 import 'package:bibliotech_admin/config/api/http_admin.dart';
-import 'package:bibliotech_admin/models/index.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../dto/ejemplar_item.dto.dart';
 
 
 final getAllUbicacionLibreProvider = FutureProvider.autoDispose<List<Ubicacion>>((ref) async {
   
   var response = await ref.watch(apiProvider).request<List<Ubicacion>>(
-        '/ubicaciones',
+        '/ubicaciones/disponibles',
         parser: ubicacionesFromJson,
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
-  var ubicaiones = response.data!.where((e) => !e.ocupada).toList();
-
-  return ubicaiones;
+  return response.data!;
 
   // ref.read(ubicacionesProvider.notifier).update((_) => ubicaiones,);
 

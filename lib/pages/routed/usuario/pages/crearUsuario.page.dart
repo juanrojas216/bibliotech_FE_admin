@@ -7,6 +7,9 @@ import '../../../../config/router/admin_router.dart';
 import '../../../../widgets/crear_entidad.dart';
 import '../controllers/getAllUsuarios.controller.dart';
 import '../dto/create_usuario.dto.dart';
+import '../validations/email.validation.dart';
+import '../validations/nombre.validation.dart';
+import '../validations/password.validation.dart';
 import '../validations/usuario.validation.dart';
 
 class UsuarioAdd extends ConsumerStatefulWidget {
@@ -21,7 +24,8 @@ class _AddUsuarioState extends ConsumerState<UsuarioAdd> {
 
   @override
   void initState() {
-    crearUsuarioDto = CreateUsuarioDto(nombre: null, apellido: null, password: null, email: null, roles: []);
+    crearUsuarioDto = CreateUsuarioDto(
+        nombre: null, apellido: null, password: null, email: null, roles: []);
     super.initState();
   }
 
@@ -32,145 +36,182 @@ class _AddUsuarioState extends ConsumerState<UsuarioAdd> {
           style: GoogleFonts.poppins(), textAlign: TextAlign.center),
       content: SizedBox(
         width: 800,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              children: [
-                TextFormField(
-                  onChanged: (value) => {
-                    crearUsuarioDto.nombre = value,
-                    setState(() {}),
-                  },
-                  decoration: InputDecoration(
-                      isDense: true,
-                      labelText: 'NOMBRE',
-                      labelStyle: TextStyle(
-                          fontFamily: GoogleFonts.poppins.toString(),
-                          fontSize: 14),
-                      border: const OutlineInputBorder()),
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  onChanged: (value) => {
-                    crearUsuarioDto.apellido = value,
-                    setState(() {}),
-                  },
-                  decoration: InputDecoration(
-                      isDense: true,
-                      labelText: 'APELLIDO',
-                      labelStyle: TextStyle(
-                          fontFamily: GoogleFonts.poppins.toString(),
-                          fontSize: 14),
-                      border: const OutlineInputBorder()),
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  onChanged: (value) => {
-                    crearUsuarioDto.password = value,
-                    setState(() {}),
-                  },
-                  decoration: InputDecoration(
-                      isDense: true,
-                      labelText: 'PASSWORD',
-                      labelStyle: TextStyle(
-                          fontFamily: GoogleFonts.poppins.toString(),
-                          fontSize: 14),
-                      border: const OutlineInputBorder()),
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  onChanged: (value) => {
-                    crearUsuarioDto.email = value,
-                    setState(() {}),
-                  },
-                  decoration: InputDecoration(
-                      isDense: true,
-                      labelText: 'EMAIL',
-                      labelStyle: TextStyle(
-                          fontFamily: GoogleFonts.poppins.toString(),
-                          fontSize: 14),
-                      border: const OutlineInputBorder()),
-                ),
-                const SizedBox(height: 20),
-                const Text('Roles', textAlign: TextAlign.center),
-                const Divider(),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ChoiceChip(
-                        label: const Text("BILBIOTECARIO"),
-                        selectedColor: const Color.fromARGB(255, 214, 137, 228),
-                        disabledColor: Colors.grey,
-                        selected: crearUsuarioDto.roles.contains(3),
-                        onSelected: (value) {
-                          if (value) {
-                            if (!crearUsuarioDto.roles.contains(3)) {
-                              crearUsuarioDto.roles.add(3);
-                              setState(() {});
+        child: Form(
+          autovalidateMode: AutovalidateMode.always,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                children: [
+                  TextFormField(
+                    onChanged: (value) => {
+                      crearUsuarioDto.nombre = value,
+                      setState(() {}),
+                    },
+                    validator: (value) {
+                      if (value != null && nombreUsuarioValidacion(value)) {
+                        return null;
+                      }
+                      return "El nombre debe tener más de 2 caracteres y no debe tener caracteres especiales ni números";
+                    },
+                    decoration: InputDecoration(
+                        isDense: true,
+                        labelText: 'NOMBRE',
+                        labelStyle: TextStyle(
+                            fontFamily: GoogleFonts.poppins.toString(),
+                            fontSize: 14),
+                        border: const OutlineInputBorder()),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    onChanged: (value) => {
+                      crearUsuarioDto.apellido = value,
+                      setState(() {}),
+                    },
+                    validator: (value) {
+                      if (value != null && nombreUsuarioValidacion(value)) {
+                        return null;
+                      }
+                      return "El apellido debe tener más de 2 caracteres y no debe tener caracteres especiales ni números";
+                    },
+                    decoration: InputDecoration(
+                        isDense: true,
+                        labelText: 'APELLIDO',
+                        labelStyle: TextStyle(
+                            fontFamily: GoogleFonts.poppins.toString(),
+                            fontSize: 14),
+                        border: const OutlineInputBorder()),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    onChanged: (value) => {
+                      crearUsuarioDto.password = value,
+                      setState(() {}),
+                    },
+                    validator: (value) {
+                      if (value != null && passwordUsuarioValidacion(value)) {
+                        return null;
+                      }
+                      return "La contraseña debe tener mas de 8 caracteres, al menos 1 número, mayúsculas y minúsculas";
+                    },
+                    decoration: InputDecoration(
+                        isDense: true,
+                        labelText: 'PASSWORD',
+                        labelStyle: TextStyle(
+                            fontFamily: GoogleFonts.poppins.toString(),
+                            fontSize: 14),
+                        border: const OutlineInputBorder()),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    onChanged: (value) => {
+                      crearUsuarioDto.email = value,
+                      setState(() {}),
+                    },
+                    validator: (value) {
+                      if (value != null && emailUsuarioValidacion(value)) {
+                        return null;
+                      }
+                      return "El email debe tener el formato xx@xx.xx";
+                    },
+                    decoration: InputDecoration(
+                        isDense: true,
+                        labelText: 'EMAIL',
+                        labelStyle: TextStyle(
+                            fontFamily: GoogleFonts.poppins.toString(),
+                            fontSize: 14),
+                        border: const OutlineInputBorder()),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text('Roles', textAlign: TextAlign.center),
+                  const Divider(),
+                  Visibility(
+                    visible: crearUsuarioDto.roles.isEmpty,
+                    child: const Text("Debe seleccionar al menos un rol", style: TextStyle(color: Colors.redAccent),),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ChoiceChip(
+                          label: const Text("BILBIOTECARIO"),
+                          selectedColor:
+                              const Color.fromARGB(255, 214, 137, 228),
+                          disabledColor: Colors.grey,
+                          selected: crearUsuarioDto.roles.contains(3),
+                          onSelected: (value) {
+                            if (value) {
+                              if (!crearUsuarioDto.roles.contains(3)) {
+                                crearUsuarioDto.roles.add(3);
+                                setState(() {});
+                              }
+                              return;
+                            } else {
+                              if (crearUsuarioDto.roles.contains(3)) {
+                                crearUsuarioDto.roles
+                                    .removeWhere((e) => e == 3);
+                                setState(() {});
+                              }
+                              return;
                             }
-                            return;
-                          } else {
-                            if (crearUsuarioDto.roles.contains(3)) {
-                              crearUsuarioDto.roles.removeWhere((e) => e == 3);
-                              setState(() {});
-                            }
-                            return;
-                          }
-                        },
+                          },
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ChoiceChip(
-                        label: const Text("USER"),
-                        selectedColor: const Color.fromARGB(255, 214, 137, 228),
-                        disabledColor: Colors.grey,
-                        selected: crearUsuarioDto.roles.contains(2),
-                        onSelected: (value) {
-                          if (value) {
-                            if (!crearUsuarioDto.roles.contains(2)) {
-                              crearUsuarioDto.roles.add(2);
-                              setState(() {});
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: ChoiceChip(
+                          label: const Text("USER"),
+                          selectedColor:
+                              const Color.fromARGB(255, 214, 137, 228),
+                          disabledColor: Colors.grey,
+                          selected: crearUsuarioDto.roles.contains(2),
+                          onSelected: (value) {
+                            if (value) {
+                              if (!crearUsuarioDto.roles.contains(2)) {
+                                crearUsuarioDto.roles.add(2);
+                                setState(() {});
+                              }
+                              return;
+                            } else {
+                              if (crearUsuarioDto.roles.contains(2)) {
+                                crearUsuarioDto.roles
+                                    .removeWhere((e) => e == 2);
+                                setState(() {});
+                              }
+                              return;
                             }
-                            return;
-                          } else {
-                            if (crearUsuarioDto.roles.contains(2)) {
-                              crearUsuarioDto.roles.removeWhere((e) => e == 2);
-                              setState(() {});
-                            }
-                            return;
-                          }
-                        },
+                          },
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ChoiceChip(
-                        label: const Text("SUPERADMIN"),
-                        selectedColor: const Color.fromARGB(255, 214, 137, 228),
-                        disabledColor: Colors.grey,
-                        selected: crearUsuarioDto.roles.contains(1),
-                        onSelected: (value) {
-                          if (value) {
-                            if (!crearUsuarioDto.roles.contains(1)) {
-                              crearUsuarioDto.roles.add(1);
-                              setState(() {});
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: ChoiceChip(
+                          label: const Text("SUPERADMIN"),
+                          selectedColor:
+                              const Color.fromARGB(255, 214, 137, 228),
+                          disabledColor: Colors.grey,
+                          selected: crearUsuarioDto.roles.contains(1),
+                          onSelected: (value) {
+                            if (value) {
+                              if (!crearUsuarioDto.roles.contains(1)) {
+                                crearUsuarioDto.roles.add(1);
+                                setState(() {});
+                              }
+                              return;
+                            } else {
+                              if (crearUsuarioDto.roles.contains(1)) {
+                                crearUsuarioDto.roles
+                                    .removeWhere((e) => e == 1);
+                                setState(() {});
+                              }
+                              return;
                             }
-                            return;
-                          } else {
-                            if (crearUsuarioDto.roles.contains(1)) {
-                              crearUsuarioDto.roles.removeWhere((e) => e == 1);
-                              setState(() {});
-                            }
-                            return;
-                          }
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              ],
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

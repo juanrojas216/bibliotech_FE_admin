@@ -10,7 +10,7 @@ final getAllEdicionProvider = FutureProvider.autoDispose<void>((ref) async {
       .request<List<Edicion>>('/ediciones', parser: edicionesFromJson);
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(edicionesProvider.notifier).update((state) => response.data!);

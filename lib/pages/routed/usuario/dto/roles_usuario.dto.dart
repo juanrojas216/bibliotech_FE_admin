@@ -128,7 +128,7 @@ class Privilegio {
 
 class CreateRol {
   String nombreRol;
-  Entidad entidad;
+  int entidad;
   List<Privilegio> privilegios;
 
   CreateRol({
@@ -140,6 +140,6 @@ class CreateRol {
   Map<String, dynamic> toJson() => {
     "idPrivilegios": List<dynamic>.from(privilegios.where((e) => e.activo).map((e) => e.idPrivilegio)),
     "nombre": nombreRol,
-    "idEntidad": entidad.idEntidad,
+    "idEntidad": entidad,
   };
 }

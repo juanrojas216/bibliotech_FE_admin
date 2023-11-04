@@ -32,8 +32,8 @@ class MultaItemTablaDto {
   factory MultaItemTablaDto.fromJson(Map<String, dynamic> json) =>
       MultaItemTablaDto(
         id: json["id"],
-        idPrestamo: json["idPrestamo"],
-        idUsuario: json["idUsuario"],
+        idPrestamo: json["idPrestamo"].toString(),
+        idUsuario: json["idUsuario"].toString(),
         estado: json["estado"],
         tipo: json["tipo"],
         fechaDesde: DateTime.parse(json["fechaDesde"]),

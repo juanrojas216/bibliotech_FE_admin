@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'usuario.dart';
-
 List<Comentario> comentariosFromJson(dynamic data) {
   List<dynamic> str = data;
   return List<Comentario>.from(str.map((x) => Comentario.fromJson(x)));
@@ -25,8 +23,8 @@ class Comentario {
     int calificacion;
     String comentario;
     String fecha;
-    Usuario altaUsuario;
-    Usuario? bajaUsuario;
+    String altaUsuario;
+    String? bajaUsuario;
 
     Comentario({
         required this.id,
@@ -42,8 +40,8 @@ class Comentario {
         int? calificacion,
         String? comentario,
         String? fecha,
-        Usuario? altaUsuario,
-        Usuario? bajaUsuario,
+        String? altaUsuario,
+        String? bajaUsuario,
     }) => 
         Comentario(
             id: id ?? this.id,
@@ -59,8 +57,8 @@ class Comentario {
         calificacion: json["calificacion"],
         comentario: json["comentario"],
         fecha: json["fecha"],
-        altaUsuario: Usuario.fromJson(json["altaUsuario"]),
-        bajaUsuario: json["bajaUsuario"]  == null ? null : Usuario.fromJson(json["altaUsuario"]),
+        altaUsuario: json["altaUsuario"],
+        bajaUsuario: json["bajaUsuario"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -68,7 +66,7 @@ class Comentario {
         "calificacion": calificacion,
         "comentario": comentario,
         "fecha": fecha,
-        "altaUsuario": altaUsuario.toJson(),
-        "bajaUsuario": bajaUsuario?.toJson(),
+        "altaUsuario": altaUsuario,
+        "bajaUsuario": bajaUsuario,
     };
 }

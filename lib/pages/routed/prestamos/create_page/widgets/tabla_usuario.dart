@@ -40,7 +40,7 @@ class TablaUsuariosState extends ConsumerState<TablaUsuarios> {
     PlutoColumn(
         title: 'DNI',
         field: 'dni',
-        type: PlutoColumnType.number(),
+        type: PlutoColumnType.number(format: "#.###"),
         enableColumnDrag: false,
         readOnly: true),
     PlutoColumn(

@@ -49,6 +49,8 @@ class _SelectUserPageState extends ConsumerState<SelectUserPage> {
                   ),
                   Row(
                     children: [
+                      const Text("Seleccione 1 usuario haciendo doble click sobre la fila"),
+                      const SizedBox(width: 5),
                       ElevatedButton(
                         style: const ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll(Colors.red),

@@ -1,5 +1,7 @@
 import 'package:bibliotech_admin/config/router/admin_router.dart';
+import 'package:bibliotech_admin/widgets/error_mensaje.dart';
 import 'package:bibliotech_admin/widgets/mostrar_usuario.dart';
+import '../../../../config/auth/auth.service.dart';
 import '../controllers/index.dart';
 import '../services/filterAutores.service.dart';
 
@@ -46,14 +48,17 @@ class _AutoresIndexState extends ConsumerState<AutoresIndex> {
             style: GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
         backgroundColor: Colors.white,
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context, builder: (context) => const AutorAdd());
-                },
-                child: const Text('Nuevo autor')),
+          Visibility(
+            visible: Auth.autor["crear"] as bool,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context, builder: (context) => const AutorAdd());
+                  },
+                  child: const Text('Nuevo autor')),
+            ),
           ),
           const SizedBox(width: 20),
           const Padding(
@@ -122,14 +127,16 @@ class _AutoresIndexState extends ConsumerState<AutoresIndex> {
                     ),
                   )
                 ]),
-                error: (__, _) => Center(
-                  child: ElevatedButton(
-                    child: const Text('Reintentar cargar autores'),
-                    onPressed: () {
-                      ref.invalidate(getAllAutoresProvider);
-                    },
-                  ),
-                ),
+                // error: (response, _) => ErrorResultadoWidget(
+                //   response: response,
+                //   provider: getAllAutoresProvider,
+                //   message: 'Reintentar cargar autores',
+                // ),
+                error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllAutoresProvider,
+                  message: 'Reintentar cargar autores',
+              ),
                 loading: () => const Center(child: CircularProgressIndicator()),
               ),
         ),

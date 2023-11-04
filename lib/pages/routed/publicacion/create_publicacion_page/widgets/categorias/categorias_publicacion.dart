@@ -1,11 +1,11 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/repository/publicacionDto.repository.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../controllers/getAllCategoria.controller.dart';
+import '../../repository/publicacionDto.repository.dart';
 import 'categorias_dialog.dart';
 
 class CategoriasPublicacion extends ConsumerWidget {

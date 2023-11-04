@@ -5,8 +5,7 @@ import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_pag
 import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/link.dto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final publicacionDtoProvider =
-    StateNotifierProvider<PublicacionDtoNotifier, PublicacionDto>((ref) {
+final publicacionDtoProvider = StateNotifierProvider.autoDispose<PublicacionDtoNotifier, PublicacionDto>((ref) {
   return PublicacionDtoNotifier();
 });
 

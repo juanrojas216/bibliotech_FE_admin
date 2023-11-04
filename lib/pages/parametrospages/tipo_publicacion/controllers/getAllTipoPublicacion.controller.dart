@@ -10,7 +10,7 @@ final getAllTipoPublicacionProvider = FutureProvider.autoDispose<void>((ref) asy
       .request<List<TipoPublicacion>>('/tipo-publicaciones', parser: tiposPublicacionesFromJson);
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(tiposPublicacionProvider.notifier).update((state) => response.data!);

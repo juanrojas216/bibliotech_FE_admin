@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../widgets/error_mensaje.dart';
 import 'addTipoPublicacion.page.dart';
 import 'editarTipoPublicacion.page.dart';
 
@@ -120,14 +121,19 @@ class _TipoPublicacionIndexState extends ConsumerState<TipoPublicacionIndex> {
                 ),
               )
             ]),
-            error: (__, _) => Center(
-              child: ElevatedButton(
-                child: const Text('Reintentar cargar tipos de publicación'),
-                onPressed: () {
-                  ref.invalidate(getAllTipoPublicacionProvider);
-                },
+            // error: (__, _) => Center(
+            //   child: ElevatedButton(
+            //     child: const Text('Reintentar cargar tipos de publicación'),
+            //     onPressed: () {
+            //       ref.invalidate(getAllTipoPublicacionProvider);
+            //     },
+            //   ),
+            // ),
+            error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllTipoPublicacionProvider,
+                  message: 'Reintentar cargar tipos de publicación',
               ),
-            ),
             loading: () => const Center(child: CircularProgressIndicator()),
           ),
         ),

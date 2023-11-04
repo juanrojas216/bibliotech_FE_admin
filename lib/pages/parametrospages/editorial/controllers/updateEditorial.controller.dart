@@ -13,7 +13,7 @@ final updateEditorialProvider =
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(editorialesProvider.notifier).update((value) => value.map((e) {

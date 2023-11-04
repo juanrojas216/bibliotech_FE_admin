@@ -10,7 +10,7 @@ final getAllFacultadProvider = FutureProvider.autoDispose<void>((ref) async {
       .request<List<Facultad>>('/facultades', parser: facultadesFromJson);
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(facultadesProvider.notifier).update((state) => response.data!);

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../widgets/error_mensaje.dart';
 import '../controllers/index.dart';
 import 'addCarrera.page.dart';
 import 'editarCarrera.page.dart';
@@ -120,14 +121,19 @@ class _CarrerasABMState extends ConsumerState<CarrerasIndex> {
                 ),
               )
             ]),
-            error: (__, _) => Center(
-              child: ElevatedButton(
-                child: const Text('Reintentar cargar carreras'),
-                onPressed: () {
-                  ref.invalidate(getAllCarreraProvider);
-                },
+            // error: (__, _) => Center(
+            //   child: ElevatedButton(
+            //     child: const Text('Reintentar cargar carreras'),
+            //     onPressed: () {
+            //       ref.invalidate(getAllCarreraProvider);
+            //     },
+            //   ),
+            // ),
+            error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllCarreraProvider,
+                  message: 'Reintentar cargar carreras',
               ),
-            ),
             loading: () => const Center(child: CircularProgressIndicator()),
           ),
         ),

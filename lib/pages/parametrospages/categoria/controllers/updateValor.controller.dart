@@ -12,7 +12,7 @@ final updateValorProvider = FutureProvider.family<void, Valor>((ref, valor) asyn
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(categoriasProvider.notifier).update((value) {

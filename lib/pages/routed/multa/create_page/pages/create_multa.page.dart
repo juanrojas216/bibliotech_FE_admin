@@ -57,7 +57,7 @@ class _CreateMultaPageState extends ConsumerState<CreateMultaPage> {
                 ],
               ),
               const Divider(color: Colors.grey),
-
+  
               //TABLA DE RESULTADOS
               ResultadoCrearMulta(
                 idUsuario: widget.idUsuario,

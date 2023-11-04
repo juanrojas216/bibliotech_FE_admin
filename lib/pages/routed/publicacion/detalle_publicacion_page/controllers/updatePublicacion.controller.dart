@@ -8,6 +8,10 @@ import '../dto/editar-publicacion.dto.dart';
 
 
 final updatePublicacionProvider = FutureProvider.family<void, EditarPublicacionDto>((ref, publicacion) async {
+  
+  
+  print(json.encode(publicacion.toMap()));
+
   var response = await ref.watch(apiProvider).request(
         '/publicaciones/${publicacion.idPublicacion}',
         method: HttpMethod.patch,
@@ -15,7 +19,7 @@ final updatePublicacionProvider = FutureProvider.family<void, EditarPublicacionD
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
 });

@@ -14,13 +14,13 @@ class Resultados extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
     var search = ref.watch(searchPrestamosProvider);
 
     return Expanded(
       child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: search.when(
+            skipLoadingOnRefresh: false,
             data: (multas) => TablaPrestamos(rows: getRows(multas)),
             error: (error, stackTrace) => Center(
               child: ElevatedButton(

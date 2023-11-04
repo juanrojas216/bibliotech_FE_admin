@@ -14,7 +14,7 @@ final updateCarreraProvider =
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(carrerasProvider.notifier).update((value) => value.map((c) {

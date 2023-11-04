@@ -5,18 +5,23 @@ import 'package:simple_logger/simple_logger.dart';
 
 import '../repository/publicacion.repository.dart';
 
-final getPublicacionProvider =
-    FutureProvider.family<void, int>((ref, id) async {
+final getPublicacionProvider = FutureProvider.family.autoDispose<Publicacion, int>((ref, id) async {
+  
   var response = await ref
       .watch(apiProvider)
-      .request<Publicacion>('/publicaciones/$id', parser: publicacionFromJson);
+      .request<Publicacion>('/publicaciones/$id',
+      parser: publicacionFromJson
+  );
 
   if (response.error != null) {
     var logger = SimpleLogger();
+    logger.warning(response.data);
     logger.warning(response.error!.exception);
-    throw response.error!;
+    logger.warning(response.error!.data);
+    throw response;
   }
 
-  ref.read(publicacionProvider.notifier).actualizarPublicacion(response.data!);
+  return response.data!;
 
+  // ref.read(publicacionProvider.notifier).actualizarPublicacion(response.data!);
 });

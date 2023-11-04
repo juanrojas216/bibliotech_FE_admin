@@ -1,12 +1,12 @@
 import 'dart:js_interop';
 
-import 'package:bibliotech_admin/pages/routed/usuario/controllers/getPrivilegiosEntidad.controller.dart';
 import 'package:bibliotech_admin/widgets/crear_entidad.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/crearRol.controller.dart';
+import '../controllers/getEntitesAndActiones.controller.dart';
 import '../controllers/getRoles.controller.dart';
 import '../dto/roles_usuario.dto.dart';
 import '../validations/rol.validation.dart';
@@ -22,12 +22,16 @@ class CrearRolUsuario extends ConsumerStatefulWidget {
 }
 
 class _CrearRolUsuarioState extends ConsumerState<CrearRolUsuario> {
+  
   String? nombreRol;
-  Entidad? entidad;
+  int? entidad;
 
   @override
   Widget build(BuildContext context) {
-    var search = ref.watch(getPrivilegiosEntidadProvider);
+    
+    // var searh = ref.watch(getEntitiesAndActionsProvider);
+
+    var search = ref.watch(getEntitiesAndActionsProvider);
 
     return Expanded(
       child: Padding(
@@ -79,17 +83,16 @@ class _CrearRolUsuarioState extends ConsumerState<CrearRolUsuario> {
                                 isDense: true,
                                 isExpanded: true,
                                 hint: const Text('ENTIDAD'),
-                                value:
-                                    entidad.isNull ? null : entidad!.idEntidad,
+                                value: entidad.isNull ? null : entidad,
                                 style: TextStyle(
                                     fontFamily: GoogleFonts.poppins.toString(),
                                     fontSize: 14),
                                 items: [
-                                  ...data["entidades"].map(
+                                  ...data["resources"].map(
                                     (e) => DropdownMenuItem<int>(
                                       value: e.idEntidad,
                                       child: Text(
-                                        e.nombreEntidad,
+                                        e.name,
                                         style: GoogleFonts.poppins(),
                                       ),
                                     ),
@@ -97,8 +100,8 @@ class _CrearRolUsuarioState extends ConsumerState<CrearRolUsuario> {
                                 ],
                                 onChanged: (value) {
                                   if (value != null) {
-                                    entidad = data["entidades"].firstWhere(
-                                        (e) => e.idEntidad == value);
+                                    entidad = data["resources"].firstWhere(
+                                        (e) => e.id == value);
                                     setState(() {});
                                   }
                                 },
@@ -106,29 +109,29 @@ class _CrearRolUsuarioState extends ConsumerState<CrearRolUsuario> {
                             ),
                           ),
                           const SizedBox(width: 10),
-                          ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor: rolValidacion(entidad, nombreRol, data["privilegios"])
-                                      ? const MaterialStatePropertyAll(
-                                          Colors.purple)
-                                      : const MaterialStatePropertyAll(
-                                          Colors.grey)),
-                              onPressed: () {
-                                if (!rolValidacion(entidad, nombreRol, data["privilegios"])) return;
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => CrearEntidad<
-                                            CreateRol>(
-                                        entidad: CreateRol(
-                                            nombreRol: nombreRol!,
-                                            entidad: entidad!,
-                                            privilegios: data["privilegios"]),
-                                        nombreProvider: crearRolProvider,
-                                        mensajeResult: "ROL CREADO CON ÉXITO",
-                                        mensajeError: "ERROR AL CREAR ROL"));
-                              },
-                              child: Text('CREAR ROL',
-                                  style: GoogleFonts.poppins(fontSize: 14))),
+                          // ElevatedButton(
+                          //     style: ButtonStyle(
+                          //         backgroundColor: rolValidacion(entidad, nombreRol, data["privilegios"])
+                          //             ? const MaterialStatePropertyAll(
+                          //                 Colors.purple)
+                          //             : const MaterialStatePropertyAll(
+                          //                 Colors.grey)),
+                          //     onPressed: () {
+                          //       if (!rolValidacion(entidad, nombreRol, data["privilegios"])) return;
+                          //       showDialog(
+                          //           context: context,
+                          //           builder: (context) => CrearEntidad<
+                          //                   CreateRol>(
+                          //               entidad: CreateRol(
+                          //                   nombreRol: nombreRol!,
+                          //                   entidad: entidad!,
+                          //                   privilegios: data["privilegios"]),
+                          //               nombreProvider: crearRolProvider,
+                          //               mensajeResult: "ROL CREADO CON ÉXITO",
+                          //               mensajeError: "ERROR AL CREAR ROL"));
+                          //     },
+                          //     child: Text('CREAR ROL',
+                          //         style: GoogleFonts.poppins(fontSize: 14))),
                           const SizedBox(width: 10),
                         ],
                       ),
@@ -136,16 +139,16 @@ class _CrearRolUsuarioState extends ConsumerState<CrearRolUsuario> {
                       SizedBox(
                         height: 200,
                         child: ListView.builder(
-                          itemCount: data["privilegios"].length,
+                          itemCount: data["actions"].length,
                           itemBuilder: (_, i) {
                             return SwitchListTile(
-                              value: data["privilegios"][i].activo,
+                              value: data["actions"][i]["active"],
                               title: Text(
-                                data["privilegios"][i].nombre,
+                                data["actions"][i]["accion"],
                                 style: GoogleFonts.poppins(fontSize: 14),
                               ),
                               onChanged: (value) {
-                                data["privilegios"][i].activo = value;
+                                data["privilegios"][i]["active"] = value;
                                 setState(() {});
                               },
                             );

@@ -23,6 +23,7 @@ String ejemplaresToJson(List<Ejemplar> data) {
 class Ejemplar {
     int id;
     int serialNfc;
+    double valoracion;
     List<Comentario> comentarios;
     List<EjemplarEstado> estados;
     Ubicacion? ubicacion;
@@ -30,6 +31,7 @@ class Ejemplar {
     Ejemplar({
         required this.id,
         required this.serialNfc,
+        required this.valoracion,
         required this.comentarios,
         required this.estados,
         required this.ubicacion,
@@ -38,6 +40,7 @@ class Ejemplar {
     Ejemplar copyWith({
         int? id,
         int? serialNfc,
+        double? valoracion,
         List<Comentario>? comentarios,
         List<EjemplarEstado>? estados,
         Ubicacion? ubicacion,
@@ -45,6 +48,7 @@ class Ejemplar {
         Ejemplar(
             id: id ?? this.id,
             serialNfc: serialNfc ?? this.serialNfc,
+            valoracion: valoracion ?? this.valoracion,
             comentarios: comentarios ?? this.comentarios,
             estados: estados ?? this.estados,
             ubicacion: ubicacion ?? this.ubicacion,
@@ -53,6 +57,7 @@ class Ejemplar {
     factory Ejemplar.fromJson(Map<String, dynamic> json) => Ejemplar(
         id: json["id"],
         serialNfc: json["serialNFC"],
+        valoracion: json["valoracion"],
         comentarios: List<Comentario>.from(json["comentarios"].map((x) => Comentario.fromJson(x))),
         estados: List<EjemplarEstado>.from(json["estados"].map((x) => EjemplarEstado.fromJson(x))),
         ubicacion: json["ubicacion"].isNull ? null : Ubicacion.fromJson(json["ubicacion"]),
@@ -61,6 +66,7 @@ class Ejemplar {
     Map<String, dynamic> toJson() => {
         "id": id,
         "serialNFC": serialNfc,
+        "valoracion": valoracion,
         "comentarios": List<dynamic>.from(comentarios.map((x) => x.toJson())),
         "estados": List<dynamic>.from(estados.map((x) => x.toJson())),
         "ubicacion": ubicacion,

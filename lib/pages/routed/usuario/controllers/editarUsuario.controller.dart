@@ -17,7 +17,7 @@ final updateUsuarioProvider = FutureProvider.family<void, DetalleUsuarioDto>((re
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.invalidate(getAllUsuariosProvider);

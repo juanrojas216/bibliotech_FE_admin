@@ -17,7 +17,7 @@ final updateRolProvider = FutureProvider.family<void, RolUsuarioDto>((ref, rol) 
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.invalidate(getRolesUsuarioProvider);

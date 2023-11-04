@@ -8,7 +8,6 @@ import '../controllers/finalizar_multa.controller.dart';
 import '../controllers/get_detalle_multa.controller.dart';
 
 class ResultadoDetalleMulta extends ConsumerStatefulWidget {
-  
   final int idMulta;
 
   const ResultadoDetalleMulta({
@@ -30,6 +29,7 @@ class _ResultadoDetalleMultaState extends ConsumerState<ResultadoDetalleMulta> {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: search.when(
+          skipLoadingOnRefresh: false,
           data: (data) => SizedBox(
             height: 300,
             width: 800,
@@ -155,14 +155,17 @@ class _ResultadoDetalleMultaState extends ConsumerState<ResultadoDetalleMulta> {
                         await showDialog(
                             context: context,
                             builder: (_) => EliminarEntidad(
-                                  nombreProvider: finalizarMultaProvider(widget.idMulta),
-                                  mensajeResult: 'MULTA FINALIZADA POR EXCEPCIO',
+                                  nombreProvider:
+                                      finalizarMultaProvider(widget.idMulta),
+                                  mensajeResult:
+                                      'MULTA FINALIZADA POR EXCEPCIO',
                                   mensajeError: 'ERROR AL FINALIZAR MULTA',
                                 ));
                         ref.read(routesProvider).pushReplacement('/multa');
                       },
                       style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.redAccent),
+                        backgroundColor:
+                            MaterialStatePropertyAll(Colors.redAccent),
                       ),
                       child: Text(
                         'CREAR MULTA',

@@ -16,7 +16,7 @@ final createFacultadProvider = FutureProvider.family<void, String>((ref, titulo)
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(facultadesProvider.notifier).update((state) {

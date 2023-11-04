@@ -12,7 +12,7 @@ final deleteEditorialProvider = FutureProvider.family<void, int>((ref, id) async
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(editorialesProvider.notifier).update((value) {

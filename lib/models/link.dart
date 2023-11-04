@@ -47,9 +47,9 @@ class Link {
         );
 
     factory Link.fromJson(Map<String, dynamic> json) => Link(
-        // id: json["id"],
+        //id: json["id"],
         url: json["url"],
-        estado: json["estado"],
+        estado: json["estadoLink"],
         plataforma: Plataforma.fromJson(json["plataforma"]),
     );
 

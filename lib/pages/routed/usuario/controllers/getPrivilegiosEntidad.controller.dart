@@ -18,8 +18,8 @@ final getPrivilegiosEntidadProvider = FutureProvider<Map>((ref) async {
   //       parser: entidadesRolesUsuarioDtoFromJson,
   //     );
 
-  // if (entidades.error != null) {
-  //   throw entidades.error!;
+  // if (response.error != null) {
+  //   throw response;
   // }
 
   // var response = {

@@ -12,7 +12,7 @@ final deleteTipoPublicacionProvider = FutureProvider.family<void, int>((ref, id)
       );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(tiposPublicacionProvider.notifier).update((value) {

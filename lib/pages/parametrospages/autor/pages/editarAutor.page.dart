@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../config/auth/auth.service.dart';
 import '../repository/autores.repository.dart';
 
 class AutorEditar extends ConsumerStatefulWidget {
@@ -121,57 +122,63 @@ class _AutorEditarState extends ConsumerState<AutorEditar> {
       ),
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       actions: [
-        ElevatedButton(
+        Visibility(
+          visible: Auth.autor["modificar"] as bool,
+          child: ElevatedButton(
+              onPressed: () {
+                if (!resumenAutorValidacion(
+                  AutorDto(
+                      nombre: nombre,
+                      fechaNacimiento: fechaNacimiento,
+                      nacionalidad: nacionalidad,
+                      biografia: biografia),
+                )) return;
+                ref.read(routesProvider).pop();
+                showDialog(
+                    context: context,
+                    builder: (_) => ModificarEntidad(
+                        entidad: ref
+                            .read(autoresProvider)
+                            .firstWhere((e) => e.id == widget.idAutor)
+                            .copyWith(
+                                nombre: nombre,
+                                biografia: biografia,
+                                fechaNacimiento: fechaNacimiento,
+                                nacionalidad: nacionalidad),
+                        nombreProvider: updateAutorProvider,
+                        mensajeResult: 'AUTOR MODIFICADO',
+                        mensajeError: 'ERROR AL MODIFICAR AUTOR'));
+              },
+              style: ButtonStyle(
+                backgroundColor: (!resumenAutorValidacion(
+                  AutorDto(
+                      nombre: nombre,
+                      fechaNacimiento: fechaNacimiento,
+                      nacionalidad: nacionalidad,
+                      biografia: biografia),
+                ))
+                    ? const MaterialStatePropertyAll(Colors.grey)
+                    : const MaterialStatePropertyAll(Colors.purple),
+              ),
+              child: const Text('Modificar autor')),
+        ),
+        Visibility(
+          visible: Auth.autor["eliminar"] as bool ,
+          child: ElevatedButton(
+            style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.redAccent)),
             onPressed: () {
-              if (!resumenAutorValidacion(
-                AutorDto(
-                    nombre: nombre,
-                    fechaNacimiento: fechaNacimiento,
-                    nacionalidad: nacionalidad,
-                    biografia: biografia),
-              )) return;
               ref.read(routesProvider).pop();
               showDialog(
                   context: context,
-                  builder: (_) => ModificarEntidad(
-                      entidad: ref
-                          .read(autoresProvider)
-                          .firstWhere((e) => e.id == widget.idAutor)
-                          .copyWith(
-                              nombre: nombre,
-                              biografia: biografia,
-                              fechaNacimiento: fechaNacimiento,
-                              nacionalidad: nacionalidad),
-                      nombreProvider: updateAutorProvider,
-                      mensajeResult: 'AUTOR MODIFICADO',
-                      mensajeError: 'ERROR AL MODIFICAR AUTOR'));
+                  builder: (_) => EliminarEntidad(
+                      nombreProvider: deleteAutorProvider(widget.idAutor),
+                      mensajeResult: 'AUTOR ELIMINADO',
+                      mensajeError: 'ERROR AL ELIMINAR AUTOR'));
             },
-            style: ButtonStyle(
-              backgroundColor: (!resumenAutorValidacion(
-                AutorDto(
-                    nombre: nombre,
-                    fechaNacimiento: fechaNacimiento,
-                    nacionalidad: nacionalidad,
-                    biografia: biografia),
-              ))
-                  ? const MaterialStatePropertyAll(Colors.grey)
-                  : const MaterialStatePropertyAll(Colors.purple),
-            ),
-            child: const Text('Modificar autor')),
-        ElevatedButton(
-          style: const ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Colors.redAccent)),
-          onPressed: () {
-            ref.read(routesProvider).pop();
-            showDialog(
-                context: context,
-                builder: (_) => EliminarEntidad(
-                    nombreProvider: deleteAutorProvider(widget.idAutor),
-                    mensajeResult: 'AUTOR ELIMINADO',
-                    mensajeError: 'ERROR AL ELIMINAR AUTOR'));
-          },
-          child: Text('Eliminar autor',
-              style: GoogleFonts.poppins(), textAlign: TextAlign.center),
+            child: Text('Eliminar autor',
+                style: GoogleFonts.poppins(), textAlign: TextAlign.center),
+          ),
         ),
         ElevatedButton(
             onPressed: () {

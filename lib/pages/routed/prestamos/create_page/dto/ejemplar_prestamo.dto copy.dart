@@ -10,7 +10,7 @@ EjemplarPrestamoDto ejemplarPrestamoFromJson(dynamic str) {
 
 class EjemplarPrestamoDto {
     final int id;
-    final String valoracion;
+    final double valoracion;
 
     EjemplarPrestamoDto({
         required this.id,
@@ -19,7 +19,7 @@ class EjemplarPrestamoDto {
 
     EjemplarPrestamoDto copyWith({
         int? id,
-        String? valoracion
+        double? valoracion
 
     }) => 
         EjemplarPrestamoDto(

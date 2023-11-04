@@ -11,7 +11,7 @@ final getAllCarreraProvider = FutureProvider.autoDispose<void>((ref) async {
       .request<List<Carrera>>('/carreras', parser: carrerasFromJson);
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(carrerasProvider.notifier).update((state) => response.data!);

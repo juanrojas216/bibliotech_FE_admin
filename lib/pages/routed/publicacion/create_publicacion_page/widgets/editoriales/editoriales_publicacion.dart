@@ -1,11 +1,11 @@
 
-import 'package:bibliotech_admin/pages/parametrospages/editorial/controllers/index.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/repository/publicacionDto.repository.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+import '../../controllers/getAllEditorial.controller.dart';
+import '../../repository/publicacionDto.repository.dart';
 import 'editoriales_dialog.dart';
 
 class EditorialesPublicacion extends ConsumerWidget {

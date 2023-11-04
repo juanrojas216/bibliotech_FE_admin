@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../widgets/error_mensaje.dart';
 import 'addFacultad.page.dart';
 import 'editarFacultad.page.dart';
 
@@ -120,14 +121,19 @@ class _FacultadesABMState extends ConsumerState<FacultadesIndex> {
                 ),
               )
             ]),
-            error: (__, _) => Center(
-              child: ElevatedButton(
-                child: const Text('Reintentar cargar facultades'),
-                onPressed: () {
-                  ref.invalidate(getAllFacultadProvider);
-                },
+            // error: (__, _) => Center(
+            //   child: ElevatedButton(
+            //     child: const Text('Reintentar cargar facultades'),
+            //     onPressed: () {
+            //       ref.invalidate(getAllFacultadProvider);
+            //     },
+            //   ),
+            // ),
+            error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllFacultadProvider,
+                  message: 'Reintentar cargar facultades',
               ),
-            ),
             loading: () => const Center(child: CircularProgressIndicator()),
           ),
         ),

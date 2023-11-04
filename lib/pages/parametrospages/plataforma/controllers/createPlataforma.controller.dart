@@ -17,7 +17,7 @@ final createPlataformaProvider = FutureProvider.family<void, CreatePlataformaDto
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(plataformasProvider.notifier).update((state) {

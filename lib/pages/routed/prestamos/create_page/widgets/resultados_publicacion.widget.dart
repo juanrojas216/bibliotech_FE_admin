@@ -17,17 +17,17 @@ class ResultadosPublicacion extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
     var search = ref.watch(searchPublicacionProvider);
 
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: search.when(
+          skipLoadingOnRefresh: false,
           data: (data) => SizedBox(
             height: 1000,
             width: 800,
-            child: TablaPublicacion( idUsuario ,rows: publicacionGetRows(data)),
+            child: TablaPublicacion(idUsuario, rows: publicacionGetRows(data)),
           ),
           error: (error, stackTrace) => Center(
               child: ElevatedButton(

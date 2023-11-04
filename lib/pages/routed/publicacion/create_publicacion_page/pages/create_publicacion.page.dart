@@ -1,17 +1,17 @@
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/repository/publicacionDto.repository.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/validations/publicacion.validation.dart';
-import 'package:bibliotech_admin/widgets/crear_entidad.dart';
-import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
+import 'package:bibliotech_admin/widgets/crear_entidad.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 import 'package:layout/layout.dart';
 
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/controllers/createPublicacion.controller.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/dto/publicacion.dto.dart';
-import 'package:bibliotech_admin/widgets/mostrar_usuario.dart';
 
+import '../../../../../widgets/mostrar_usuario.dart';
+import '../controllers/createPublicacion.controller.dart';
+import '../repository/publicacionDto.repository.dart';
+import '../validations/publicacion.validation.dart';
+import '../dto/publicacion.dto.dart';
 import '../widgets/index.dart';
 
 class CreatePublicacionPage extends ConsumerStatefulWidget {

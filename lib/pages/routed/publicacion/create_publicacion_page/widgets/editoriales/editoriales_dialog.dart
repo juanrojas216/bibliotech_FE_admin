@@ -1,13 +1,14 @@
 import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/services/filtrarEditorial.service.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../../../widgets/error_mensaje.dart';
 import '../../controllers/getAllEditorial.controller.dart';
-import '../../repository/editorial.repository.dart';
 import '../../repository/publicacionDto.repository.dart';
+import '../../repository/editorial.repository.dart';
+import '../../services/filtrarEditorial.service.dart';
 
 class AlertEditorial extends ConsumerStatefulWidget {
   const AlertEditorial({super.key});
@@ -21,7 +22,7 @@ class _AlertEditorialState extends ConsumerState<AlertEditorial> {
 
   @override
   Widget build(BuildContext context) {
-    var listaEditoriales = ref.watch(editorialesProvider);
+    // var listaEditoriales = ref.watch(editorialesProvider);
     var search = ref.watch(getAllEditorialProvider);
 
     return AlertDialog(
@@ -38,7 +39,7 @@ class _AlertEditorialState extends ConsumerState<AlertEditorial> {
         ],
       ),
       content: search.when(
-            data: (_) {
+            data: (listaEditoriales) {
               List<ListTile> items = [];
 
               for (var e in filtroEditorial(filtro, listaEditoriales)) {
@@ -61,13 +62,18 @@ class _AlertEditorialState extends ConsumerState<AlertEditorial> {
                     itemCount: items.length),
               );
             },
-            error: (error, stackTrace) => Center(
-                child: ElevatedButton(
-                    onPressed: () {
-                      ref.invalidate(editorialesProvider);
-                    },
-                    child: Text('Reintentar cargar editoriales',
-                        style: GoogleFonts.poppins()))),
+            // error: (error, stackTrace) => Center(
+            //     child: ElevatedButton(
+            //         onPressed: () {
+            //           ref.invalidate(editorialesProvider);
+            //         },
+            //         child: Text('Reintentar cargar editoriales',
+            //             style: GoogleFonts.poppins()))),
+            error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllEditorialProvider,
+                  message: 'Reintentar cargar editoriales',
+            ),
             loading: () => const Center(child: CircularProgressIndicator()),
           ),
       actions: [

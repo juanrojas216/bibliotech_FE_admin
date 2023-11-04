@@ -1,19 +1,25 @@
-import '../../repository/publicacion.repository.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../../models/index.dart';
+import '../../repository/publicacion.repository.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
 class AnioInput extends ConsumerWidget {
-  const AnioInput({super.key});
+
+  final Publicacion publicacion;
+  
+  const AnioInput(this.publicacion, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var _ = ref.watch(publicacionProvider);
+
+    // var _ = ref.watch(publicacionProvider);
+
     return TextFormField(
+      initialValue: publicacion.anioPublicacion.toString(), //ref.read(publicacionProvider).anioPublicacion.toString(),
       onChanged: (value) {
-        ref
-            .read(publicacionProvider.notifier)
-            .actualizarAnio(int.parse(value));
+        publicacion.anioPublicacion = int.parse(value);
+        // ref.read(publicacionProvider.notifier).actualizarAnio(int.parse(value));
       },
       decoration: InputDecoration(
           isDense: true,

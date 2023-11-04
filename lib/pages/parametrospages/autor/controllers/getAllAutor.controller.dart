@@ -11,7 +11,7 @@ final getAllAutoresProvider = FutureProvider.autoDispose<void>((ref) async {
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(autoresProvider.notifier).update((_) => response.data!,);

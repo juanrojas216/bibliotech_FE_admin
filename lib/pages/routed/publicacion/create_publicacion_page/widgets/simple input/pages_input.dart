@@ -1,7 +1,8 @@
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/repository/publicacionDto.repository.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
+
+import '../../repository/publicacionDto.repository.dart';
 
 class PagesInput extends ConsumerWidget {
   

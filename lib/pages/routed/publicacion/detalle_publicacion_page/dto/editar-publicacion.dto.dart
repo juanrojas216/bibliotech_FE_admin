@@ -61,16 +61,16 @@ class EditarPublicacionDto {
         "isbnPublicacion": isbnPublicacion,
         "tituloPublicacion": tituloPublicacion,
         "nroPaginas": nroPaginas,
-        "idAutores": List<dynamic>.from(idAutores.map((x) => x)),
+        "idsAutores": List<dynamic>.from(idAutores.map((x) => x)),
         "idEdicion": idEdicion,
         "link": link != null ? {
           "estado": link!.estado,
-          "idPlataforma": link!.plataforma!.id,
+          "plataformaId": link!.plataforma!.id,
           "url": link!.url,
         } : null,
         "categorias": List<dynamic>.from(categorias.map((x) => x.toMap())),
-        "idTipo": idTipo,
-        "idEditoriales": List<dynamic>.from(idEditoriales.map((x) => x)),
+        "idTipoPublicacion": idTipo,
+        "idsEditoriales": List<dynamic>.from(idEditoriales.map((x) => x)),
       };
 }
 

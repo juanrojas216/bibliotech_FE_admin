@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../repository/plataformas.repository.dart';
 
-final getAllPlataformasProvider = FutureProvider.autoDispose<void>((ref) async {
+final getAllPlataformasProvider = FutureProvider.autoDispose<List<Plataforma>>((ref) async {
   
   var response = await ref.watch(apiProvider).request<List<Plataforma>>(
         '/plataformas',
@@ -13,8 +13,9 @@ final getAllPlataformasProvider = FutureProvider.autoDispose<void>((ref) async {
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
-  ref.read(plataformasProvider.notifier).update((_) => response.data!);
+  return response.data!;
+  // ref.read(plataformasProvider.notifier).update((_) => response.data!);
 });

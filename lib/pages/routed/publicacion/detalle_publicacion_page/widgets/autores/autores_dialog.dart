@@ -1,91 +1,98 @@
 
 
-import 'package:bibliotech_admin/config/router/admin_router.dart';
-import 'package:bibliotech_admin/pages/routed/publicacion/create_publicacion_page/repository/publicacionDto.repository.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:bibliotech_admin/config/router/admin_router.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
 
-import '../../controllers/getAllAutor.controller.dart';
-import '../../repository/autores.repository.dart';
-import '../../services/filtrarAutor.service.dart';
+// import '../../controllers/getAllAutor.controller.dart';
+// import '../../../../../../widgets/error_mensaje.dart';
+// import '../../repository/publicacion.repository.dart';
+// import '../../repository/autores.repository.dart';
+// import '../../services/filtrarAutor.service.dart';
 
-class AlertAutor extends ConsumerStatefulWidget {
+// class AlertAutor extends ConsumerStatefulWidget {
   
-  const AlertAutor({super.key});
+//   const AlertAutor({super.key});
 
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AlertAutorState();
-}
+//   @override
+//   ConsumerState<ConsumerStatefulWidget> createState() => _AlertAutorState();
+// }
 
-class _AlertAutorState extends ConsumerState<AlertAutor> {
+// class _AlertAutorState extends ConsumerState<AlertAutor> {
 
-  String filtro = '';
+//   String filtro = '';
   
-  @override
-  Widget build(BuildContext context) {
+//   @override
+//   Widget build(BuildContext context) {
 
-    var listaAutores = ref.watch(autoresProvider);
+//     // var listaAutores = ref.watch(autoresProvider);
+//     var search = ref.watch(getAllAutoresProvider);
     
-    return AlertDialog(
-      title: const Column(
-        children: [
-          Text('Agregar autor', textAlign: TextAlign.center),
-          SizedBox(height: 10)
-        ],
-      ),
-      content: ref.read(getAllAutoresProvider).when(
+//     return AlertDialog(
+//       title: const Column(
+//         children: [
+//           Text('Agregar autor', textAlign: TextAlign.center),
+//           SizedBox(height: 10)
+//         ],
+//       ),
+//       content: search.when(
             
-            data: (_) {
+//             data: (listaAutores) {
 
-              List<ListTile> items = [];
+//               List<ListTile> items = [];
 
-              for (var a in filtroAutor(filtro, listaAutores)) {
-                items.add(
-                  ListTile(
-                    title: Text(a.nombre, style: GoogleFonts.poppins()),
-                    trailing: const Icon(Icons.add),
-                    onTap: () {
-                      ref.read(publicacionDtoProvider.notifier).addAutor(a);
-                      ref.read(routesProvider).pop();
-                    },
-                  ),
-                );
-              }
+//               for (var a in filtroAutor(filtro, listaAutores)) {
+//                 items.add(
+//                   ListTile(
+//                     title: Text(a.nombre, style: GoogleFonts.poppins()),
+//                     trailing: const Icon(Icons.add),
+//                     onTap: () {
+//                       ref.read(publicacionProvider.notifier).addAutor(a);
+//                       ref.read(routesProvider).pop();
+//                     },
+//                   ),
+//                 );
+//               }
               
-              return Column(children: [
-                CupertinoSearchTextField(
-                  onChanged: (value) {
-                    filtro = value;
-                    setState(() {});
-                  },
-                ),
-                SizedBox(
-                  height: 200,
-                  width: 500,
-                  child: ListView.builder(
-                      itemBuilder: (context, index) => items[index],
-                      itemCount: items.length),
-                ),
-              ]);
-            },
-            error: (error, stackTrace) => Center(
-                child: ElevatedButton(
-                    onPressed: () {
-                      ref.invalidate(autoresProvider);
-                    },
-                    child: Text('Reintentar cargar autores',
-                        style: GoogleFonts.poppins()))),
-            loading: () => const Center(child: CircularProgressIndicator()),
-          ),
-      actions: [
-        ElevatedButton(
-            onPressed: () => ref.read(routesProvider).pop(),
-            style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.redAccent)),
-            child: Text('Cancelar', style: GoogleFonts.poppins()))
-      ],
-    );
-  }
-}
+//               return Column(children: [
+//                 CupertinoSearchTextField(
+//                   onChanged: (value) {
+//                     filtro = value;
+//                     setState(() {});
+//                   },
+//                 ),
+//                 SizedBox(
+//                   height: 200,
+//                   width: 500,
+//                   child: ListView.builder(
+//                       itemBuilder: (context, index) => items[index],
+//                       itemCount: items.length),
+//                 ),
+//               ]);
+//             },
+//             // error: (error, stackTrace) => Center(
+//             //     child: ElevatedButton(
+//             //         onPressed: () {
+//             //           ref.invalidate(autoresProvider);
+//             //         },
+//             //         child: Text('Reintentar cargar autores',
+//             //             style: GoogleFonts.poppins()))),
+//             error: (response, _) => ErrorResultadoWidget(
+//                   response: response,
+//                   provider: getAllAutoresProvider,
+//                   message: 'Reintentar cargar autores',
+//             ),
+//             loading: () => const Center(child: CircularProgressIndicator()),
+//           ),
+//       actions: [
+//         ElevatedButton(
+//             onPressed: () => ref.read(routesProvider).pop(),
+//             style: const ButtonStyle(
+//                 backgroundColor: MaterialStatePropertyAll(Colors.redAccent)),
+//             child: Text('Cancelar', style: GoogleFonts.poppins()))
+//       ],
+//     );
+//   }
+// }

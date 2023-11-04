@@ -16,7 +16,7 @@ final createEdicionProvider = FutureProvider.family<void, String>((ref, titulo) 
   );
 
   if (response.error != null) {
-    throw response.error!;
+    throw response;
   }
 
   ref.read(edicionesProvider.notifier).update((state) {

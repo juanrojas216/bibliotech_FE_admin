@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../widgets/error_mensaje.dart';
 import 'addPlataforma.page.dart';
 import 'editarPlataforma.page.dart';
 
@@ -121,14 +122,19 @@ class _PlataformasABMState extends ConsumerState<PlataformasIndex> {
                 ),
               )
             ]),
-            error: (__, _) => Center(
-              child: ElevatedButton(
-                child: const Text('Reintentar cargar plataforma'),
-                onPressed: () {
-                  ref.invalidate(getAllPlataformasProvider);
-                },
+            // error: (__, _) => Center(
+            //   child: ElevatedButton(
+            //     child: const Text('Reintentar cargar plataforma'),
+            //     onPressed: () {
+            //       ref.invalidate(getAllPlataformasProvider);
+            //     },
+            //   ),
+            // ),
+            error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllPlataformasProvider,
+                  message: 'Reintentar cargar plataformas',
               ),
-            ),
             loading: () => const Center(child: CircularProgressIndicator()),
           ),
         ),

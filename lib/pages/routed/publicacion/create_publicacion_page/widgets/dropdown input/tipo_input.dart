@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../../../widgets/error_mensaje.dart';
 import '../../controllers/getAllTipoPublicacion.controller.dart';
-import '../../repository/publicacionDto.repository.dart';
 import '../../repository/tipo_publicacion.repository.dart';
+import '../../repository/publicacionDto.repository.dart';
 
 
 class TipoInput extends ConsumerWidget {
@@ -33,7 +34,7 @@ class TipoInput extends ConsumerWidget {
                 style: TextStyle(
                     fontFamily: GoogleFonts.poppins.toString(), fontSize: 14),
                 items: [
-                  ...ref.read(tipoPublicacionProvider).map(
+                  ...data.map(
                     (t) => DropdownMenuItem(
                       value: t.id,
                       child: Text(
@@ -47,20 +48,25 @@ class TipoInput extends ConsumerWidget {
                   if (value != null) {
                     ref
                         .read(publicacionDtoProvider.notifier)
-                        .actualizarTipo(ref.read(tipoPublicacionProvider).where((t) => t.id == value).first);
+                        .actualizarTipo(data.where((t) => t.id == value).first);
                   }
                 },
               ),
             ),
-        error: (_, __) => ElevatedButton(
-              onPressed: () {
-                ref.invalidate(getAllTipoPublicacionProvider);
-              },
-              child: Text(
-                'Reintentar cargar tipos',
-                style: GoogleFonts.poppins(),
+        // error: (_, __) => ElevatedButton(
+        //       onPressed: () {
+        //         ref.invalidate(getAllTipoPublicacionProvider);
+        //       },
+        //       child: Text(
+        //         'Reintentar cargar tipos',
+        //         style: GoogleFonts.poppins(),
+        //       ),
+        //     ),
+        error: (response, _) => ErrorResultadoWidget(
+                  response: response,
+                  provider: getAllTipoPublicacionProvider,
+                  message: 'Reintentar cargar tipos de publicacion',
               ),
-            ),
         loading: () => const LinearProgressIndicator());
   }
 }
