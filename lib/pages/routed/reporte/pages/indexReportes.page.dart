@@ -3,7 +3,6 @@ import 'package:bibliotech_admin/config/api/http_admin.dart';
 import 'package:bibliotech_admin/config/helpers/http_method.dart';
 import 'package:bibliotech_admin/config/router/admin_router.dart';
 import 'package:bibliotech_admin/widgets/mostrar_usuario.dart';
-import 'package:bibliotech_admin/widgets/result_dialog.dart';
 import 'package:date_field/date_field.dart';
 import 'package:download/download.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../widgets/menubutton.dart';
 import '../dto/reporte.dto.dart';
 
 class ReportesPage extends ConsumerStatefulWidget {
@@ -35,12 +35,7 @@ class _ReportesPageState extends ConsumerState<ReportesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              ref.read(routesProvider).pop();
-            },
-            icon: const Icon(Icons.arrow_back),
-            color: Colors.black),
+        leading: const MenuButton(),
         elevation: 0,
         title: AutoSizeText('REPORTES',
             style: GoogleFonts.poppins(color: Colors.black, fontSize: 20)),
