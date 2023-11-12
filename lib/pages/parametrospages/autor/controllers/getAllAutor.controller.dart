@@ -11,6 +11,7 @@ final getAllAutoresProvider = FutureProvider.autoDispose<void>((ref) async {
   );
 
   if (response.error != null) {
+    print(response.error!.exception);
     throw response;
   }
 

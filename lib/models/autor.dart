@@ -50,8 +50,8 @@ class Autor {
 
     factory Autor.fromJson(Map<String, dynamic> json) => Autor(
         id: json["id"],
-        nombre: json["nombre"],
-        fechaNacimiento: DateTime.parse(json["fechaNacimiento"]),
+        nombre: "${json["apellido"]}, ${json["nombre"]}",
+        fechaNacimiento: DateTime.parse(json["fechaNacimiento"].toString()),
         nacionalidad: json["nacionalidad"],
         biografia: json["biografia"],
     );
