@@ -7,6 +7,7 @@ class EditarPublicacionDto {
   final int anioPublicacion;
   final String isbnPublicacion;
   final String tituloPublicacion;
+  final String sinopsis;
   final int nroPaginas;
   final List<int> idAutores;
   final int idEdicion;
@@ -20,6 +21,7 @@ class EditarPublicacionDto {
     required this.anioPublicacion,
     required this.isbnPublicacion,
     required this.tituloPublicacion,
+    required this.sinopsis,
     required this.nroPaginas,
     required this.idAutores,
     required this.idEdicion,
@@ -34,6 +36,7 @@ class EditarPublicacionDto {
     int? anioPublicacion,
     String? isbnPublicacion,
     String? tituloPublicacion,
+    String? sinopsis,
     int? nroPaginas,
     List<int>? idAutores,
     int? idEdicion,
@@ -47,6 +50,7 @@ class EditarPublicacionDto {
         anioPublicacion: anioPublicacion ?? this.anioPublicacion,
         isbnPublicacion: isbnPublicacion ?? this.isbnPublicacion,
         tituloPublicacion: tituloPublicacion ?? this.tituloPublicacion,
+        sinopsis: sinopsis ?? this.sinopsis,
         nroPaginas: nroPaginas ?? this.nroPaginas,
         idAutores: idAutores ?? this.idAutores,
         idEdicion: idEdicion ?? this.idEdicion,
@@ -60,6 +64,7 @@ class EditarPublicacionDto {
         "anioPublicacion": anioPublicacion,
         "isbnPublicacion": isbnPublicacion,
         "tituloPublicacion": tituloPublicacion,
+        "sinopsisPublicacion": sinopsis,
         "nroPaginas": nroPaginas,
         "idsAutores": List<dynamic>.from(idAutores.map((x) => x)),
         "idEdicion": idEdicion,
@@ -104,6 +109,7 @@ createDtoUpdatePublicaion(Publicacion p) {
       anioPublicacion: p.anioPublicacion,
       isbnPublicacion: p.isbnPublicacion,
       tituloPublicacion: p.tituloPublicacion,
+      sinopsis: p.sinopsis,
       nroPaginas: p.nroPaginas,
       idAutores: p.autores.map((e) => e.id).toList(),
       idEdicion: p.edicion.id,

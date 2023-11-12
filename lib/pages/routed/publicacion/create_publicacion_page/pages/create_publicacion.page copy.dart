@@ -493,7 +493,42 @@ class _CreatePublicacionPageState extends ConsumerState<CreatePublicacionPage> {
                   ),
                 ),
 
-                //? CUARTA PARTE CATEGORIA
+                //? CUARTA PARTE SINOPSIS
+                Container(
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: TextFormField(
+                          maxLines: null,
+                          initialValue: publicacion.sinopsis,
+                          onChanged: (value) {
+                            publicacion.sinopsis = value;
+                            setState(() {});
+                          },
+                          validator: (value) {
+                            if (value != null &&
+                                value.length > 4 && value.length < 5000) {
+                              return null;
+                            }
+                            return "La sinopsis debe contener al menos 4 caracteres.";
+                          },
+                          decoration: InputDecoration(
+                              isDense: true,
+                              labelText: 'SINOPSIS',
+                              labelStyle: TextStyle(
+                                  fontFamily: GoogleFonts.poppins.toString(),
+                                  fontSize: 14),
+                              border: const OutlineInputBorder()),
+                        ),
+                      ),
+                    ],
+                  )
+                ),
+
+                //? QUINTA PARTE CATEGORIA
                 Column(
                   children: [
                     Row(
@@ -642,7 +677,7 @@ class _CreatePublicacionPageState extends ConsumerState<CreatePublicacionPage> {
                   ],
                 ),
 
-                //? QUINTA PARTE EDITORIALES
+                //? SEXTA PARTE EDITORIALES
                 Column(
                   children: [
                     Row(
@@ -757,7 +792,7 @@ class _CreatePublicacionPageState extends ConsumerState<CreatePublicacionPage> {
                   ],
                 ),
 
-                //? SEXTA PARTE AUTORES
+                //? SEPTIMA PARTE AUTORES
                 Column(
                   children: [
                     Row(

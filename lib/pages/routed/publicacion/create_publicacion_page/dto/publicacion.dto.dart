@@ -5,6 +5,7 @@ class PublicacionDto {
   int anioPublicacion;
   String isbnPublicacion;
   String tituloPublicacion;
+  String sinopsis;
   int nroPaginas;
   List<Autor> autores;
   Edicion? edicion;
@@ -17,6 +18,7 @@ class PublicacionDto {
     required this.anioPublicacion,
     required this.isbnPublicacion,
     required this.tituloPublicacion,
+    required this.sinopsis,
     required this.nroPaginas,
     required this.autores,
     required this.edicion,
@@ -31,6 +33,7 @@ class PublicacionDto {
       'anioPublicacion': anioPublicacion,
       'isbnPublicacion': isbnPublicacion,
       'tituloPublicacion': tituloPublicacion,
+      'sinopsis': sinopsis,
       'nroPaginas': nroPaginas,
       'autores': autores.map((e) => e.id).toList(),
       'edicion': edicion!.id,
@@ -48,6 +51,7 @@ class PublicacionDto {
         int? anioPublicacion,
         String? isbnPublicacion,
         String? tituloPublicacion,
+        String? sinopsis,
         int? nroPaginas,
         List<Autor>? autores,
         Edicion? edicion,
@@ -60,6 +64,7 @@ class PublicacionDto {
             anioPublicacion: anioPublicacion ?? this.anioPublicacion,
             isbnPublicacion: isbnPublicacion ?? this.isbnPublicacion,
             tituloPublicacion: tituloPublicacion ?? this.tituloPublicacion,
+            sinopsis: sinopsis ?? this.sinopsis,
             nroPaginas: nroPaginas ?? this.nroPaginas,
             autores: autores ?? this.autores,
             edicion: edicion ?? this.edicion,

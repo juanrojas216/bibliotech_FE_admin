@@ -13,5 +13,6 @@ bool publicacionValidacion(PublicacionDto publicacion){
   if(!linkPublicacionValidacion(publicacion.link)) return false;
   if(!tipoPublicacionValidacion(publicacion.tipo)) return false;
   if(!pagesPublicacionValidacion(publicacion.nroPaginas)) return false;
+  if(!sinopsisValidacion(publicacion.sinopsis)) return false;
   return true;
 }

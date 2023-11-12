@@ -9,3 +9,4 @@ export 'link.validation.dart';
 export 'tipo.validation.dart';
 export 'autor.validation.dart';
 export 'nropages.validation.dart';
+export 'sinopsis.validation.dart';

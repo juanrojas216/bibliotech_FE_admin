@@ -32,6 +32,7 @@ class Publicacion {
     int anioPublicacion;
     String isbnPublicacion;
     String tituloPublicacion;
+    String sinopsis;
     int nroPaginas;
     List<Autor> autores;
     Edicion edicion;
@@ -47,6 +48,7 @@ class Publicacion {
         required this.anioPublicacion,
         required this.isbnPublicacion,
         required this.tituloPublicacion,
+        required this.sinopsis,
         required this.nroPaginas,
         required this.autores,
         required this.edicion,
@@ -63,6 +65,7 @@ class Publicacion {
         int? anioPublicacion,
         String? isbnPublicacion,
         String? tituloPublicacion,
+        String? sinopsis,
         int? nroPaginas,
         List<Autor>? autores,
         Edicion? edicion,
@@ -78,6 +81,7 @@ class Publicacion {
             anioPublicacion: anioPublicacion ?? this.anioPublicacion,
             isbnPublicacion: isbnPublicacion ?? this.isbnPublicacion,
             tituloPublicacion: tituloPublicacion ?? this.tituloPublicacion,
+            sinopsis: sinopsis ?? this.sinopsis,
             nroPaginas: nroPaginas ?? this.nroPaginas,
             autores: autores ?? this.autores,
             edicion: edicion ?? this.edicion,
@@ -94,6 +98,7 @@ class Publicacion {
         anioPublicacion: json["anioPublicacion"],
         isbnPublicacion: json["isbnPublicacion"],
         tituloPublicacion: json["tituloPublicacion"],
+        sinopsis: json["sinopsis"],
         nroPaginas: json["nroPaginas"],
         autores: List<Autor>.from(json["autores"].map((x) => Autor.fromJson(x))),
         edicion: Edicion.fromJson(json["edicion"]),
@@ -110,6 +115,7 @@ class Publicacion {
         "anioPublicacion": anioPublicacion,
         "ISBNPublicacion": isbnPublicacion,
         "tituloPublicacion": tituloPublicacion,
+        "sinopsis": sinopsis,
         "nroPaginas": nroPaginas,
         "autores": List<dynamic>.from(autores.map((x) => x.toJson())),
         "edicion": edicion.toJson(),

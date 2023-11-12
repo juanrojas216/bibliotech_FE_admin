@@ -39,8 +39,7 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
 
   @override
   Widget build(BuildContext context) {
-    var getPublicacion =
-        ref.watch(getPublicacionProvider(widget.publicacionId));
+    var getPublicacion = ref.watch(getPublicacionProvider(widget.publicacionId));
     var plataformasProvider = ref.watch(getAllPlataformasProvider);
     var edicionesProvider = ref.watch(getAllEdicionProvider);
     var tiposProvider = ref.watch(getAllTipoPublicacionProvider);
@@ -118,6 +117,7 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Column(
                   children: [
+                    
                     //? PRIMERA PARTE TITULO-ISBN-NROPAGINAS
                     Container(
                       width: double.maxFinite,
@@ -340,11 +340,15 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
                                     ],
                                   ),
                                   Visibility(
-                                    visible: !linkPublicacionValidacion(data.link),
+                                    visible:
+                                        !linkPublicacionValidacion(data.link),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                      child: Text("Los campos plataforma, url y estado deben estar completos.",
-                                        style: GoogleFonts.poppins(color: Colors.red),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: Text(
+                                        "Los campos plataforma, url y estado deben estar completos.",
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.red),
                                       ),
                                     ),
                                   ),
@@ -502,7 +506,44 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
                       ),
                     ),
 
-                    //? CUARTA PARTE CATEGORIA
+                    //? CUARTA PARTE SINOPSIS
+                    Container(
+                      width: double.maxFinite,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: TextFormField(
+                              maxLines: null,
+                              initialValue: data.sinopsis,
+                              onChanged: (value) {
+                                data.sinopsis = value;
+                                setState(() {});
+                              },
+                              validator: (value) {
+                                if (value != null &&
+                                    value.length > 4 &&
+                                    value.length < 5000) {
+                                  return null;
+                                }
+                                return "La sinopsis debe contener al menos 4 caracteres.";
+                              },
+                              decoration: InputDecoration(
+                                  isDense: true,
+                                  labelText: 'SINOPSIS',
+                                  labelStyle: TextStyle(
+                                      fontFamily:
+                                          GoogleFonts.poppins.toString(),
+                                      fontSize: 14),
+                                  border: const OutlineInputBorder()),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    //? QUINTA PARTE CATEGORIA
                     Column(
                       children: [
                         Row(
@@ -654,7 +695,7 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
                       ],
                     ),
 
-                    //? QUINTA PARTE EDITORIALES
+                    //? SEXTA PARTE EDITORIALES
                     Column(
                       children: [
                         Row(
@@ -770,7 +811,7 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
                       ],
                     ),
 
-                    //? SEXTA PARTE AUTORES
+                    //? SEPTIMA PARTE AUTORES
                     Column(
                       children: [
                         Row(

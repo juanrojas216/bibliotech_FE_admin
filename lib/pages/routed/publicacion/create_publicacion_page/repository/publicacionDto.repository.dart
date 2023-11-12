@@ -15,7 +15,8 @@ class PublicacionDtoNotifier extends StateNotifier<PublicacionDto> {
           PublicacionDto(
               anioPublicacion: 0,
               isbnPublicacion: '0',
-              tituloPublicacion: 'Titulo',
+              tituloPublicacion: '',
+              sinopsis: '',
               nroPaginas: 0,
               autores: [],
               edicion: null,
