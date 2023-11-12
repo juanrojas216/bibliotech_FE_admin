@@ -137,7 +137,7 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
                                     tituloPublicacionValidacion(value)) {
                                   return null;
                                 }
-                                return "El titulo no debe estar vacío ni contener carateres especiales.";
+                                return "El titulo no debe tener una longitud menor a 3 cararteres.";
                               },
                               decoration: InputDecoration(
                                   isDense: true,
@@ -163,7 +163,7 @@ class _CreatePublicacionPageState extends ConsumerState<UpdatePublicacionPage> {
                                     isbnPublicacionValidacion(value)) {
                                   return null;
                                 }
-                                return "El isbn no debe tener una longitud de 16.";
+                                return "El isbn no debe tener una longitud menor a 5 caracteres.";
                               },
                               decoration: InputDecoration(
                                   isDense: true,
