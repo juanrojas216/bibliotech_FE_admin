@@ -101,7 +101,7 @@ class _AutorEditarState extends ConsumerState<AutorEditar> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
-                  maxLines: 15,
+                  maxLines: null,
                   initialValue: biografia,
                   onChanged: (value) {
                     biografia = value;

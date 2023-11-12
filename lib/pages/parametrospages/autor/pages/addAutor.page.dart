@@ -151,7 +151,7 @@ class _AddEditorialState extends ConsumerState<AutorAdd> {
                       ''';
                     },
                     //Establecemos la cantidad máxima de líneas
-                    maxLines: 15,
+                    maxLines: null,
                     initialValue: 'Biografía...',
                     //Funcion que setea el cambio de valor
                     //en la variable nacionalidad y solicita renderizado
