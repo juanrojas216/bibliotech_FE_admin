@@ -110,7 +110,7 @@ class _ReportesPageState extends ConsumerState<ReportesPage> {
                                               ),
                                               dateFormat:
                                                   DateFormat('dd-MM-yyyy'),
-                                              firstDate: DateTime.now(),
+                                              //lastDate: DateTime.now(),
                                               mode: DateTimeFieldPickerMode.date,
                                               autovalidateMode:
                                                   AutovalidateMode.always,
@@ -148,7 +148,7 @@ class _ReportesPageState extends ConsumerState<ReportesPage> {
                                               ),
                                               dateFormat:
                                                   DateFormat('dd-MM-yyyy'),
-                                              firstDate: DateTime.now(),
+                                             // lastDate: DateTime.now(),
                                               mode: DateTimeFieldPickerMode.date,
                                               autovalidateMode:
                                                   AutovalidateMode.always,
@@ -187,7 +187,7 @@ class _ReportesPageState extends ConsumerState<ReportesPage> {
                                           download(
                                               Stream.fromIterable(
                                                   response.data.codeUnits),
-                                              'reporte.pdf');
+                                              'informe-prestamos.pdf');
                                         },
                                       ),
                                     )
@@ -243,7 +243,7 @@ class _ReportesPageState extends ConsumerState<ReportesPage> {
                                               ),
                                               dateFormat:
                                                   DateFormat('dd-MM-yyyy'),
-                                              firstDate: DateTime.now(),
+                                              //firstDate: DateTime.now(),
                                               mode: DateTimeFieldPickerMode.date,
                                               autovalidateMode:
                                                   AutovalidateMode.always,
@@ -281,7 +281,7 @@ class _ReportesPageState extends ConsumerState<ReportesPage> {
                                               ),
                                               dateFormat:
                                                   DateFormat('dd-MM-yyyy'),
-                                              firstDate: DateTime.now(),
+                                              //firstDate: DateTime.now(),
                                               mode: DateTimeFieldPickerMode.date,
                                               autovalidateMode:
                                                   AutovalidateMode.always,
@@ -319,7 +319,7 @@ class _ReportesPageState extends ConsumerState<ReportesPage> {
                                           download(
                                               Stream.fromIterable(
                                                   response.data.codeUnits),
-                                              'reporte.pdf');
+                                              'informe-tiempos.pdf');
                                         },
                                       ),
                                     )
@@ -332,136 +332,136 @@ class _ReportesPageState extends ConsumerState<ReportesPage> {
                         const SizedBox(height: 20),
                   
                         //? REPORTE DE MULTAS
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "INFORME DE MULTAS",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w300, fontSize: 18),
-                          ),
-                        ),
-                        Card(
-                          shape: Border.all(color: Colors.grey),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            child: SizedBox(
-                              height: 103,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10),
-                                child: ListView(
-                                  children: [
-                                    ListTile(
-                                      title: Row(
-                                        children: [
-                                          Expanded(
-                                            child: DateTimeFormField(
-                                              validator: (value) {
-                                                if (value == null) {
-                                                  return "Debe seleccionar una fecha";
-                                                }
-                                                return null;
-                                              },
-                                              decoration: const InputDecoration(
-                                                hintStyle: TextStyle(
-                                                    color: Colors.black45),
-                                                errorStyle: TextStyle(
-                                                    color: Colors.redAccent),
-                                                border: OutlineInputBorder(),
-                                                suffixIcon:
-                                                    Icon(Icons.event_note),
-                                                labelText: 'FECHA INICIO',
-                                              ),
-                                              dateFormat:
-                                                  DateFormat('dd-MM-yyyy'),
-                                              firstDate: DateTime.now(),
-                                              mode: DateTimeFieldPickerMode.date,
-                                              autovalidateMode:
-                                                  AutovalidateMode.always,
-                                              onDateSelected: (DateTime value) {
-                                                reporteMultaDto.fechaDesde =
-                                                    value;
-                                                setState(() {});
-                                              },
-                                            ),
-                                          ),
-                                          const SizedBox(width: 10),
-                                          Expanded(
-                                            child: DateTimeFormField(
-                                              validator: (value) {
-                                                if (value == null) {
-                                                  return "Debe seleccionar una fecha posterior a la fecha inicio";
-                                                } else if (reporteMultaDto
-                                                            .fechaDesde !=
-                                                        null &&
-                                                    reporteMultaDto.fechaDesde!
-                                                        .isAfter(value)) {
-                                                  return "Debe seleccionar una fecha posterior a la fecha inicio";
-                                                }
-                                                return null;
-                                              },
-                                              decoration: const InputDecoration(
-                                                hintStyle: TextStyle(
-                                                    color: Colors.black45),
-                                                errorStyle: TextStyle(
-                                                    color: Colors.redAccent),
-                                                border: OutlineInputBorder(),
-                                                suffixIcon:
-                                                    Icon(Icons.event_note),
-                                                labelText: 'FECHA FIN',
-                                              ),
-                                              dateFormat:
-                                                  DateFormat('dd-MM-yyyy'),
-                                              firstDate: DateTime.now(),
-                                              mode: DateTimeFieldPickerMode.date,
-                                              autovalidateMode:
-                                                  AutovalidateMode.always,
-                                              onDateSelected: (DateTime value) {
-                                                reporteMultaDto.fechaHasta =
-                                                    value;
-                                                setState(() {});
-                                              },
-                                            ),
-                                          ),
-                                          const SizedBox(width: 10),
-                                        ],
-                                      ),
-                                      trailing: IconButton(
-                                        icon: Icon(
-                                          Icons.download,
-                                          color: reporteMultaDto.fechaDesde !=
-                                                      null &&
-                                                  reporteMultaDto.fechaHasta !=
-                                                      null &&
-                                                  reporteMultaDto.fechaDesde!
-                                                      .isBefore(reporteMultaDto
-                                                          .fechaHasta!)
-                                              ? Colors.purple
-                                              : Colors.grey,
-                                        ),
-                                        onPressed: () async {
-                                          var response = await ref
-                                              .read(apiProvider)
-                                              .request(
-                                                  "/reportes/informe-multa/export-pdf",
-                                                  method: HttpMethod.post,
-                                                  body: reporteMultaDto.toMap());
-                                          if (response.error != null) return;
-                                          download(
-                                              Stream.fromIterable(
-                                                  response.data.codeUnits),
-                                              'reporte.pdf');
-                                        },
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Text(
+                        //     "INFORME DE MULTAS",
+                        //     textAlign: TextAlign.center,
+                        //     style: GoogleFonts.poppins(
+                        //         fontWeight: FontWeight.w300, fontSize: 18),
+                        //   ),
+                        // ),
+                        // Card(
+                        //   shape: Border.all(color: Colors.grey),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.symmetric(
+                        //         vertical: 10, horizontal: 20),
+                        //     child: SizedBox(
+                        //       height: 103,
+                        //       child: Padding(
+                        //         padding: const EdgeInsets.symmetric(vertical: 10),
+                        //         child: ListView(
+                        //           children: [
+                        //             ListTile(
+                        //               title: Row(
+                        //                 children: [
+                        //                   Expanded(
+                        //                     child: DateTimeFormField(
+                        //                       validator: (value) {
+                        //                         if (value == null) {
+                        //                           return "Debe seleccionar una fecha";
+                        //                         }
+                        //                         return null;
+                        //                       },
+                        //                       decoration: const InputDecoration(
+                        //                         hintStyle: TextStyle(
+                        //                             color: Colors.black45),
+                        //                         errorStyle: TextStyle(
+                        //                             color: Colors.redAccent),
+                        //                         border: OutlineInputBorder(),
+                        //                         suffixIcon:
+                        //                             Icon(Icons.event_note),
+                        //                         labelText: 'FECHA INICIO',
+                        //                       ),
+                        //                       dateFormat:
+                        //                           DateFormat('dd-MM-yyyy'),
+                        //                       //firstDate: DateTime.now(),
+                        //                       mode: DateTimeFieldPickerMode.date,
+                        //                       autovalidateMode:
+                        //                           AutovalidateMode.always,
+                        //                       onDateSelected: (DateTime value) {
+                        //                         reporteMultaDto.fechaDesde =
+                        //                             value;
+                        //                         setState(() {});
+                        //                       },
+                        //                     ),
+                        //                   ),
+                        //                   const SizedBox(width: 10),
+                        //                   Expanded(
+                        //                     child: DateTimeFormField(
+                        //                       validator: (value) {
+                        //                         if (value == null) {
+                        //                           return "Debe seleccionar una fecha posterior a la fecha inicio";
+                        //                         } else if (reporteMultaDto
+                        //                                     .fechaDesde !=
+                        //                                 null &&
+                        //                             reporteMultaDto.fechaDesde!
+                        //                                 .isAfter(value)) {
+                        //                           return "Debe seleccionar una fecha posterior a la fecha inicio";
+                        //                         }
+                        //                         return null;
+                        //                       },
+                        //                       decoration: const InputDecoration(
+                        //                         hintStyle: TextStyle(
+                        //                             color: Colors.black45),
+                        //                         errorStyle: TextStyle(
+                        //                             color: Colors.redAccent),
+                        //                         border: OutlineInputBorder(),
+                        //                         suffixIcon:
+                        //                             Icon(Icons.event_note),
+                        //                         labelText: 'FECHA FIN',
+                        //                       ),
+                        //                       dateFormat:
+                        //                           DateFormat('dd-MM-yyyy'),
+                        //                       //firstDate: DateTime.now(),
+                        //                       mode: DateTimeFieldPickerMode.date,
+                        //                       autovalidateMode:
+                        //                           AutovalidateMode.always,
+                        //                       onDateSelected: (DateTime value) {
+                        //                         reporteMultaDto.fechaHasta =
+                        //                             value;
+                        //                         setState(() {});
+                        //                       },
+                        //                     ),
+                        //                   ),
+                        //                   const SizedBox(width: 10),
+                        //                 ],
+                        //               ),
+                        //               trailing: IconButton(
+                        //                 icon: Icon(
+                        //                   Icons.download,
+                        //                   color: reporteMultaDto.fechaDesde !=
+                        //                               null &&
+                        //                           reporteMultaDto.fechaHasta !=
+                        //                               null &&
+                        //                           reporteMultaDto.fechaDesde!
+                        //                               .isBefore(reporteMultaDto
+                        //                                   .fechaHasta!)
+                        //                       ? Colors.purple
+                        //                       : Colors.grey,
+                        //                 ),
+                        //                 onPressed: () async {
+                        //                   var response = await ref
+                        //                       .read(apiProvider)
+                        //                       .request(
+                        //                           "/reportes/informe-multa/export-pdf",
+                        //                           method: HttpMethod.post,
+                        //                           body: reporteMultaDto.toMap());
+                        //                   if (response.error != null) return;
+                        //                   download(
+                        //                       Stream.fromIterable(
+                        //                           response.data.codeUnits),
+                        //                       'reporte.pdf');
+                        //                 },
+                        //               ),
+                        //             )
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 20),
                   
                         //? REPORTE DE EXISTENCIAS
                         Padding(
@@ -504,7 +504,7 @@ class _ReportesPageState extends ConsumerState<ReportesPage> {
                                     download(
                                         Stream.fromIterable(
                                             response.data.codeUnits),
-                                        'reporte.pdf');
+                                        'informe-existencias.pdf');
                                   },
                                 ),
                               ),
