@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../config/router/admin_router.dart';
 import '../controllers/create_prestamo.controller.dart';
+import '../controllers/get_cantidad_dias_prestamo.controller.dart';
 import '../controllers/get_ejemplares.controller.dart';
 import '../../../../../widgets/crear_entidad.dart';
 import '../dto/create_prestamo.dto.dart';
@@ -38,6 +38,7 @@ class _ResultadoCrearMultaState extends ConsumerState<ResultadoCrearPrestamo> {
   @override
   Widget build(BuildContext context) {
     var search = ref.watch(searchEjemplaresProvider(widget.idPublicacion));
+    var searchCantidadDiazMax = ref.watch(getCantidadDiasPrestamo);
     controllerDiaz.text = fechaInicio.isNull || cantidadDiaz.isNull
         ? 'Seleccionar fecha inicio y dias'
         : '${fechaInicio!.add(Duration(days: cantidadDiaz!)).day}-${fechaInicio!.add(Duration(days: cantidadDiaz!)).month}-${fechaInicio!.add(Duration(days: cantidadDiaz!)).year}';
@@ -94,9 +95,9 @@ class _ResultadoCrearMultaState extends ConsumerState<ResultadoCrearPrestamo> {
                       Expanded(
                         child: DateTimeFormField(
                           validator: (value) {
-                            if(value == null){
+                            if (value == null) {
                               return "Debe seleccionar una fecha";
-                            } else if(DateTime.now().isAfter(value)){
+                            } else if (DateTime.now().isAfter(value)) {
                               return "Debe seleccionar una fecha posterios a la actual o la actual";
                             }
                             return null;
@@ -119,48 +120,60 @@ class _ResultadoCrearMultaState extends ConsumerState<ResultadoCrearPrestamo> {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Expanded(
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: DropdownButtonFormField<int>(
-                            validator: (value) {
-                              if (value != null) {
-                                return null;
-                              }
-                              return "Debe seleccionar la cantidad de días";
-                            },
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10),
-                            isDense: true,
-                            isExpanded: true,
-                            hint: const Text('CANTIDAD DE DÍAS'),
-                            value: cantidadDiaz.isNull ? null : cantidadDiaz!,
-                            style: TextStyle(
-                                fontFamily: GoogleFonts.poppins.toString(),
-                                fontSize: 14),
-                            items: [
-                              ...List.generate(
-                                data["diasMaximo"],
-                                (index) => DropdownMenuItem(
-                                  value: index + 1,
-                                  child: Text(
-                                    'Cantidad de dias - ${index + 1}',
-                                    style: GoogleFonts.poppins(),
+                      searchCantidadDiazMax.when(
+                        data: (data) => Expanded(
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: DropdownButtonFormField<int>(
+                              validator: (value) {
+                                if (value != null) {
+                                  return null;
+                                }
+                                return "Debe seleccionar la cantidad de días";
+                              },
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              isDense: true,
+                              isExpanded: true,
+                              hint: const Text('CANTIDAD DE DÍAS'),
+                              value: cantidadDiaz.isNull ? null : cantidadDiaz!,
+                              style: TextStyle(
+                                  fontFamily: GoogleFonts.poppins.toString(),
+                                  fontSize: 14),
+                              items: [
+                                ...List.generate(
+                                  int.parse(data),
+                                  (index) => DropdownMenuItem(
+                                    value: index + 1,
+                                    child: Text(
+                                      'Cantidad de dias - ${index + 1}',
+                                      style: GoogleFonts.poppins(),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                            onChanged: (value) {
-                              if (value != null) {
-                                cantidadDiaz = value;
-                                setState(() {});
-                              }
-                            },
+                              ],
+                              onChanged: (value) {
+                                if (value != null) {
+                                  cantidadDiaz = value;
+                                  setState(() {});
+                                }
+                              },
+                            ),
                           ),
                         ),
+                        error: (error, stackTrace) => Center(
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  ref.invalidate(getCantidadDiasPrestamo);
+                                },
+                                child: Text(
+                                    'Reintentar cargar máximo días préstamo',
+                                    style: GoogleFonts.poppins()))),
+                        loading: () => const Expanded(
+                            child: LinearProgressIndicator()),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
@@ -192,13 +205,12 @@ class _ResultadoCrearMultaState extends ConsumerState<ResultadoCrearPrestamo> {
                         ),
                         child: DropdownButtonFormField<int>(
                           validator: (value) {
-                              if (value != null) {
-                                return null;
-                              }
-                              return "Debe seleccionar un ejemplar";
-                            },
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10),
+                            if (value != null) {
+                              return null;
+                            }
+                            return "Debe seleccionar un ejemplar";
+                          },
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           isDense: true,
                           isExpanded: true,
                           hint: const Text('EJEMPLAR'),
@@ -241,8 +253,8 @@ class _ResultadoCrearMultaState extends ConsumerState<ResultadoCrearPrestamo> {
                               idUsuario: widget.idUsuario,
                               ejemplarId: ejemplar?.id,
                               fechaInicioPrestamo: fechaInicio,
-                              fechaFinPrestamo:
-                                  fechaInicio!.add(Duration(days: cantidadDiaz!)),
+                              fechaFinPrestamo: fechaInicio!
+                                  .add(Duration(days: cantidadDiaz!)),
                             );
                             await showDialog(
                                 context: context,

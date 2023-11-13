@@ -6,16 +6,49 @@ import '../dto/parametro_prestamo.dto.dart';
 
 final getParametrosPrestamoProvider = FutureProvider<ParametrosPrestamoDto>((ref) async {
   
-  // var response = await ref.watch(apiProvider).request<ParametrosPrestamoDto>(
-  //     '/parametro-prestamo',
-  //     parser: parametroPrestamoFromJson
-  // );
+  ParametrosPrestamoDto pm = ParametrosPrestamoDto(diasMaximoPrestamo: null, diasMaximoRenovacion: null, cantidadMaximaRenovacion: null);
+  
+  var response = await ref.watch(apiProvider).request<String>(
+      '/parametros/cantidadMaxDiasPrestamo',
+      parser: (data) {
+        Map<String, dynamic> mp = data;
+        return mp["valor"];
+      },
+  );
 
-  // if (response.error != null) {
-  //   throw response.error!;
-  // }
+  if (response.error != null) {
+    throw response.error!;
+  }
 
-  // return response.data!;
+  pm.diasMaximoPrestamo = int.parse(response.data!);
 
-  return ParametrosPrestamoDto(diasMaximoPrestamo: 10, diasMaximoRenovacion: 5, cantidadMaximaRenovacion: 2);
+  response = await ref.watch(apiProvider).request<String>(
+      '/parametros/cantidadMaxDiasRenovacion',
+      parser: (data) {
+        Map<String, dynamic> mp = data;
+        return mp["valor"];
+      },
+  );
+
+  if (response.error != null) {
+    throw response.error!;
+  }
+
+  pm.diasMaximoRenovacion = int.parse(response.data!);
+
+  response = await ref.watch(apiProvider).request<String>(
+      '/parametros/cantidadMaxRenovaciones',
+      parser: (data) {
+        Map<String, dynamic> mp = data;
+        return mp["valor"];
+      },
+  );
+
+  if (response.error != null) {
+    throw response.error!;
+  }
+
+  pm.cantidadMaximaRenovacion = int.parse(response.data!);
+
+  return pm;
 });

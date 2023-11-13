@@ -33,8 +33,8 @@ class PrestamoItemTablaDto {
       PrestamoItemTablaDto(
         id: json["id"],
         tituloPublicacion: json["tituloPublicacion"],
-        idEjemplar: json["idEjemplar"],
-        idUsuario: json["idUsuario"],
+        idEjemplar: json["idEjemplar"].toString(),
+        idUsuario: json["idUsuario"].toString(),
         estado: json["estado"],
         fechaDesde: DateTime.parse(json["fechaDesde"]),
         fechaHasta: DateTime.parse(json["fechaHasta"]),

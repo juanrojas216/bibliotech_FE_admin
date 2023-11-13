@@ -30,8 +30,8 @@ class SearchPrestamoDto {
     return {
       'dni': dni,
       'tituloPublicacion': tituloPublicacion,
-      'fechaDesde': '${fechaDesde?.toIso8601String().split('.')[0]}Z',
-      'fechaHasta': '${fechaHasta?.toIso8601String().split('.')[0]}Z',
+      'fechaDesde': fechaDesde != null ? '${fechaDesde?.toIso8601String().split('.')[0]}Z' : null,
+      'fechaHasta': fechaHasta != null ? '${fechaHasta?.toIso8601String().split('.')[0]}Z' : null,
     };
   }
 }

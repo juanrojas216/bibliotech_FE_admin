@@ -25,12 +25,12 @@ class DetallePrestamoDto {
     });
 
     factory DetallePrestamoDto.fromJson(Map<String, dynamic> json) => DetallePrestamoDto(
-        usuario: json["usuario"],
-        publicacion: json["publicacion"],
-        ejemplar: json["ejemplar"],
-        fechaInicioPrestamo: json["fechaInicioPrestamo"],
-        fechaFinPrestamo: json["fechaFinPrestamo"],
-        fechaDevolucion: json["fechaDevolucion"],
+        usuario: json["nombreApellidoUsuario"] + ' ' + json["legajoUsuario"],
+        publicacion: json["tituloPublicacion"],
+        ejemplar: json["idEjemplar"].toString(),
+        fechaInicioPrestamo: '${DateTime.parse(json["fechaInicioPrestamo"]).day} - ${DateTime.parse(json["fechaInicioPrestamo"]).month} - ${DateTime.parse(json["fechaInicioPrestamo"]).year}',
+        fechaFinPrestamo: '${DateTime.parse(json["fechaFinPrestamo"]).day} - ${DateTime.parse(json["fechaFinPrestamo"]).month} - ${DateTime.parse(json["fechaFinPrestamo"]).year}',
+        fechaDevolucion: json["fechaDevolucion"] != null ?'${DateTime.parse(json["fechaDevolucion"]).day} - ${DateTime.parse(json["fechaDevolucion"]).month} - ${DateTime.parse(json["fechaDevolucion"]).year}' : "No se ha realizado",
         estado: json["estado"],
         renovaciones: List<RenovacionDto>.from(json["renovaciones"].map((x) => RenovacionDto.fromJson(x))),
     );
@@ -48,7 +48,7 @@ class RenovacionDto {
     });
 
     factory RenovacionDto.fromJson(Map<String, dynamic> json) => RenovacionDto(
-        fechaInicioRenovacion: json["fechaInicioRenovacion"],
-        fechaFinRenovacion: json["fechaFinRenovacion"],
+        fechaInicioRenovacion: '${DateTime.parse(json["fechaInicioRenovacion"]).day} - ${DateTime.parse(json["fechaInicioRenovacion"]).month} - ${DateTime.parse(json["fechaInicioRenovacion"]).year}',
+        fechaFinRenovacion: '${DateTime.parse(json["fechaFinRenovacion"]).day} - ${DateTime.parse(json["fechaFinRenovacion"]).month} - ${DateTime.parse(json["fechaFinRenovacion"]).year}',
     );
 }

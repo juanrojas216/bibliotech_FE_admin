@@ -7,7 +7,6 @@ import '../../../../../config/helpers/http_method.dart';
 import '../dto/tabla_prestamo.dto.dart';
 import '../dto/search_prestamo.dto.dart';
 
-// final searchMultasProvider = FutureProvider.family<List<MultaItemTablaDto>, SearchMultaDto>((ref, dto) async {
 final searchPrestamosProvider = FutureProvider<List<PrestamoItemTablaDto>>((ref) async {
   
   var dto = ref.read(busquedaPrestamoProvider);
@@ -17,7 +16,7 @@ final searchPrestamosProvider = FutureProvider<List<PrestamoItemTablaDto>>((ref)
   }
 
   var response = await ref.watch(apiProvider).request<List<PrestamoItemTablaDto>>(
-      '/publicaciones/findByParams',
+      '/prestamos/search',
       method: HttpMethod.post,
       body: dto.toMap(),
       parser: prestamosTablaFromJson

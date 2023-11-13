@@ -207,9 +207,8 @@ class _ResultadoDetallePrestamoState
                 child: Text('Reintentar cargar detalle de préstamo',
                     style: GoogleFonts.poppins()))),
         loading: () => const SizedBox(
-          height: 1000,
           width: 800,
-          child: Center(child: CircularProgressIndicator()),
+          child: Center(child: LinearProgressIndicator()),
         ),
       ),
     );
