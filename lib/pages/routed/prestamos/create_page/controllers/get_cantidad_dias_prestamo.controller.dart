@@ -7,7 +7,7 @@ import '../../../../../config/api/http_admin.dart';
 final getCantidadDiasPrestamo = FutureProvider<String>((ref) async {
 
   var response = await ref.watch(apiProvider).request<String>(
-        '/parametros/cantidadDiasPrestamo',
+        '/parametros/cantidadMaxDiasPrestamo',
         parser: (data) {
           Map<String, dynamic> map = data;
           return map["valor"];
